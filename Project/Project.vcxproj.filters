@@ -30,13 +30,13 @@
     <ClCompile Include="Road_on_map.h">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Building_spawn.h">
-      <Filter>Header Files</Filter>
-    </ClCompile>
     <ClCompile Include="Street_spawn.h">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Buiding_spawn.h">
+    <ClCompile Include="Building_spawn.h">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="End_of_street.h">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -80,10 +80,13 @@
     <ClInclude Include="Building_in_city.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="Street_spaw.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Clutter_spawn.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="City.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Map.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

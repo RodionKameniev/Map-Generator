@@ -1,14 +1,16 @@
 #include <iostream>
 #include "Parameters_for_building.h"
 
-class Street_spawn {
+using namespace std;
+
+class Building_spawn {
 protected:
     const Parameters_for_building* building;
 
     float probability_to_spawn;
 
 public:
-    Street_spawn(
+    Building_spawn(
         const Parameters_for_building* building,
         const float probability_to_spawn
     )
@@ -16,7 +18,7 @@ public:
         building(building),
         probability_to_spawn(probability_to_spawn)
     {
-        std::cout << "Street_spawn is called" << std::endl;
+        cout << "Building_spawn is called" << endl;
     }
 
     // Set functions

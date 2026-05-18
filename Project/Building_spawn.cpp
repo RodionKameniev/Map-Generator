@@ -1,41 +1,41 @@
 #include <iostream>
-#include "Parameters_for_street.h"
+#include "Parameters_for_building.h"
 
-class Street_spawn {
+class Buildng_spawn {
 protected:
-    const Parameters_for_street* street;
+    const Parameters_for_building* building;
 
     float probability_to_spawn;
 
 public:
-    Street_spawn(
-        const Parameters_for_street* street,
+    Buildng_spawn(
+        const Parameters_for_building* building,
         const float probability_to_spawn
     )
         :
-        street(street),
+        building(building),
         probability_to_spawn(probability_to_spawn)
     {
-        std::cout << "Street_spawn is called" << std::endl;
+        cout << "Building_spawn is called" << endl;
     }
 
     // Set functions
     void set(
-        const Parameters_for_street* street,
+        const Parameters_for_building* building,
         const float probability_to_spawn
     ) {
-        this->street =
-            street;
+        this->building =
+            building;
 
         this->probability_to_spawn =
             probability_to_spawn;
     }
 
-    void set_street(
-        const Parameters_for_street* street
+    void set_building(
+        const Parameters_for_building* building
     ) {
-        this->street =
-            street;
+        this->building =
+            building;
     }
 
     void set_probability_to_spawn(
@@ -46,9 +46,9 @@ public:
     }
 
     // Get functions
-    const Parameters_for_street*
-        get_street() const {
-        return this->street;
+    const Parameters_for_building*
+        get_building() const {
+        return this->building;
     }
 
     const float get_probability_to_spawn() const {

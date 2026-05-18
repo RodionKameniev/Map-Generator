@@ -1,6 +1,8 @@
 #include <iostream>
 #include "Parameters_for_street.h"
 
+using namespace std;
+
 class Street_spawn {
 protected:
     const Parameters_for_street* street;

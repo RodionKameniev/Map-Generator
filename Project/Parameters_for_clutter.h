@@ -2,6 +2,7 @@
 #include <string_view>
 #include "Parameters_base.h"
 #include "Type_of_clutter.h"
+
 using namespace std;
 
 class Parameters_for_clutter : public Parameters_base {

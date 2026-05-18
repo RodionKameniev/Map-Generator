@@ -128,9 +128,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Buiding_spawn.h" />
     <ClCompile Include="Building_spawn.h" />
     <ClCompile Include="Cell_on_map.h" />
+    <ClCompile Include="End_of_street.h" />
     <ClCompile Include="Parameters_for_street.h" />
     <ClCompile Include="Project.cpp" />
     <ClCompile Include="Road_on_map.h" />
@@ -139,9 +139,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Building_in_city.h" />
+    <ClInclude Include="City.h" />
     <ClInclude Include="Clutter_on_map.h" />
     <ClInclude Include="Clutter_spawn.h" />
     <ClInclude Include="Direction.h" />
+    <ClInclude Include="Map.h" />
     <ClInclude Include="Parameters_base.h" />
     <ClInclude Include="Parameters_for_building.h" />
     <ClInclude Include="Parameters_for_city.h" />
@@ -150,7 +152,6 @@
     <ClInclude Include="Position.h" />
     <ClInclude Include="Size_dimensional.h" />
     <ClInclude Include="Street_in_city.h" />
-    <ClInclude Include="Street_spaw.h" />
     <ClInclude Include="Type_of_clutter.h" />
     <ClInclude Include="Type_of_road.h" />
   </ItemGroup>

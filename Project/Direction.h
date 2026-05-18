@@ -4,5 +4,9 @@ enum class Direction {
 	North,
 	South,
 	East,
-	West
+	West,
+	North_West,
+	North_East,
+	South_West,
+	South_East,
 };
