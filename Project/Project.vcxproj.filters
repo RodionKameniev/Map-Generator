@@ -30,12 +30,6 @@
     <ClCompile Include="Road_on_map.h">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Street_spawn.h">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Building_spawn.h">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="End_of_street.h">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -62,9 +56,6 @@
     <ClInclude Include="Parameters_for_building.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="Street_in_city.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
     <ClInclude Include="Direction.h">
       <Filter>Source Files</Filter>
     </ClInclude>
@@ -77,9 +68,6 @@
     <ClInclude Include="Type_of_road.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="Building_in_city.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
     <ClInclude Include="Clutter_spawn.h">
       <Filter>Source Files</Filter>
     </ClInclude>
@@ -87,6 +75,30 @@
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="Map.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Street_on_map.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Street_component.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Street_cluster.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Street_cluster_spawn.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Building_on_map.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Building_component.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Building_cluster.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Building_cluster_spawn.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

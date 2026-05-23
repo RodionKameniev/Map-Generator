@@ -128,17 +128,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Building_spawn.h" />
     <ClCompile Include="Cell_on_map.h" />
     <ClCompile Include="End_of_street.h" />
     <ClCompile Include="Parameters_for_street.h" />
     <ClCompile Include="Project.cpp" />
     <ClCompile Include="Road_on_map.h" />
-    <ClCompile Include="Street_spawn.h" />
     <ClCompile Include="Type_of_object.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Building_in_city.h" />
+    <ClInclude Include="Building_cluster.h" />
+    <ClInclude Include="Building_cluster_spawn.h" />
+    <ClInclude Include="Building_component.h" />
+    <ClInclude Include="Building_on_map.h" />
     <ClInclude Include="City.h" />
     <ClInclude Include="Clutter_on_map.h" />
     <ClInclude Include="Clutter_spawn.h" />
@@ -151,7 +152,10 @@
     <ClInclude Include="Parameters_for_road.h" />
     <ClInclude Include="Position.h" />
     <ClInclude Include="Size_dimensional.h" />
-    <ClInclude Include="Street_in_city.h" />
+    <ClInclude Include="Street_cluster.h" />
+    <ClInclude Include="Street_cluster_spawn.h" />
+    <ClInclude Include="Street_component.h" />
+    <ClInclude Include="Street_on_map.h" />
     <ClInclude Include="Type_of_clutter.h" />
     <ClInclude Include="Type_of_road.h" />
   </ItemGroup>

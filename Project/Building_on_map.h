@@ -7,7 +7,7 @@
 
 using namespace std;
 
-class Building_in_city : public Cell_on_map {
+class Building_on_map : public Cell_on_map {
 protected:
     const Parameters_for_building* building_to_be_placed;
 
@@ -18,7 +18,7 @@ protected:
     float base_probability_to_spawn;
 
 public:
-    Building_in_city(
+    Building_on_map(
         const Position& position,
         const Parameters_for_building* building_to_be_placed,
         const Position& position_in_city,
@@ -35,7 +35,7 @@ public:
         direction(direction),
         base_probability_to_spawn(base_probability_to_spawn)
     {
-        cout << "Building_in_city is called" << endl;
+        cout << "Building_on_map is called" << endl;
     }
 
     // Set functions

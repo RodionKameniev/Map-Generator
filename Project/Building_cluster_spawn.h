@@ -1,17 +1,17 @@
 #include <iostream>
-#include "Parameters_for_building.h"
+#include "Building_cluster.h"
 
 using namespace std;
 
 class Building_spawn {
 protected:
-    const Parameters_for_building* building;
+    const Building_cluster* building;
 
     float probability_to_spawn;
 
 public:
     Building_spawn(
-        const Parameters_for_building* building,
+        const Building_cluster* building,
         const float probability_to_spawn
     )
         :
@@ -23,7 +23,7 @@ public:
 
     // Set functions
     void set(
-        const Parameters_for_building* building,
+        const Building_cluster* building,
         const float probability_to_spawn
     ) {
         this->building =
@@ -34,7 +34,7 @@ public:
     }
 
     void set_building(
-        const Parameters_for_building* building
+        const Building_cluster* building
     ) {
         this->building =
             building;
@@ -48,7 +48,7 @@ public:
     }
 
     // Get functions
-    const Parameters_for_building*
+    const Building_cluster*
         get_building() const {
         return this->building;
     }

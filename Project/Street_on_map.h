@@ -6,7 +6,7 @@
 
 using namespace std;
 
-class Street_in_city : public Cell_on_map {
+class Street_on_map : public Cell_on_map {
 protected:
     const Parameters_for_street* street_to_be_placed;
 
@@ -15,7 +15,7 @@ protected:
     float base_probability_to_spawn;
 
 public:
-    Street_in_city(
+    Street_on_map(
         const Position& position,
         const Parameters_for_street* street_to_be_placed,
         const vector<Direction>& direction_of_connections,
@@ -24,7 +24,7 @@ public:
         :
         Cell_on_map(
             position,
-            Type_of_object::Street
+            Type_of_object::buiding
         ),
         street_to_be_placed(street_to_be_placed),
         direction_of_connections(direction_of_connections),
