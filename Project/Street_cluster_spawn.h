@@ -56,4 +56,10 @@ public:
     const float get_probability_to_spawn() const {
         return this->probability_to_spawn;
     }
+
+    //Algoritms
+
+    bool try_to_build(Position start_of_street) {
+        
+    }
 };
