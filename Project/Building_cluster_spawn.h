@@ -3,14 +3,14 @@
 
 using namespace std;
 
-class Building_spawn {
+class Building_cluster_spawn {
 protected:
     const Building_cluster* building;
 
     float probability_to_spawn;
 
 public:
-    Building_spawn(
+    Building_cluster_spawn(
         const Building_cluster* building,
         const float probability_to_spawn
     )
@@ -18,7 +18,7 @@ public:
         building(building),
         probability_to_spawn(probability_to_spawn)
     {
-        cout << "Building_spawn is called" << endl;
+        cout << "Building_cluster_spawn is called" << endl;
     }
 
     // Set functions
