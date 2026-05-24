@@ -68,9 +68,6 @@
     <ClInclude Include="Type_of_road.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="Clutter_spawn.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
     <ClInclude Include="City.h">
       <Filter>Source Files</Filter>
     </ClInclude>
@@ -99,6 +96,15 @@
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="Building_cluster_spawn.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Clutter_component.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Clutter_cluster.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Clutter_cluster_spawn.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

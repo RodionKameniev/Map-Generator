@@ -141,8 +141,10 @@
     <ClInclude Include="Building_component.h" />
     <ClInclude Include="Building_on_map.h" />
     <ClInclude Include="City.h" />
+    <ClInclude Include="Clutter_cluster.h" />
+    <ClInclude Include="Clutter_cluster_spawn.h" />
+    <ClInclude Include="Clutter_component.h" />
     <ClInclude Include="Clutter_on_map.h" />
-    <ClInclude Include="Clutter_spawn.h" />
     <ClInclude Include="Direction.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="Parameters_base.h" />

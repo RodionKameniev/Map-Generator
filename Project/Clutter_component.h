@@ -1,46 +1,46 @@
 #include <iostream>
 
-#include "Parameters_for_building.h"
+#include "Parameters_for_clutter.h"
 #include "Position.h"
 
 using namespace std;
 
-class Building_component {
+class Clutter_component {
 protected:
-    const Parameters_for_building* building_part;
+    const Parameters_for_clutter* clutter_part;
 
     Position shifted_position;
 
 public:
-    Building_component(
-        const Parameters_for_building* building_part,
+    Clutter_component(
+        const Parameters_for_clutter* clutter_part,
         const Position& shifted_position
     )
         :
-        building_part(building_part),
+        clutter_part(clutter_part),
         shifted_position(shifted_position)
     {
-        cout << "Building_component is called"
+        cout << "Clutter_component is called"
             << endl;
     }
 
     // Set functions
     void set(
-        const Parameters_for_building* building_part,
+        const Parameters_for_clutter* clutter_part,
         const Position& shifted_position
     ) {
-        this->building_part =
-            building_part;
+        this->clutter_part =
+            clutter_part;
 
         this->shifted_position =
             shifted_position;
     }
 
-    void set_building_part(
-        const Parameters_for_building* building_part
+    void set_clutter_part(
+        const Parameters_for_clutter* clutter_part
     ) {
-        this->building_part =
-            building_part;
+        this->clutter_part =
+            clutter_part;
     }
 
     void set_shifted_position(
@@ -51,9 +51,9 @@ public:
     }
 
     // Get functions
-    const Parameters_for_building*
-        get_building_part() const {
-        return this->building_part;
+    const Parameters_for_clutter*
+        get_clutter_part() const {
+        return this->clutter_part;
     }
 
     const Position&

@@ -1,27 +1,27 @@
 #include <iostream>
-#include "Parameters_for_clutter.h"
+#include "Clutter_cluster.h"
 
-class Clutter_spawn {
+class Clutter_cluster_spawn {
 protected:
-    const Parameters_for_clutter* clutter;
+    const Clutter_cluster* clutter;
 
     float probability_to_spawn;
 
 public:
-    Clutter_spawn(
-        const Parameters_for_clutter* clutter,
+    Clutter_cluster_spawn(
+        const Clutter_cluster* clutter,
         const float probability_to_spawn
     )
         :
         clutter(clutter),
         probability_to_spawn(probability_to_spawn)
     {
-        cout << "Clutter_spawn is called" << endl;
+        cout << "Clutter_cluster_spawn is called" << endl;
     }
 
     // Set functions
     void set(
-        const Parameters_for_clutter* clutter,
+        const Clutter_cluster* clutter,
         const float probability_to_spawn
     ) {
         this->clutter =
@@ -32,7 +32,7 @@ public:
     }
 
     void set_clutter(
-        const Parameters_for_clutter* clutter
+        const Clutter_cluster* clutter
     ) {
         this->clutter =
             clutter;
@@ -46,7 +46,7 @@ public:
     }
 
     // Get functions
-    const Parameters_for_clutter*
+    const Clutter_cluster*
         get_clutter() const {
         return this->clutter;
     }

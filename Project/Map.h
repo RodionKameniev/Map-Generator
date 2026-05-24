@@ -4,7 +4,7 @@
 #include "Size_dimensional.h"
 #include "Cell_on_map.h"
 #include "City.h"
-#include "Clutter_spawn.h"
+#include "Clutter_cluster_spawn.h"
 
 using namespace std;
 
@@ -18,7 +18,7 @@ protected:
 
     vector<City*> cities;
 
-    vector<Clutter_spawn> clutters_probability_to_spawn;
+    vector<Clutter_cluster_spawn> clutters_probability_to_spawn;
 
 public:
     Clutter_spawn(
@@ -26,7 +26,7 @@ public:
         const Size_dimensional& size_of_map,
         const vector<vector<Cell_on_map>>& cells_on_mini_map,
         const vector<City*>& cities,
-        const vector<Clutter_spawn>& clutters_probability_to_spawn
+        const vector<Clutter_cluster_spawn>& clutters_probability_to_spawn
     )
         :
         size_of_mini_map(size_of_mini_map),
@@ -46,7 +46,7 @@ public:
         const Size_dimensional& size_of_map,
         const vector<vector<Cell_on_map>>& cells_on_mini_map,
         const vector<City*>& cities,
-        const vector<Clutter_spawn>& clutters_probability_to_spawn
+        const vector<Clutter_cluster_spawn>& clutters_probability_to_spawn
     ) {
         this->size_of_mini_map =
             size_of_mini_map;
@@ -94,7 +94,7 @@ public:
     }
 
     void set_clutters_probability_to_spawn(
-        const vector<Clutter_spawn>&
+        const vector<Clutter_cluster_spawn>&
         clutters_probability_to_spawn
     ) {
         this->clutters_probability_to_spawn =
@@ -122,7 +122,7 @@ public:
         return this->cities;
     }
 
-    const vector<Clutter_spawn>&
+    const vector<Clutter_cluster_spawn>&
         get_clutters_probability_to_spawn() const {
         return this->clutters_probability_to_spawn;
     }

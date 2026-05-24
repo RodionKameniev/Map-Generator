@@ -12,7 +12,6 @@ protected:
 
     vector<Direction> direction_of_connections;
 
-    float base_probability_to_spawn;
 
 public:
     Clutter_on_map(
@@ -27,8 +26,7 @@ public:
             Type_of_object::Clutter
         ),
         clutter_to_be_placed(clutter_to_be_placed),
-        direction_of_connections(direction_of_connections),
-        base_probability_to_spawn(base_probability_to_spawn)
+        direction_of_connections(direction_of_connections)
     {
         cout << "Clutter_on_map is called" << endl;
     }
@@ -45,8 +43,6 @@ public:
         this->direction_of_connections =
             direction_of_connections;
 
-        this->base_probability_to_spawn =
-            base_probability_to_spawn;
     }
 
     void set_clutter_to_be_placed(
@@ -63,12 +59,6 @@ public:
             direction_of_connections;
     }
 
-    void set_base_probability_to_spawn(
-        const float base_probability_to_spawn
-    ) {
-        this->base_probability_to_spawn =
-            base_probability_to_spawn;
-    }
 
     // Get functions
     const Parameters_for_clutter*
@@ -81,7 +71,4 @@ public:
         return this->direction_of_connections;
     }
 
-    const float get_base_probability_to_spawn() const {
-        return this->base_probability_to_spawn;
-    }
 };
