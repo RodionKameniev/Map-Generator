@@ -1,28 +1,27 @@
 #pragma once
-#include <iostream>
+
 #include <vector>
-#include <random>
-#include <queue>
+
 #include "Building_cluster.h"
 #include "Building_cluster_spawn.h"
 #include "Street_cluster_spawn.h"
 #include "Parameters_for_city.h"
 #include "Position.h"
 
-
-using namespace std;
-
-//queue<Position> start_of_streets;
+class Map;
 
 class City {
 protected:
-    vector<Building_cluster> buildings;
+    std::vector<Building_cluster>
+        buildings;
 
-    vector<Building_cluster_spawn>
-        buildings_probability_to_spawn;
+    std::vector<
+        Building_cluster_spawn
+    > buildings_probability_to_spawn;
 
-    vector<Street_cluster_spawn>
-        streets_probability_to_spawn;
+    std::vector<
+        Street_cluster_spawn
+    > streets_probability_to_spawn;
 
     Parameters_for_city parameters;
 
@@ -31,128 +30,109 @@ protected:
     Position center_of_city;
 
 public:
+    // Constructor
     City(
-        const vector<Building_cluster>& buildings,
-        const vector<Building_cluster_spawn>& buildings_probability_to_spawn,
-        const vector<Street_cluster_spawn>& streets_probability_to_spawn,
-        const Parameters_for_city& parameters,
-        const int cost,
-        const Position& center_of_city
-    )
-        :
-        buildings(buildings),
-        buildings_probability_to_spawn(
-            buildings_probability_to_spawn
-        ),
-        streets_probability_to_spawn(
-            streets_probability_to_spawn
-        ),
-        parameters(parameters),
-        cost(cost),
-        center_of_city(center_of_city)
-    {
-        cout << "Clutter_spawn is called" << endl;
-    }
+        const std::vector<
+        Building_cluster
+        >& buildings,
+
+        const std::vector<
+        Building_cluster_spawn
+        >& buildings_probability_to_spawn,
+
+        const std::vector<
+        Street_cluster_spawn
+        >& streets_probability_to_spawn,
+
+        const Parameters_for_city&
+        parameters,
+
+        int cost,
+
+        const Position&
+        center_of_city
+    );
 
     // Set functions
     void set(
-        const vector<Building_cluster>& buildings,
-        const vector<Building_cluster_spawn>& buildings_probability_to_spawn,
-        const vector<Street_cluster_spawn>& streets_probability_to_spawn,
-        const Parameters_for_city& parameters,
-        const int cost,
-        const Position& center_of_city
-    ) {
-        this->buildings =
-            buildings;
+        const std::vector<
+        Building_cluster
+        >& buildings,
 
-        this->buildings_probability_to_spawn =
-            buildings_probability_to_spawn;
+        const std::vector<
+        Building_cluster_spawn
+        >& buildings_probability_to_spawn,
 
-        this->streets_probability_to_spawn =
-            streets_probability_to_spawn;
+        const std::vector<
+        Street_cluster_spawn
+        >& streets_probability_to_spawn,
 
-        this->parameters =
-            parameters;
+        const Parameters_for_city&
+        parameters,
 
-        this->cost =
-            cost;
+        int cost,
 
-        this->center_of_city =
-            center_of_city;
-    }
+        const Position&
+        center_of_city
+    );
 
     void set_buildings(
-        const vector<Building_cluster>& buildings
-    ) {
-        this->buildings =
-            buildings;
-    }
+        const std::vector<
+        Building_cluster
+        >& buildings
+    );
 
     void set_buildings_probability_to_spawn(
-        const vector<Building_cluster_spawn>&
-        buildings_probability_to_spawn
-    ) {
-        this->buildings_probability_to_spawn =
-            buildings_probability_to_spawn;
-    }
+        const std::vector<
+        Building_cluster_spawn
+        >& buildings_probability_to_spawn
+    );
 
     void set_streets_probability_to_spawn(
-        const vector<Street_cluster_spawn>&
-        streets_probability_to_spawn
-    ) {
-        this->streets_probability_to_spawn =
-            streets_probability_to_spawn;
-    }
+        const std::vector<
+        Street_cluster_spawn
+        >& streets_probability_to_spawn
+    );
 
     void set_parameters(
-        const Parameters_for_city& parameters
-    ) {
-        this->parameters =
-            parameters;
-    }
+        const Parameters_for_city&
+        parameters
+    );
 
     void set_cost(
-        const int cost
-    ) {
-        this->cost =
-            cost;
-    }
+        int cost
+    );
 
     void set_center_of_city(
-        const Position& center_of_city
-    ) {
-        this->center_of_city =
-            center_of_city;
-    }
+        const Position&
+        center_of_city
+    );
 
     // Get functions
-    const vector<Building_cluster>&
-        get_buildings() const {
-        return this->buildings;
-    }
+    const std::vector<
+        Building_cluster
+    >& get_buildings() const;
 
-    const vector<Building_cluster_spawn>&
-        get_buildings_probability_to_spawn() const {
-        return this->buildings_probability_to_spawn;
-    }
+    const std::vector<
+        Building_cluster_spawn
+    >&
+        get_buildings_probability_to_spawn() const;
 
-    const vector<Street_cluster_spawn>&
-        get_streets_probability_to_spawn() const {
-        return this->streets_probability_to_spawn;
-    }
+    const std::vector<
+        Street_cluster_spawn
+    >&
+        get_streets_probability_to_spawn() const;
 
     const Parameters_for_city&
-        get_parameters() const {
-        return this->parameters;
-    }
+        get_parameters() const;
 
-    const int get_cost() const {
-        return this->cost;
-    }
+    int get_cost() const;
 
     const Position&
-        get_center_of_city() const {
-        return this->center_of_city;
-    }
+        get_center_of_city() const;
+
+    // Algorithms
+    void create_streets(
+        Map& map
+    );
 };
