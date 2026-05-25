@@ -1,5 +1,5 @@
+#include <iostream>
 #include "Perlin_noise.h"
-
 #include <windows.h>
 #include <cmath>
 
@@ -14,6 +14,7 @@ typedef struct
 
 // Global seed
 unsigned long long g_seed = 0;
+unsigned long long r_seed = 0;
 
 vector2 randomGradient(int ix, int iy)
 {
@@ -89,6 +90,7 @@ float perlin(float x, float y)
 int WIDTH = 100;
 int HEIGHT = 100;
 float SCALE = 15.0f;
+int NUMBER_OF_OBJECTS = 6;
 
 BITMAPINFO bitmapInfo;
 unsigned char* pixels = nullptr;
@@ -108,10 +110,8 @@ void GenerateNoise()
             int index = (y * WIDTH + x) * 4;
 
             float value = 0.0f;
-
             float freq = 1.0f;
             float amp = 1.0f;
-
             // Octaves
             for (int i = 0; i < 6; i++)
             {
@@ -119,13 +119,37 @@ void GenerateNoise()
                     x * freq / SCALE,
                     y * freq / SCALE
                 ) * amp;
-
                 freq *= 2.0f;
                 amp *= 0.5f;
             }
-
             // Contrast
-            value *= 1.2f;
+            //value *= 1.2f;
+            value *= 2.3f;
+
+            //float value = 0.0f;
+
+            //float freq = 1.0f;
+            //float amp = 1.0f;
+
+            //float maxValue = 0.0f;
+
+            //for (int i = 0; i < 6; i++)
+            //{
+            //    value += perlin(
+            //        x * freq / SCALE,
+            //        y * freq / SCALE
+            //    ) * amp;
+
+            //    maxValue += amp;
+
+            //    freq *= 2.0f;
+            //    amp *= 0.5f;
+            //}
+
+            //// Normalize to [-1,1]
+            //value /= maxValue;
+
+            //std::cout << value << "\t";
 
             // Clamp
             if (value > 1.0f)
@@ -134,15 +158,118 @@ void GenerateNoise()
             if (value < -1.0f)
                 value = -1.0f;
 
-            int color = (int)(((value + 1.0f) * 0.5f) * 255.0f);
+            //int color = (int)(((value + 1.0f) * 0.5f) * 255.0f);
 
             // BGRA
-            pixels[index + 0] = color;
+            /*pixels[index + 0] = color;
             pixels[index + 1] = color;
             pixels[index + 2] = color;
+            pixels[index + 3] = 255;*/
+
+            // Convert value from [-1,1] to [-255,255]
+            int terrainValue = (int)(value * 255.0f);
+
+            // Default color
+            unsigned char r = 0;
+            unsigned char g = 0;
+            unsigned char b = 0;
+
+            // --------------------------------------------------
+            // TERRAIN COLOR RANGES
+            // --------------------------------------------------
+
+            // Deep water
+            if (terrainValue >= -255 && terrainValue <= -200)
+            {
+                r = 0;
+                g = 0;
+                b = 80;
+            }
+
+            // Water
+            else if (terrainValue >= -199 && terrainValue <= -50)
+            {
+                r = 30;
+                g = 100;
+                b = 220;
+            }
+
+            // Ground
+            else if (terrainValue >= -49 && terrainValue <= 70)
+            {
+                r = 120;
+                g = 200;
+                b = 80;
+            }
+
+            // Forest
+            else if (terrainValue >= 71 && terrainValue <= 220)
+            {
+                r = 20;
+                g = 120;
+                b = 20;
+            }
+
+            // Mountain
+            else if (terrainValue >= 221 && terrainValue <= 255)
+            {
+                r = 140;
+                g = 140;
+                b = 140;
+            }
+
+            // BGRA format
+            pixels[index + 0] = b;
+            pixels[index + 1] = g;
+            pixels[index + 2] = r;
             pixels[index + 3] = 255;
+            
+           
         }
     }
+
+    //for (int x = 0; x < WIDTH; x++) {
+    //    for (int y = 0; y < HEIGHT; y++) {
+    //        int index = (y * WIDTH + x) * 4;
+    //        std::cout << (int)pixels[index] << "\t";
+    //    }
+    //    std::cout << std::endl;
+    //}
+    //std::cout << std::endl;
+    //for (int x = 0; x < WIDTH; x++) {
+    //    for (int y = 0; y < HEIGHT; y++) {
+    //        int index = (y * WIDTH + x) * 4;
+    //        float number = (((int)pixels[index] - 127) / (float)255) * (float)NUMBER_OF_OBJECTS;
+    //        int cropped_number = round(number);
+    //        std::cout << cropped_number << "\t";
+    //    }
+    //    std::cout << std::endl;
+    //}
+    //std::cout << std::endl;
+    //for (int x = 0; x < WIDTH; x++) {
+    //    for (int y = 0; y < HEIGHT; y++) {
+    //        int index = (y * WIDTH + x) * 4;
+    //        float number = (((int)pixels[index] - 127) / (float)255) * (float)NUMBER_OF_OBJECTS;
+    //        int cropped_number = round(number);
+    //        if (cropped_number == -3 || cropped_number == -2) {
+    //            std::cout << "d_water" << "\t";
+    //        }
+    //        if (cropped_number == -1) {
+    //            std::cout << "water" << "\t";
+    //        }
+    //        if (cropped_number == 0) {
+    //            std::cout << "ground" << "\t";
+    //        }
+    //        if (cropped_number == 1) {
+    //            std::cout << "forest" << "\t";
+    //        }
+    //        if (cropped_number == 2) {
+    //            std::cout << "mountain" << "\t";
+    //        }
+    //        //std::cout << cropped_number << "\t";
+    //    }
+    //    std::cout << std::endl;
+    //}
 }
 
 // -----------------------------------------------------------------------------
