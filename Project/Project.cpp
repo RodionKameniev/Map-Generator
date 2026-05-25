@@ -1,5 +1,6 @@
 #include <iostream>
 #include <random>
+
 #include "Size_dimensional.h"
 #include "Perlin_noise.h"
 using namespace std;
@@ -14,7 +15,8 @@ int main()
     unsigned long long seed = rand();
     int a = 100;
     float b = 100.0;
-    RunPerlinWindow(seed, 10*a, 10*a, 1.5f*b);
-
+    
+    RunPerlinWindow(seed, a*10, a*10, 1.5f*b);
+    
     return 0;
 }

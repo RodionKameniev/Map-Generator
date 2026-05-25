@@ -1,5 +1,7 @@
 #include "Perlin_noise.h"
 
+#include <random>
+#include <time.h>
 #include <iostream>
 #include <cmath>
 
@@ -14,19 +16,21 @@ int HEIGHT = 100;
 float SCALE = 15.0f;
 
 BITMAPINFO bitmapInfo;
-unsigned char* pixels = nullptr;
+std::pair<unsigned char*, int*> pixels_ground;
+std::pair<unsigned char*, int*> pixels_river;
+std::pair<unsigned char*, int*> pixels_to_output;
 
 // -----------------------------------------------------------------------------
 // Perlin Noise
 // -----------------------------------------------------------------------------
 
-vector2 randomGradient(int ix, int iy)
+vector2 randomGradient(int ix, int iy, unsigned long long seed)
 {
     const unsigned w = 8 * sizeof(unsigned);
     const unsigned s = w / 2;
 
-    unsigned a = (unsigned)(ix + g_seed);
-    unsigned b = (unsigned)(iy + (g_seed >> 32));
+    unsigned a = (unsigned)(ix + seed);
+    unsigned b = (unsigned)(iy + (seed >> 32));
 
     a *= 3284157443u;
 
@@ -46,9 +50,9 @@ vector2 randomGradient(int ix, int iy)
     return v;
 }
 
-float dotGridGradient(int ix, int iy, float x, float y)
+float dotGridGradient(int ix, int iy, float x, float y, unsigned long long seed)
 {
-    vector2 gradient = randomGradient(ix, iy);
+    vector2 gradient = randomGradient(ix, iy, seed);
 
     float dx = x - (float)ix;
     float dy = y - (float)iy;
@@ -61,7 +65,7 @@ float interpolate(float a0, float a1, float w)
     return (a1 - a0) * (3.0f - w * 2.0f) * w * w + a0;
 }
 
-float perlin(float x, float y)
+float perlin(float x, float y, unsigned long long seed)
 {
     int x0 = (int)x;
     int y0 = (int)y;
@@ -72,13 +76,13 @@ float perlin(float x, float y)
     float sx = x - (float)x0;
     float sy = y - (float)y0;
 
-    float n0 = dotGridGradient(x0, y0, x, y);
-    float n1 = dotGridGradient(x1, y0, x, y);
+    float n0 = dotGridGradient(x0, y0, x, y, seed);
+    float n1 = dotGridGradient(x1, y0, x, y, seed);
 
     float ix0 = interpolate(n0, n1, sx);
 
-    n0 = dotGridGradient(x0, y1, x, y);
-    n1 = dotGridGradient(x1, y1, x, y);
+    n0 = dotGridGradient(x0, y1, x, y, seed);
+    n1 = dotGridGradient(x1, y1, x, y, seed);
 
     float ix1 = interpolate(n0, n1, sx);
 
@@ -89,15 +93,16 @@ float perlin(float x, float y)
 // Generate Noise
 // -----------------------------------------------------------------------------
 
-void GenerateNoise()
+std::pair<unsigned char*, int*> GenerateNoise(std::pair<unsigned char*, int*> pixels, bool is_river, float base_contrast, float contrast_for_rivers, unsigned long long seed)
 {
-    pixels = new unsigned char[WIDTH * HEIGHT * 4];
-
+    pixels.first = new unsigned char[WIDTH * HEIGHT * 4];
+    pixels.second = new int[WIDTH * HEIGHT];
     for (int y = 0; y < HEIGHT; y++)
     {
         for (int x = 0; x < WIDTH; x++)
         {
             int index = (y * WIDTH + x) * 4;
+            int index_second = (y * WIDTH + x);
 
             float value = 0.0f;
 
@@ -108,37 +113,64 @@ void GenerateNoise()
             {
                 value += perlin(
                     x * freq / SCALE,
-                    y * freq / SCALE
+                    y * freq / SCALE,
+                    seed
                 ) * amp;
 
                 freq *= 2.0f;
                 amp *= 0.5f;
             }
 
-            value *= 2.3f;
+            value *= base_contrast;
 
             if (value > 1.0f)
                 value = 1.0f;
 
             if (value < -1.0f)
                 value = -1.0f;
-
+            //int terrainValue = 0;
             int terrainValue = (int)(value * 255.0f);
+            if (terrainValue > 255) {
+                terrainValue = 255;
+            }
+            if (terrainValue < -200) {
+                terrainValue = -200;
+            }
+            if (is_river) {
+                terrainValue = abs((int)(value * contrast_for_rivers * 255.0f))-500.0f;
+                if (terrainValue > 0) {
+                    terrainValue = 0;
+                }
+                if (terrainValue < -300) {
+                    terrainValue = -400;
+                }
+                /*terrainValue = abs((int)(value * contrast_for_rivers * 255.0f)) - 500.0f;
+                if (terrainValue > 0) {
+                    terrainValue = 0;
+                }
+                if (terrainValue < -300 and terrainValue > -500) {
+                    terrainValue = -150;
+                }
+                else if (terrainValue > -300 and terrainValue < 0) {
+                    terrainValue = -350;
+                }*/
+            }
 
             unsigned char r = 0;
             unsigned char g = 0;
             unsigned char b = 0;
 
-            // Deep water
-            if (terrainValue <= -200)
+            // Deep Water
+            if (terrainValue <= -200) // -200
             {
+                //std::cout << terrainValue;
                 r = 0;
                 g = 0;
                 b = 80;
             }
 
             // Water
-            else if (terrainValue <= -50)
+            else if (terrainValue <= -50) //-50
             {
                 r = 30;
                 g = 100;
@@ -146,7 +178,7 @@ void GenerateNoise()
             }
 
             // Ground
-            else if (terrainValue <= 70)
+            else if (terrainValue <= 150) // 70
             {
                 r = 120;
                 g = 200;
@@ -169,12 +201,14 @@ void GenerateNoise()
                 b = 140;
             }
 
-            pixels[index + 0] = b;
-            pixels[index + 1] = g;
-            pixels[index + 2] = r;
-            pixels[index + 3] = 255;
+            pixels.first[index + 0] = b;
+            pixels.first[index + 1] = g;
+            pixels.first[index + 2] = r;
+            pixels.first[index + 3] = 255;
+            pixels.second[index_second] = terrainValue;
         }
     }
+    return pixels;
 }
 
 // -----------------------------------------------------------------------------
@@ -205,7 +239,7 @@ LRESULT CALLBACK WindowProc(
             0,
             WIDTH,
             HEIGHT,
-            pixels,
+            pixels_to_output.first,
             &bitmapInfo,
             DIB_RGB_COLORS,
             SRCCOPY
@@ -236,14 +270,90 @@ void RunPerlinWindow(
     unsigned int height,
     float scale)
 {
+    clock_t tStart = clock();
+    pixels_ground.first = nullptr;
+    pixels_river.first = nullptr;
+    pixels_to_output.first = nullptr;
+    pixels_ground.second = nullptr;
+    pixels_river.second = nullptr;
+    pixels_to_output.second = nullptr;
     g_seed = seed;
 
     WIDTH = width;
     HEIGHT = height;
     SCALE = scale;
 
-    GenerateNoise();
+    pixels_ground = GenerateNoise(pixels_ground, false, 2.3f, 10.8f, seed);
 
+    pixels_river = GenerateNoise(pixels_ground, true, 2.3f, 10.8f, seed << 32);
+    pixels_to_output.first = new unsigned char[WIDTH * HEIGHT * 4];
+    pixels_to_output.second = new int[WIDTH * HEIGHT * 4];
+    for (int y = 0; y < HEIGHT; y++)
+    {
+        for (int x = 0; x < WIDTH; x++)
+        {
+            int index = (y * WIDTH + x) * 4;
+            int index_second = (y * WIDTH + x);
+
+            int terrainValue = pixels_ground.second[index_second] + pixels_river.second[index_second];
+            //int terrainValue = pixels_river.second[index_second];
+            unsigned char r = 0;
+            unsigned char g = 0;
+            unsigned char b = 0;
+
+            if (terrainValue <= -300) {
+
+                terrainValue += 150;
+
+            }
+
+            if (terrainValue <= -300) // -300
+            {
+                r = 0;
+                g = 0;
+                b = 80;
+            }
+
+            // Water
+            else if (terrainValue <= -150) // -100
+            {
+                r = 30;
+                g = 100;
+                b = 220;
+            }
+
+            // Ground
+            else if (terrainValue <= 70)
+            {
+                r = 120;
+                g = 200;
+                b = 80;
+            }
+
+            // Forest
+            else if (terrainValue <= 220)
+            {
+                r = 20;
+                g = 120;
+                b = 20;
+            }
+
+            // Mountain
+            else
+            {
+                r = 140;
+                g = 140;
+                b = 140;
+            }
+
+            pixels_to_output.first[index + 0] = b;
+            pixels_to_output.first[index + 1] = g;
+            pixels_to_output.first[index + 2] = r;
+            pixels_to_output.first[index + 3] = 255;
+            pixels_to_output.second[index] = terrainValue;
+        }
+    }
+    printf("Time taken: %.2fs\n", (double)(clock() - tStart) / CLOCKS_PER_SEC);
     ZeroMemory(&bitmapInfo, sizeof(bitmapInfo));
 
     bitmapInfo.bmiHeader.biSize = sizeof(BITMAPINFOHEADER);
@@ -290,5 +400,10 @@ void RunPerlinWindow(
         DispatchMessage(&msg);
     }
 
-    delete[] pixels;
+    delete[] pixels_to_output.first;
+    delete[] pixels_to_output.second;
+    delete[] pixels_river.first;
+    delete[] pixels_river.second;
+    delete[] pixels_ground.first;
+    delete[] pixels_ground.second;
 }
