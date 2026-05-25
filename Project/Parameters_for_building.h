@@ -20,6 +20,7 @@ public:
         Parameters_base(
             name,
             false,
+            false,
             -1,
             image_for_mini_map_id,
             image_for_map_id

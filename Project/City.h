@@ -12,7 +12,7 @@
 
 using namespace std;
 
-queue<Position> start_of_streets;
+//queue<Position> start_of_streets;
 
 class City {
 protected:

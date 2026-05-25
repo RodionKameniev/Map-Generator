@@ -1,13 +1,13 @@
 #pragma once
-#include <iostream>
+
+#include <memory>
 #include <vector>
 
 #include "Size_dimensional.h"
 #include "Cell_on_map.h"
-#include "City.h"
 #include "Clutter_cluster_spawn.h"
 
-using namespace std;
+class City;
 
 class Map {
 protected:
@@ -15,116 +15,93 @@ protected:
 
     Size_dimensional size_of_map;
 
-    vector<vector<unique_ptr<Cell_on_map>>> cells_on_mini_map;
+    std::vector<
+        std::vector<
+        std::unique_ptr<Cell_on_map>
+        >
+    > cells_on_mini_map;
 
-    vector<City*> cities;
+    std::vector<City*> cities;
 
-    vector<Clutter_cluster_spawn> clutters_probability_to_spawn;
+    std::vector<Clutter_cluster_spawn>
+        clutters_probability_to_spawn;
 
 public:
+    // Constructor
     Map(
         const Size_dimensional& size_of_mini_map,
         const Size_dimensional& size_of_map,
-        const vector<vector<unique_ptr<Cell_on_map>>>& cells_on_mini_map,
-        const vector<City*>& cities,
-        const vector<Clutter_cluster_spawn>& clutters_probability_to_spawn
-    )
-        :
-        size_of_mini_map(size_of_mini_map),
-        size_of_map(size_of_map),
-        cells_on_mini_map(cells_on_mini_map),
-        cities(cities),
-        clutters_probability_to_spawn(
-            clutters_probability_to_spawn
-        )
-    {
-        cout << "Map is called" << endl;
-    }
+        std::vector<
+        std::vector<
+        std::unique_ptr<Cell_on_map>
+        >
+        > cells_on_mini_map,
+        const std::vector<City*>& cities,
+        const std::vector<
+        Clutter_cluster_spawn
+        >& clutters_probability_to_spawn
+    );
 
     // Set functions
     void set(
         const Size_dimensional& size_of_mini_map,
         const Size_dimensional& size_of_map,
-        const vector<vector<unique_ptr<Cell_on_map>>> cells_on_mini_map,
-        const vector<City*>& cities,
-        const vector<Clutter_cluster_spawn>& clutters_probability_to_spawn
-    ) {
-        this->size_of_mini_map =
-            size_of_mini_map;
-
-        this->size_of_map =
-            size_of_map;
-
-        this->cells_on_mini_map =
-            move(cells_on_mini_map);
-
-        this->cities =
-            cities;
-
-        this->clutters_probability_to_spawn =
-            clutters_probability_to_spawn;
-    }
+        std::vector<
+        std::vector<
+        std::unique_ptr<Cell_on_map>
+        >
+        > cells_on_mini_map,
+        const std::vector<City*>& cities,
+        const std::vector<
+        Clutter_cluster_spawn
+        >& clutters_probability_to_spawn
+    );
 
     void set_size_of_mini_map(
         const Size_dimensional& size_of_mini_map
-    ) {
-        this->size_of_mini_map =
-            size_of_mini_map;
-    }
+    );
 
     void set_size_of_map(
         const Size_dimensional& size_of_map
-    ) {
-        this->size_of_map =
-            size_of_map;
-    }
+    );
 
     void set_cells_on_mini_map(
-        const vector<vector<unique_ptr<Cell_on_map>>>&
-        cells_on_mini_map
-    ) {
-        this->cells_on_mini_map =
-            move(cells_on_mini_map);
-    }
+        std::vector<
+        std::vector<
+        std::unique_ptr<Cell_on_map>
+        >
+        > cells_on_mini_map
+    );
 
     void set_cities(
-        const vector<City*>& cities
-    ) {
-        this->cities =
-            cities;
-    }
+        const std::vector<City*>& cities
+    );
 
     void set_clutters_probability_to_spawn(
-        const vector<Clutter_cluster_spawn>&
-        clutters_probability_to_spawn
-    ) {
-        this->clutters_probability_to_spawn =
-            clutters_probability_to_spawn;
-    }
+        const std::vector<
+        Clutter_cluster_spawn
+        >& clutters_probability_to_spawn
+    );
 
     // Get functions
     const Size_dimensional&
-        get_size_of_mini_map() const {
-        return this->size_of_mini_map;
-    }
+        get_size_of_mini_map() const;
 
     const Size_dimensional&
-        get_size_of_map() const {
-        return this->size_of_map;
-    }
+        get_size_of_map() const;
 
-    const vector<vector<unique_ptr<Cell_on_map>>>&
-        get_cells_on_mini_map() const {
-        return this->cells_on_mini_map;
-    }
+    const std::vector<
+        std::vector<
+        std::unique_ptr<Cell_on_map>
+        >
+    >&
+        get_cells_on_mini_map() const;
 
-    const vector<City*>&
-        get_cities() const {
-        return this->cities;
-    }
+    const std::vector<City*>&
+        get_cities() const;
 
-    const vector<Clutter_cluster_spawn>&
-        get_clutters_probability_to_spawn() const {
-        return this->clutters_probability_to_spawn;
-    }
+    const std::vector<
+        Clutter_cluster_spawn
+    >&
+        get_clutters_probability_to_spawn() const;
 };

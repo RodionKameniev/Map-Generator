@@ -1,11 +1,10 @@
-#pragma once
 #include <iostream>
 #include <vector>
 #include <random>
 #include <queue>
 #include "Building_cluster.h"
 #include "Building_cluster_spawn.h"
-#include "Street_cluster_spawn.cpp"
+#include "Street_cluster_spawn.h"
 #include "Parameters_for_city.h"
 #include "Position.h"
 #include "Map.h"

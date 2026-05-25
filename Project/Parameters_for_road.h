@@ -14,6 +14,7 @@ public:
     Parameters_for_road(
         string_view name,
         const bool is_restricted_to_cross,
+        const bool is_restricted_to_build,
         const int cost_to_cross,
         const int cost_to_build,
         const Type_of_road type_of_road,
@@ -23,6 +24,7 @@ public:
         : Parameters_base (
             name,
             is_restricted_to_cross,
+            is_restricted_to_build,
             cost_to_cross,
             image_for_mini_map_id,
             image_for_map_id
