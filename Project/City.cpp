@@ -9,6 +9,7 @@
 #include "Parameters_for_city.h"
 #include "Position.h"
 #include "Map.h"
+#include "City.h"
 
 
 using namespace std;
