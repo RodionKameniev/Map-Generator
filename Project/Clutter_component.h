@@ -1,5 +1,5 @@
+#pragma once
 #include <iostream>
-
 #include "Parameters_for_clutter.h"
 #include "Position.h"
 

@@ -1,5 +1,5 @@
+#pragma once
 #include <iostream>
-
 #include "Parameters_for_street.h"
 #include "Position.h"
 

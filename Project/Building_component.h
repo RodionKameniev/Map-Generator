@@ -1,3 +1,4 @@
+#pragma once
 #include <iostream>
 
 #include "Parameters_for_building.h"

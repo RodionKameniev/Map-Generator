@@ -1,3 +1,4 @@
+#pragma once
 #include <iostream>
 #include "Type_of_object.h"
 #include "Position.h"
@@ -10,6 +11,9 @@ protected:
     Type_of_object type_of_object;
 
 public:
+
+    virtual ~Cell_on_map() = default;
+
     Cell_on_map(
         const Position& position,
         const Type_of_object type_of_object

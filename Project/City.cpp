@@ -5,14 +5,17 @@
 #include <queue>
 #include "Building_cluster.h"
 #include "Building_cluster_spawn.h"
-#include "Street_cluster_spawn.h"
+#include "Street_cluster_spawn.cpp"
 #include "Parameters_for_city.h"
 #include "Position.h"
+#include "Map.h"
 
 
 using namespace std;
 
 queue<Position> start_of_streets;
+
+
 
 class City {
 protected:
@@ -155,4 +158,34 @@ public:
         get_center_of_city() const {
         return this->center_of_city;
     }
+
+    //Algorithms
+    void create_streets(Map& map) {
+        random_device rd; //random generator
+        mt19937 gen(rd()); //mt19937 is basically a rand() but much better
+        while (start_of_streets.size() != 0) {
+            Position current_start_of_street = start_of_streets.front();
+            start_of_streets.pop();
+            vector<Street_cluster_spawn> candidates = this->get_streets_probability_to_spawn();
+            bool is_chosen = false;
+            while (!candidates.empty() && !is_chosen) {
+                vector<float> weights;
+                for (const auto& s : candidates) {
+                    weights.push_back(s.get_probability_to_spawn());
+                }
+                // Create weighted distribution
+                discrete_distribution<> dist(weights.begin(), weights.end());
+                // Get random index
+                int index = dist(gen);
+                // Selected street
+                Street_cluster_spawn chosen = candidates[index];
+                is_chosen = chosen.try_to_build(map, current_start_of_street);
+                if (!is_chosen) {
+                    candidates.erase(candidates.begin() + index);
+                }
+            }
+        }
+    }
+
+
 };
