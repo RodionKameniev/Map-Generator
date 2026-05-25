@@ -1,3 +1,4 @@
+#pragma once
 #include <iostream>
 #include "Size_dimensional.h"
 #include <string_view>

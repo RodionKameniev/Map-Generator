@@ -1,3 +1,4 @@
+#pragma once
 #include <iostream>
 #include <string_view>
 using namespace std;
@@ -5,7 +6,7 @@ using namespace std;
 class Parameters_base {
 protected:
     string name = "";
-    bool is_restrincted_ro_cross = false;
+    bool is_restrincted_to_cross = false;
     int cost_to_cross = 0;
     int image_for_mini_map_id = 0;
     int image_for_map_id = 0;
@@ -13,13 +14,13 @@ protected:
 public:
     Parameters_base(
         string_view name,
-        const bool is_restrincted_ro_cross,
+        const bool is_restrincted_to_cross,
         const int cost_to_cross,
         const int image_for_mini_map_id,
         const int image_for_map_id
     )
         : name(name),
-        is_restrincted_ro_cross(is_restrincted_ro_cross),
+        is_restrincted_to_cross(is_restrincted_to_cross),
         cost_to_cross(cost_to_cross),
         image_for_mini_map_id(image_for_mini_map_id),
         image_for_map_id(image_for_map_id) {
@@ -30,13 +31,13 @@ public:
     // Set functions
     void set(
         string_view name,
-        const bool is_restrincted_ro_cross,
+        const bool is_restrincted_to_cross,
         const int cost_to_cross,
         const int image_for_mini_map_id,
         const int image_for_map_id
     ) {
         this->name = name;
-        this->is_restrincted_ro_cross = is_restrincted_ro_cross;
+        this->is_restrincted_to_cross = is_restrincted_to_cross;
         this->cost_to_cross = cost_to_cross;
         this->image_for_mini_map_id = image_for_mini_map_id;
         this->image_for_map_id = image_for_map_id;
@@ -47,8 +48,8 @@ public:
     }
 
 
-    void set_is_restrincted_ro_cross(const bool is_restrincted_ro_cross) {
-        this->is_restrincted_ro_cross = is_restrincted_ro_cross;
+    void set_is_restrincted_to_cross(const bool is_restrincted_to_cross) {
+        this->is_restrincted_to_cross = is_restrincted_to_cross;
     }
 
     void set_cost_to_cross(const int cost_to_cross) {
@@ -69,8 +70,8 @@ public:
         return this->name;
     }
 
-    const bool get_is_restrincted_ro_cross() const {
-        return this->is_restrincted_ro_cross;
+    const bool get_is_restrincted_to_cross() const {
+        return this->is_restrincted_to_cross;
     }
 
     const int get_cost_to_cross() const {

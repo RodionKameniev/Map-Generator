@@ -1,3 +1,4 @@
+#pragma once
 #include <iostream>
 #include <vector>
 #include "Parameters_for_street.h"
@@ -24,7 +25,7 @@ public:
         :
         Cell_on_map(
             position,
-            Type_of_object::buiding
+            Type_of_object::Street
         ),
         street_to_be_placed(street_to_be_placed),
         direction_of_connections(direction_of_connections),

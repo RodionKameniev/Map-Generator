@@ -33,6 +33,9 @@
     <ClCompile Include="End_of_street.h">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Perlin_noise.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Size_dimensional.h">
@@ -105,6 +108,9 @@
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="Clutter_cluster_spawn.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Perlin_noise.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

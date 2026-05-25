@@ -1,3 +1,4 @@
+#pragma once
 #include <iostream>
 #include "Type_of_object.h"
 #include "Position.h"

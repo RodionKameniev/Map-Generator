@@ -1,3 +1,4 @@
+#pragma once
 #include <iostream>
 #include <string_view>
 #include "Parameters_base.h"
