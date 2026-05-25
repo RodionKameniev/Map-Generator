@@ -42,4 +42,11 @@ public:
         Map& map,
         Position start_of_street
     );
+    vector<Position> create_next_street_pos(
+        Position start_of_street
+    );
+    void build_street(
+        Map& map,
+        Position start_of_street
+    );
 };
