@@ -129,11 +129,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Cell_on_map.h" />
+    <ClCompile Include="City.cpp" />
     <ClCompile Include="End_of_street.h" />
     <ClCompile Include="Parameters_for_street.h" />
     <ClCompile Include="Perlin_noise.cpp" />
     <ClCompile Include="Project.cpp" />
     <ClCompile Include="Road_on_map.h" />
+    <ClCompile Include="Street_cluster_spawn.cpp" />
     <ClCompile Include="Type_of_object.h" />
   </ItemGroup>
   <ItemGroup>

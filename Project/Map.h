@@ -9,23 +9,23 @@
 
 using namespace std;
 
-class Clutter_spawn {
+class Map {
 protected:
     Size_dimensional size_of_mini_map;
 
     Size_dimensional size_of_map;
 
-    vector<vector<Cell_on_map>> cells_on_mini_map;
+    vector<vector<unique_ptr<Cell_on_map>>> cells_on_mini_map;
 
     vector<City*> cities;
 
     vector<Clutter_cluster_spawn> clutters_probability_to_spawn;
 
 public:
-    Clutter_spawn(
+    Map(
         const Size_dimensional& size_of_mini_map,
         const Size_dimensional& size_of_map,
-        const vector<vector<Cell_on_map>>& cells_on_mini_map,
+        const vector<vector<unique_ptr<Cell_on_map>>>& cells_on_mini_map,
         const vector<City*>& cities,
         const vector<Clutter_cluster_spawn>& clutters_probability_to_spawn
     )
@@ -38,14 +38,14 @@ public:
             clutters_probability_to_spawn
         )
     {
-        cout << "Clutter_spawn is called" << endl;
+        cout << "Map is called" << endl;
     }
 
     // Set functions
     void set(
         const Size_dimensional& size_of_mini_map,
         const Size_dimensional& size_of_map,
-        const vector<vector<Cell_on_map>>& cells_on_mini_map,
+        const vector<vector<unique_ptr<Cell_on_map>>> cells_on_mini_map,
         const vector<City*>& cities,
         const vector<Clutter_cluster_spawn>& clutters_probability_to_spawn
     ) {
@@ -56,7 +56,7 @@ public:
             size_of_map;
 
         this->cells_on_mini_map =
-            cells_on_mini_map;
+            move(cells_on_mini_map);
 
         this->cities =
             cities;
@@ -80,11 +80,11 @@ public:
     }
 
     void set_cells_on_mini_map(
-        const vector<vector<Cell_on_map>>&
+        const vector<vector<unique_ptr<Cell_on_map>>>&
         cells_on_mini_map
     ) {
         this->cells_on_mini_map =
-            cells_on_mini_map;
+            move(cells_on_mini_map);
     }
 
     void set_cities(
@@ -113,7 +113,7 @@ public:
         return this->size_of_map;
     }
 
-    const vector<vector<Cell_on_map>>&
+    const vector<vector<unique_ptr<Cell_on_map>>>&
         get_cells_on_mini_map() const {
         return this->cells_on_mini_map;
     }
