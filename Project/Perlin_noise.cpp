@@ -1,26 +1,30 @@
+#include "Perlin_noise.h"
+
 #include <iostream>
-#include <windows.h>
 #include <cmath>
+
+// -----------------------------------------------------------------------------
+// Globals
+// -----------------------------------------------------------------------------
+
+unsigned long long g_seed = 0;
+
+int WIDTH = 100;
+int HEIGHT = 100;
+float SCALE = 15.0f;
+
+BITMAPINFO bitmapInfo;
+unsigned char* pixels = nullptr;
 
 // -----------------------------------------------------------------------------
 // Perlin Noise
 // -----------------------------------------------------------------------------
-
-typedef struct
-{
-    float x, y;
-} vector2;
-
-// Global seed
-unsigned long long g_seed = 0;
-unsigned long long r_seed = 0;
 
 vector2 randomGradient(int ix, int iy)
 {
     const unsigned w = 8 * sizeof(unsigned);
     const unsigned s = w / 2;
 
-    // Mix seed into coordinates
     unsigned a = (unsigned)(ix + g_seed);
     unsigned b = (unsigned)(iy + (g_seed >> 32));
 
@@ -32,7 +36,6 @@ vector2 randomGradient(int ix, int iy)
     a ^= b << s | b >> (w - s);
     a *= 2048419325u;
 
-    // Convert to angle [0, 2PI]
     float random = a * (6.28318530718f / 4294967295.0f);
 
     vector2 v;
@@ -50,7 +53,7 @@ float dotGridGradient(int ix, int iy, float x, float y)
     float dx = x - (float)ix;
     float dy = y - (float)iy;
 
-    return (dx * gradient.x + dy * gradient.y);
+    return dx * gradient.x + dy * gradient.y;
 }
 
 float interpolate(float a0, float a1, float w)
@@ -83,19 +86,7 @@ float perlin(float x, float y)
 }
 
 // -----------------------------------------------------------------------------
-// Globals
-// -----------------------------------------------------------------------------
-
-int WIDTH = 100;
-int HEIGHT = 100;
-float SCALE = 15.0f;
-int NUMBER_OF_OBJECTS = 6;
-
-BITMAPINFO bitmapInfo;
-unsigned char* pixels = nullptr;
-
-// -----------------------------------------------------------------------------
-// Generate Noise Texture
+// Generate Noise
 // -----------------------------------------------------------------------------
 
 void GenerateNoise()
@@ -109,76 +100,37 @@ void GenerateNoise()
             int index = (y * WIDTH + x) * 4;
 
             float value = 0.0f;
+
             float freq = 1.0f;
             float amp = 1.0f;
-            // Octaves
+
             for (int i = 0; i < 6; i++)
             {
                 value += perlin(
                     x * freq / SCALE,
                     y * freq / SCALE
                 ) * amp;
+
                 freq *= 2.0f;
                 amp *= 0.5f;
             }
-            // Contrast
-            //value *= 1.2f;
+
             value *= 2.3f;
 
-            //float value = 0.0f;
-
-            //float freq = 1.0f;
-            //float amp = 1.0f;
-
-            //float maxValue = 0.0f;
-
-            //for (int i = 0; i < 6; i++)
-            //{
-            //    value += perlin(
-            //        x * freq / SCALE,
-            //        y * freq / SCALE
-            //    ) * amp;
-
-            //    maxValue += amp;
-
-            //    freq *= 2.0f;
-            //    amp *= 0.5f;
-            //}
-
-            //// Normalize to [-1,1]
-            //value /= maxValue;
-
-            //std::cout << value << "\t";
-
-            // Clamp
             if (value > 1.0f)
                 value = 1.0f;
 
             if (value < -1.0f)
                 value = -1.0f;
 
-            //int color = (int)(((value + 1.0f) * 0.5f) * 255.0f);
-
-            // BGRA
-            /*pixels[index + 0] = color;
-            pixels[index + 1] = color;
-            pixels[index + 2] = color;
-            pixels[index + 3] = 255;*/
-
-            // Convert value from [-1,1] to [-255,255]
             int terrainValue = (int)(value * 255.0f);
 
-            // Default color
             unsigned char r = 0;
             unsigned char g = 0;
             unsigned char b = 0;
 
-            // --------------------------------------------------
-            // TERRAIN COLOR RANGES
-            // --------------------------------------------------
-
             // Deep water
-            if (terrainValue >= -255 && terrainValue <= -200)
+            if (terrainValue <= -200)
             {
                 r = 0;
                 g = 0;
@@ -186,7 +138,7 @@ void GenerateNoise()
             }
 
             // Water
-            else if (terrainValue >= -199 && terrainValue <= -50)
+            else if (terrainValue <= -50)
             {
                 r = 30;
                 g = 100;
@@ -194,7 +146,7 @@ void GenerateNoise()
             }
 
             // Ground
-            else if (terrainValue >= -49 && terrainValue <= 70)
+            else if (terrainValue <= 70)
             {
                 r = 120;
                 g = 200;
@@ -202,7 +154,7 @@ void GenerateNoise()
             }
 
             // Forest
-            else if (terrainValue >= 71 && terrainValue <= 220)
+            else if (terrainValue <= 220)
             {
                 r = 20;
                 g = 120;
@@ -210,72 +162,27 @@ void GenerateNoise()
             }
 
             // Mountain
-            else if (terrainValue >= 221 && terrainValue <= 255)
+            else
             {
                 r = 140;
                 g = 140;
                 b = 140;
             }
 
-            // BGRA format
             pixels[index + 0] = b;
             pixels[index + 1] = g;
             pixels[index + 2] = r;
             pixels[index + 3] = 255;
-            
-           
         }
     }
-
-    //for (int x = 0; x < WIDTH; x++) {
-    //    for (int y = 0; y < HEIGHT; y++) {
-    //        int index = (y * WIDTH + x) * 4;
-    //        std::cout << (int)pixels[index] << "\t";
-    //    }
-    //    std::cout << std::endl;
-    //}
-    //std::cout << std::endl;
-    //for (int x = 0; x < WIDTH; x++) {
-    //    for (int y = 0; y < HEIGHT; y++) {
-    //        int index = (y * WIDTH + x) * 4;
-    //        float number = (((int)pixels[index] - 127) / (float)255) * (float)NUMBER_OF_OBJECTS;
-    //        int cropped_number = round(number);
-    //        std::cout << cropped_number << "\t";
-    //    }
-    //    std::cout << std::endl;
-    //}
-    //std::cout << std::endl;
-    //for (int x = 0; x < WIDTH; x++) {
-    //    for (int y = 0; y < HEIGHT; y++) {
-    //        int index = (y * WIDTH + x) * 4;
-    //        float number = (((int)pixels[index] - 127) / (float)255) * (float)NUMBER_OF_OBJECTS;
-    //        int cropped_number = round(number);
-    //        if (cropped_number == -3 || cropped_number == -2) {
-    //            std::cout << "d_water" << "\t";
-    //        }
-    //        if (cropped_number == -1) {
-    //            std::cout << "water" << "\t";
-    //        }
-    //        if (cropped_number == 0) {
-    //            std::cout << "ground" << "\t";
-    //        }
-    //        if (cropped_number == 1) {
-    //            std::cout << "forest" << "\t";
-    //        }
-    //        if (cropped_number == 2) {
-    //            std::cout << "mountain" << "\t";
-    //        }
-    //        //std::cout << cropped_number << "\t";
-    //    }
-    //    std::cout << std::endl;
-    //}
 }
 
 // -----------------------------------------------------------------------------
 // Window Procedure
 // -----------------------------------------------------------------------------
 
-LRESULT CALLBACK WindowProc(HWND hwnd,
+LRESULT CALLBACK WindowProc(
+    HWND hwnd,
     UINT msg,
     WPARAM wParam,
     LPARAM lParam)
@@ -323,13 +230,18 @@ LRESULT CALLBACK WindowProc(HWND hwnd,
 // Run Window
 // -----------------------------------------------------------------------------
 
-void RunPerlinWindow(unsigned long long seed, unsigned int width, unsigned int height, float scale)
+void RunPerlinWindow(
+    unsigned long long seed,
+    unsigned int width,
+    unsigned int height,
+    float scale)
 {
-    // Store seed globally
     g_seed = seed;
+
     WIDTH = width;
     HEIGHT = height;
     SCALE = scale;
+
     GenerateNoise();
 
     ZeroMemory(&bitmapInfo, sizeof(bitmapInfo));
