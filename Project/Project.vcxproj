@@ -131,6 +131,7 @@
     <ClCompile Include="Cell_on_map.h" />
     <ClCompile Include="City.cpp" />
     <ClCompile Include="End_of_street.h" />
+    <ClCompile Include="Map.cpp" />
     <ClCompile Include="Parameters_for_street.h" />
     <ClCompile Include="Perlin_noise.cpp" />
     <ClCompile Include="Project.cpp" />

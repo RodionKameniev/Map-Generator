@@ -1,8 +1,9 @@
 #pragma once
-#include <iostream>
-#include "Street_cluster.h"
 
-using namespace std;
+#include "Street_cluster.h"
+#include "Position.h"
+
+class Map;
 
 class Street_cluster_spawn {
 protected:
@@ -11,50 +12,34 @@ protected:
     float probability_to_spawn;
 
 public:
+    // Constructor
     Street_cluster_spawn(
         const Street_cluster* street,
-        const float probability_to_spawn
-    )
-        :
-        street(street),
-        probability_to_spawn(probability_to_spawn)
-    {
-        cout << "Street_spawn is called" << endl;
-    }
+        float probability_to_spawn
+    );
 
     // Set functions
     void set(
         const Street_cluster* street,
-        const float probability_to_spawn
-    ) {
-        this->street =
-            street;
-
-        this->probability_to_spawn =
-            probability_to_spawn;
-    }
+        float probability_to_spawn
+    );
 
     void set_street(
         const Street_cluster* street
-    ) {
-        this->street =
-            street;
-    }
+    );
 
     void set_probability_to_spawn(
-        const float probability_to_spawn
-    ) {
-        this->probability_to_spawn =
-            probability_to_spawn;
-    }
+        float probability_to_spawn
+    );
 
     // Get functions
-    const Street_cluster*
-        get_street() const {
-        return this->street;
-    }
+    const Street_cluster* get_street() const;
 
-    const float get_probability_to_spawn() const {
-        return this->probability_to_spawn;
-    }
+    float get_probability_to_spawn() const;
+
+    // Algorithms
+    bool try_to_build(
+        Map& map,
+        Position start_of_street
+    );
 };

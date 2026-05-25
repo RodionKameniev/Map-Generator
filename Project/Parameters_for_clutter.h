@@ -15,6 +15,7 @@ public:
         string_view name,
         const Type_of_clutter type_of_clutter,
         const bool is_restricted_to_cross,
+        const bool is_restricted_to_build,
         const int cost_to_cross,
         const int image_for_mini_map_id,
         const int image_for_map_id
@@ -22,6 +23,7 @@ public:
         : Parameters_base(
             name,
             is_restricted_to_cross,
+            is_restricted_to_build,
             cost_to_cross,
             image_for_mini_map_id,
             image_for_map_id
