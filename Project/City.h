@@ -132,7 +132,7 @@ public:
         get_center_of_city() const;
 
     // Algorithms
-    void create_streets(
-        Map& map
-    );
+    void create_streets(Map& map);
+
+    void create_buildings(Map& map);
 };

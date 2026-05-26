@@ -248,3 +248,35 @@ void City::create_streets(Map& map) {
         
     }
 }
+void City::create_buildings(Map& map) {
+    random_device rd;
+
+    mt19937 gen(rd());
+
+    vector<Building_cluster_spawn> candidates = this->get_buildings_probability_to_spawn();
+
+    bool is_chosen = false;
+
+    Building_cluster_spawn chosen = candidates[0];
+
+    while (!candidates.empty() && !is_chosen) {
+
+        vector<float> weights;
+
+        for (const auto& s : candidates) {
+            weights.push_back(s.get_probability_to_spawn());
+        }
+
+        discrete_distribution<> dist(weights.begin(), weights.end());
+
+        int index = dist(gen);
+
+        chosen = candidates[index];
+
+       // is_chosen = chosen.try_to_build(map, current_start_of_street);
+
+        if (!is_chosen) {
+            candidates.erase(candidates.begin() + index);
+        }
+    }
+}
