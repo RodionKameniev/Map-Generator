@@ -189,10 +189,11 @@ City::get_center_of_city() const {
 void City::create_streets(
     Map& map
 ) {
-
     random_device rd;
 
     mt19937 gen(rd());
+
+    start_of_streets.push(this->get_center_of_city());
 
     while (start_of_streets.size() != 0) {
 
