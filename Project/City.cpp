@@ -11,6 +11,7 @@ using namespace std;
 
 queue<Position> start_of_streets;
 set<pair<double, Position>> place_for_buildings;
+vector<Position> end_of_streets;
 
 // Constructor
 City::City(
@@ -198,6 +199,15 @@ void City::create_streets(Map& map) {
         Position current_start_of_street = start_of_streets.front();
 
         start_of_streets.pop();
+        
+        if ((current_start_of_street.get_on_x() > this->center_of_city.get_on_x() + this->get_parameters().get_for_mini_map().get_size_x() / 2)
+            || (current_start_of_street.get_on_x() < this->center_of_city.get_on_x() - this->get_parameters().get_for_mini_map().get_size_x() / 2)
+            || (current_start_of_street.get_on_y() > this->center_of_city.get_on_y() + this->get_parameters().get_for_mini_map().get_size_y() / 2)
+            || (current_start_of_street.get_on_y() < this->center_of_city.get_on_y() + this->get_parameters().get_for_mini_map().get_size_y() / 2)) {
+
+            end_of_streets.push_back(current_start_of_street);
+            continue;
+        }
 
         vector<Street_cluster_spawn> candidates = this->get_streets_probability_to_spawn();
 
