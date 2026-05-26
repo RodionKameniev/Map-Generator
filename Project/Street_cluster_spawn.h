@@ -1,7 +1,10 @@
 #pragma once
 
+#include <set>
+
 #include "Street_cluster.h"
 #include "Position.h"
+#include "Map.h"
 
 class Map;
 
@@ -19,7 +22,7 @@ public:
     );
 
     // Set functions
-    void set(
+    void set_all(
         const Street_cluster* street,
         float probability_to_spawn
     );
@@ -38,15 +41,11 @@ public:
     float get_probability_to_spawn() const;
 
     // Algorithms
-    bool try_to_build(
-        Map& map,
-        Position start_of_street
-    );
-    vector<Position> create_next_street_pos(
-        Position start_of_street
-    );
-    void build_street(
-        Map& map,
-        Position start_of_street
-    );
+    bool try_to_build(Map& map, Position start_of_street);
+
+    vector<Position> create_next_street_pos(Position start_of_street);
+
+    void build_street(Map& map, Position start_of_street);
+
+    set<pair<double, Position>> get_places_for_building(Map& map, Position start_of_street, Position center_of_city);
 };

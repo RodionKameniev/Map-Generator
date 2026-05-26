@@ -10,7 +10,7 @@
 using namespace std;
 
 queue<Position> start_of_streets;
-set<pair<float, Position>> place_for_buildings;
+set<pair<double, Position>> place_for_buildings;
 
 // Constructor
 City::City(
@@ -55,7 +55,7 @@ City::City(
 }
 
 // Set functions
-void City::set(
+void City::set_all(
     const vector<Building_cluster>&
     buildings,
 
@@ -186,9 +186,7 @@ City::get_center_of_city() const {
 }
 
 // Algorithms
-void City::create_streets(
-    Map& map
-) {
+void City::create_streets(Map& map) {
     random_device rd;
 
     mt19937 gen(rd());
@@ -231,6 +229,10 @@ void City::create_streets(
             vector<Position> next_start_of_streets = chosen.create_next_street_pos(current_start_of_street);
             for (int i = 0; i < next_start_of_streets.size(); i++) {
                 start_of_streets.push(next_start_of_streets[i]);
+            }
+            set<pair<double, Position>> places = chosen.get_places_for_building(map, current_start_of_street, this->get_center_of_city());
+            for (auto& el : places) {
+                place_for_buildings.insert(el);
             }
         }
         

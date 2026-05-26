@@ -54,7 +54,7 @@ public:
     );
 
     // Set functions
-    void set(
+    void set_all(
         const std::vector<
         Building_cluster
         >& buildings,
