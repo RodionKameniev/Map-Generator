@@ -150,7 +150,7 @@ void Street_cluster_spawn::build_street(Map& map, Position start_of_street) {
         int shifted_y = shifted_pos.get_on_y();
 
         /*Cell_on_map* cell = map.get_cells_on_mini_map()[shifted_x][shifted_y].get()->set_type_of_object();*/
-        //implement building
+        //implement building of street
     }
 }
 

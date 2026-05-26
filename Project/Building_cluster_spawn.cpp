@@ -60,3 +60,78 @@ using namespace std;
     const float Building_cluster_spawn::get_probability_to_spawn() const {
         return this->probability_to_spawn;
     }
+
+    //Algorithms
+
+    bool Building_cluster_spawn::try_to_build(Map& map, Position place) {
+        for (int i = 0; i < this->get_building()->get_building_components().size(); i++) {
+
+            Position shifted_pos = this->get_building()->get_building_components()[i].get_shifted_position();
+
+            shifted_pos.set_on_x(shifted_pos.get_on_x() + place.get_on_x());
+            shifted_pos.set_on_y(shifted_pos.get_on_y() + place.get_on_y());
+            int shifted_x = shifted_pos.get_on_x();
+            int shifted_y = shifted_pos.get_on_y();
+
+            Cell_on_map* cell = map.get_cells_on_mini_map()[shifted_x][shifted_y].get();
+
+            // Road
+            if (dynamic_cast<Road_on_map*>(cell)) {
+                Road_on_map* road = dynamic_cast<Road_on_map*>(cell);
+                const Parameters_for_road* params = road->get_road_to_be_placed();
+
+                if (params->get_is_restricted_to_build()) {
+                    return false;
+                }
+            }
+
+            // Clutter
+            if (dynamic_cast<Clutter_on_map*>(cell)) {
+                Clutter_on_map* clutter = dynamic_cast<Clutter_on_map*>(cell);
+
+                const Parameters_for_clutter* params = clutter->get_clutter_to_be_placed();
+
+                if (params->get_is_restricted_to_build()) {
+                    return false;
+                }
+            }
+
+            // Building
+            if (dynamic_cast<Building_on_map*>(cell)) {
+                Building_on_map* building = dynamic_cast<Building_on_map*>(cell);
+                const Parameters_for_building* params = building->get_building_to_be_placed();
+
+                if (params->get_is_restricted_to_build()) {
+                    return false;
+                }
+            }
+
+            // Street
+            if (dynamic_cast<Street_on_map*>(cell)) {
+                Street_on_map* street = dynamic_cast<Street_on_map*>(cell);
+                const Parameters_for_street* params = street->get_street_to_be_placed();
+
+                if (params->get_is_restricted_to_build()) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
+    void Building_cluster_spawn::build_building(Map& map, Position place) {
+        //Changing cells to buildings
+        for (int i = 0; i < this->get_building()->get_building_components().size(); i++) {
+
+            Position shifted_pos = this->get_building()->get_building_components()[i].get_shifted_position();
+
+            shifted_pos.set_on_x(shifted_pos.get_on_x() + place.get_on_x());
+            shifted_pos.set_on_y(shifted_pos.get_on_y() + place.get_on_y());
+            int shifted_x = shifted_pos.get_on_x();
+            int shifted_y = shifted_pos.get_on_y();
+
+            /*Cell_on_map* cell = map.get_cells_on_mini_map()[shifted_x][shifted_y].get()->set_type_of_object();*/
+            //implement building of building
+        }
+    }

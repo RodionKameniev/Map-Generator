@@ -252,31 +252,37 @@ void City::create_buildings(Map& map) {
     random_device rd;
 
     mt19937 gen(rd());
+    for(auto& current_place : place_for_buildings){
 
-    vector<Building_cluster_spawn> candidates = this->get_buildings_probability_to_spawn();
+        vector<Building_cluster_spawn> candidates = this->get_buildings_probability_to_spawn();
 
-    bool is_chosen = false;
+        bool is_chosen = false;
 
-    Building_cluster_spawn chosen = candidates[0];
+        Building_cluster_spawn chosen = candidates[0];
 
-    while (!candidates.empty() && !is_chosen) {
+        while (!candidates.empty() && !is_chosen) {
 
-        vector<float> weights;
+            vector<float> weights;
 
-        for (const auto& s : candidates) {
-            weights.push_back(s.get_probability_to_spawn());
+            for (const auto& s : candidates) {
+                weights.push_back(s.get_probability_to_spawn());
+            }
+
+            discrete_distribution<> dist(weights.begin(), weights.end());
+
+            int index = dist(gen);
+
+            chosen = candidates[index];
+
+            is_chosen = chosen.try_to_build(map, current_place.second);
+
+            if (!is_chosen) {
+                candidates.erase(candidates.begin() + index);
+            }
         }
-
-        discrete_distribution<> dist(weights.begin(), weights.end());
-
-        int index = dist(gen);
-
-        chosen = candidates[index];
-
-       // is_chosen = chosen.try_to_build(map, current_start_of_street);
-
-        if (!is_chosen) {
-            candidates.erase(candidates.begin() + index);
+        if (is_chosen) {
+           // chosen.build_building(map, current_place);
+            
         }
     }
 }

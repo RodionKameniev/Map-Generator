@@ -1,8 +1,13 @@
 #pragma once
 #include <iostream>
+
 #include "Building_cluster.h"
+#include "Position.h"
+#include "Map.h"
 
 using namespace std;
+
+class Map;
 
 class Building_cluster_spawn {
 protected:
@@ -35,4 +40,10 @@ public:
         get_building() const;
 
     const float get_probability_to_spawn() const;
+
+
+    //Algoritms
+    bool try_to_build(Map& map, Position place);
+    
+    void build_building(Map& map, Position place);
 };
