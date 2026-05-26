@@ -131,7 +131,6 @@ using namespace std;
             int shifted_x = shifted_pos.get_on_x();
             int shifted_y = shifted_pos.get_on_y();
 
-            /*Cell_on_map* cell = map.get_cells_on_mini_map()[shifted_x][shifted_y].get()->set_type_of_object();*/
-            //implement building of building
+            map.get_cells_on_mini_map()[shifted_x][shifted_y] = make_unique<Building_on_map>(shifted_pos, this->get_building()->get_building_components()[i].get_building_part(), Direction::None, this->get_probability_to_spawn());
         }
     }

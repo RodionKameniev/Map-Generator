@@ -140,6 +140,14 @@ const vector<
 Map::get_cells_on_mini_map() const {
     return this->cells_on_mini_map;
 }
+vector<
+    vector<
+    unique_ptr<Cell_on_map>
+    >
+>&
+Map::get_cells_on_mini_map(){
+    return this->cells_on_mini_map;
+}
 
 const vector<City*>&
 Map::get_cities() const {

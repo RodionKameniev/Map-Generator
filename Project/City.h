@@ -135,4 +135,6 @@ public:
     void create_streets(Map& map);
 
     void create_buildings(Map& map);
+
+    void create_city(Map& map);
 };

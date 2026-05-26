@@ -286,3 +286,7 @@ void City::create_buildings(Map& map) {
         }
     }
 }
+void City::create_city(Map& map) {
+    this->create_streets(map);
+    this->create_buildings(map);
+}
