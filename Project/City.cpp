@@ -281,7 +281,7 @@ void City::create_buildings(Map& map) {
             }
         }
         if (is_chosen) {
-           // chosen.build_building(map, current_place);
+           chosen.build_building(map, current_place.second);
             
         }
     }
