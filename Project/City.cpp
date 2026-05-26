@@ -203,7 +203,7 @@ void City::create_streets(Map& map) {
         if ((current_start_of_street.get_on_x() > this->center_of_city.get_on_x() + this->get_parameters().get_for_mini_map().get_size_x() / 2)
             || (current_start_of_street.get_on_x() < this->center_of_city.get_on_x() - this->get_parameters().get_for_mini_map().get_size_x() / 2)
             || (current_start_of_street.get_on_y() > this->center_of_city.get_on_y() + this->get_parameters().get_for_mini_map().get_size_y() / 2)
-            || (current_start_of_street.get_on_y() < this->center_of_city.get_on_y() + this->get_parameters().get_for_mini_map().get_size_y() / 2)) {
+            || (current_start_of_street.get_on_y() < this->center_of_city.get_on_y() - this->get_parameters().get_for_mini_map().get_size_y() / 2)) {
 
             end_of_streets.push_back(current_start_of_street);
             continue;
