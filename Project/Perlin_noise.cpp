@@ -288,7 +288,7 @@ void RunPerlinWindow(
     {
         for (int x = 0; x < WIDTH; x++)
         {
-            //int index = (y * WIDTH + x) * 4;
+            int index = (y * WIDTH + x) * 4;
             int index_second = (y * WIDTH + x);
             int terrainValue = pixels_ground.second[index_second] + pixels_river.second[index_second];
             if(x < WIDTH - 1){ // Baer–Babinet law https://en.wikipedia.org/wiki/Baer%E2%80%93Babinet_law
