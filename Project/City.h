@@ -54,7 +54,7 @@ public:
     );
 
     // Set functions
-    void set(
+    void set_all(
         const std::vector<
         Building_cluster
         >& buildings,
@@ -132,7 +132,9 @@ public:
         get_center_of_city() const;
 
     // Algorithms
-    void create_streets(
-        Map& map
-    );
+    void create_streets(Map& map);
+
+    void create_buildings(Map& map);
+
+    void create_city(Map& map);
 };

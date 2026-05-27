@@ -10,7 +10,8 @@
 using namespace std;
 
 queue<Position> start_of_streets;
-set<pair<float, Position>> place_for_buildings;
+set<pair<double, Position>> place_for_buildings;
+vector<Position> end_of_streets;
 
 // Constructor
 City::City(
@@ -55,7 +56,7 @@ City::City(
 }
 
 // Set functions
-void City::set(
+void City::set_all(
     const vector<Building_cluster>&
     buildings,
 
@@ -186,19 +187,27 @@ City::get_center_of_city() const {
 }
 
 // Algorithms
-void City::create_streets(
-    Map& map
-) {
-
+void City::create_streets(Map& map) {
     random_device rd;
 
     mt19937 gen(rd());
+
+    start_of_streets.push(this->get_center_of_city());
 
     while (start_of_streets.size() != 0) {
 
         Position current_start_of_street = start_of_streets.front();
 
         start_of_streets.pop();
+        
+        if ((current_start_of_street.get_on_x() > this->center_of_city.get_on_x() + this->get_parameters().get_for_mini_map().get_size_x() / 2)
+            || (current_start_of_street.get_on_x() < this->center_of_city.get_on_x() - this->get_parameters().get_for_mini_map().get_size_x() / 2)
+            || (current_start_of_street.get_on_y() > this->center_of_city.get_on_y() + this->get_parameters().get_for_mini_map().get_size_y() / 2)
+            || (current_start_of_street.get_on_y() < this->center_of_city.get_on_y() - this->get_parameters().get_for_mini_map().get_size_y() / 2)) {
+
+            end_of_streets.push_back(current_start_of_street);
+            continue;
+        }
 
         vector<Street_cluster_spawn> candidates = this->get_streets_probability_to_spawn();
 
@@ -231,7 +240,53 @@ void City::create_streets(
             for (int i = 0; i < next_start_of_streets.size(); i++) {
                 start_of_streets.push(next_start_of_streets[i]);
             }
+            set<pair<double, Position>> places = chosen.get_places_for_building(map, current_start_of_street, this->get_center_of_city());
+            for (auto& el : places) {
+                place_for_buildings.insert(el);
+            }
         }
         
     }
+}
+void City::create_buildings(Map& map) {
+    random_device rd;
+
+    mt19937 gen(rd());
+    for(auto& current_place : place_for_buildings){
+
+        vector<Building_cluster_spawn> candidates = this->get_buildings_probability_to_spawn();
+
+        bool is_chosen = false;
+
+        Building_cluster_spawn chosen = candidates[0];
+
+        while (!candidates.empty() && !is_chosen) {
+
+            vector<float> weights;
+
+            for (const auto& s : candidates) {
+                weights.push_back(s.get_probability_to_spawn());
+            }
+
+            discrete_distribution<> dist(weights.begin(), weights.end());
+
+            int index = dist(gen);
+
+            chosen = candidates[index];
+
+            is_chosen = chosen.try_to_build(map, current_place.second);
+
+            if (!is_chosen) {
+                candidates.erase(candidates.begin() + index);
+            }
+        }
+        if (is_chosen) {
+           chosen.build_building(map, current_place.second);
+            
+        }
+    }
+}
+void City::create_city(Map& map) {
+    this->create_streets(map);
+    this->create_buildings(map);
 }

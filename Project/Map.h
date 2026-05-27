@@ -96,6 +96,12 @@ public:
         >
     >&
         get_cells_on_mini_map() const;
+    std::vector<
+        std::vector<
+        std::unique_ptr<Cell_on_map>
+        >
+    >&
+        get_cells_on_mini_map();
 
     const std::vector<City*>&
         get_cities() const;

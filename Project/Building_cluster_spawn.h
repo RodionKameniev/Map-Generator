@@ -1,8 +1,13 @@
 #pragma once
 #include <iostream>
+
 #include "Building_cluster.h"
+#include "Position.h"
+#include "Map.h"
 
 using namespace std;
+
+class Map;
 
 class Building_cluster_spawn {
 protected:
@@ -14,47 +19,31 @@ public:
     Building_cluster_spawn(
         const Building_cluster* building,
         const float probability_to_spawn
-    )
-        :
-        building(building),
-        probability_to_spawn(probability_to_spawn)
-    {
-        cout << "Building_cluster_spawn is called" << endl;
-    }
+    );
 
     // Set functions
-    void set(
+    void set_all(
         const Building_cluster* building,
         const float probability_to_spawn
-    ) {
-        this->building =
-            building;
-
-        this->probability_to_spawn =
-            probability_to_spawn;
-    }
+    );
 
     void set_building(
         const Building_cluster* building
-    ) {
-        this->building =
-            building;
-    }
+    );
 
     void set_probability_to_spawn(
         const float probability_to_spawn
-    ) {
-        this->probability_to_spawn =
-            probability_to_spawn;
-    }
+    );
 
     // Get functions
     const Building_cluster*
-        get_building() const {
-        return this->building;
-    }
+        get_building() const;
 
-    const float get_probability_to_spawn() const {
-        return this->probability_to_spawn;
-    }
+    const float get_probability_to_spawn() const;
+
+
+    //Algoritms
+    bool try_to_build(Map& map, Position place);
+    
+    void build_building(Map& map, Position place);
 };

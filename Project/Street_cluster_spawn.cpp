@@ -2,6 +2,9 @@
 
 #include <iostream>
 #include <vector>
+#include <set>
+#include <cmath>
+#include <memory>
 
 #include "Map.h"
 #include "Road_on_map.h"
@@ -25,7 +28,7 @@ Street_cluster_spawn::Street_cluster_spawn(
 }
 
 // Set functions
-void Street_cluster_spawn::set(
+void Street_cluster_spawn::set_all(
     const Street_cluster* street,
     float probability_to_spawn
 ) {
@@ -136,10 +139,7 @@ vector<Position> Street_cluster_spawn::create_next_street_pos(
     }
     return pos_for_next_street_shifted;
 }
-void Street_cluster_spawn::build_street(
-    Map& map,
-    Position start_of_street
-) {
+void Street_cluster_spawn::build_street(Map& map, Position start_of_street) {
     //Changing cells to streets
     for (int i = 0; i < this->get_street()->get_street_components().size(); i++) {
 
@@ -150,7 +150,84 @@ void Street_cluster_spawn::build_street(
         int shifted_x = shifted_pos.get_on_x();
         int shifted_y = shifted_pos.get_on_y();
 
-        /*Cell_on_map* cell = map.get_cells_on_mini_map()[shifted_x][shifted_y].get()->set_type_of_object();*/
-        //implement building
+        map.get_cells_on_mini_map()[shifted_x][shifted_y] = make_unique<Street_on_map>(shifted_pos, this->get_street()->get_street_components()[i].get_street_part(), vector<Direction>{}, this->get_probability_to_spawn());
     }
+}
+
+set<pair<double, Position>> Street_cluster_spawn::get_places_for_building(Map& map, Position start_of_street, Position center_of_city){
+    
+    set<pair<double, Position>> set_of_pos = set<pair<double, Position>>();
+
+    for (int i = 0; i < this->get_street()->get_street_components().size(); i++) {
+
+        Position shifted_pos = this->get_street()->get_street_components()[i].get_shifted_position();
+
+        shifted_pos.set_on_x(shifted_pos.get_on_x() + start_of_street.get_on_x() - 1);
+        shifted_pos.set_on_y(shifted_pos.get_on_y() + start_of_street.get_on_y() - 1);
+
+        int operated_x = shifted_pos.get_on_x();
+        int operated_y = shifted_pos.get_on_y();
+
+        int copy_of_operated_x = operated_x;
+        int copy_of_operated_y = operated_y;
+
+        for (int j = 0; j < 3; j++) {
+            for (int k = 0; k < 3; k++) {
+                Cell_on_map* cell = map.get_cells_on_mini_map()[operated_x][operated_y].get();
+
+                double euclidian_dist = sqrt(pow((center_of_city.get_on_x() - shifted_pos.get_on_x()), 2)
+                    + pow((center_of_city.get_on_y() - shifted_pos.get_on_y()), 2));
+
+                pair<double, Position> p = pair<double, Position>(euclidian_dist, shifted_pos);
+
+                // Road
+                if (dynamic_cast<Road_on_map*>(cell)) {
+                    Road_on_map* road = dynamic_cast<Road_on_map*>(cell);
+                    const Parameters_for_road* params = road->get_road_to_be_placed();
+
+                    if (!(params->get_is_restricted_to_build())) {
+                        set_of_pos.insert(p);
+                    }
+                }
+
+                // Clutter
+                if (dynamic_cast<Clutter_on_map*>(cell)) {
+                    Clutter_on_map* clutter = dynamic_cast<Clutter_on_map*>(cell);
+
+                    const Parameters_for_clutter* params = clutter->get_clutter_to_be_placed();
+
+                    if (!(params->get_is_restricted_to_build())) {
+                        set_of_pos.insert(p);
+                    }
+                }
+
+                // Building
+                if (dynamic_cast<Building_on_map*>(cell)) {
+                    Building_on_map* building = dynamic_cast<Building_on_map*>(cell);
+                    const Parameters_for_building* params = building->get_building_to_be_placed();
+
+                    if (!(params->get_is_restricted_to_build())) {
+                        set_of_pos.insert(p);
+                    }
+                }
+
+                // Street
+                if (dynamic_cast<Street_on_map*>(cell)) {
+                    Street_on_map* street = dynamic_cast<Street_on_map*>(cell);
+                    const Parameters_for_street* params = street->get_street_to_be_placed();
+
+                    if (!(params->get_is_restricted_to_build())) {
+                        set_of_pos.insert(p);
+                    }
+                }
+                operated_x += 1;
+                shifted_pos.set_on_x(operated_x);
+            }
+            operated_x = copy_of_operated_x;
+            operated_y += 1;
+            shifted_pos.set_on_x(operated_x);
+            shifted_pos.set_on_y(operated_y);
+        }
+    }
+    return set_of_pos;
 }

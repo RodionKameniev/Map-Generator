@@ -2,6 +2,7 @@
 #include <iostream>
 using namespace std;
 enum class Direction {
+	None,
 	North,
 	South,
 	East,

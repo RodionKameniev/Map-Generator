@@ -12,8 +12,6 @@ class Building_on_map : public Cell_on_map {
 protected:
     const Parameters_for_building* building_to_be_placed;
 
-    Position position_in_city;
-
     Direction direction;
 
     float base_probability_to_spawn;
@@ -22,7 +20,6 @@ public:
     Building_on_map(
         const Position& position,
         const Parameters_for_building* building_to_be_placed,
-        const Position& position_in_city,
         const Direction direction,
         const float base_probability_to_spawn
     )
@@ -32,7 +29,6 @@ public:
             Type_of_object::Building
         ),
         building_to_be_placed(building_to_be_placed),
-        position_in_city(position_in_city),
         direction(direction),
         base_probability_to_spawn(base_probability_to_spawn)
     {
@@ -43,15 +39,11 @@ public:
 
     void set(
         Parameters_for_building* building_to_be_placed,
-        const Position& position_in_city,
         const Direction direction,
         const float base_probability_to_spawn
     ) {
         this->building_to_be_placed =
             building_to_be_placed;
-
-        this->position_in_city =
-            position_in_city;
 
         this->direction =
             direction;
@@ -65,13 +57,6 @@ public:
     ) {
         this->building_to_be_placed =
             building_to_be_placed;
-    }
-
-    void set_position_in_city(
-        const Position& position_in_city
-    ) {
-        this->position_in_city =
-            position_in_city;
     }
 
     void set_direction(
@@ -93,11 +78,6 @@ public:
     const Parameters_for_building*
         get_building_to_be_placed() const {
         return this->building_to_be_placed;
-    }
-
-    const Position&
-        get_position_in_city() const {
-        return this->position_in_city;
     }
 
     const Direction get_direction() const {
