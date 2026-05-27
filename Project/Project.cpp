@@ -13,10 +13,10 @@ int main()
     cout << "TEST\n";*/
     srand(time(0));
     unsigned long long seed = rand();
-    int a = 100;
+    int a = 1000;
     float b = 100.0;
     
-    RunPerlinWindow(seed, a*10, a*10, 1.5f*b);
+    RunPerlinWindow(seed, a, a, 1.5f*b);
     
     return 0;
 }

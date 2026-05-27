@@ -95,13 +95,13 @@ float perlin(float x, float y, unsigned long long seed)
 
 std::pair<unsigned char*, int*> GenerateNoise(std::pair<unsigned char*, int*> pixels, bool is_river, float base_contrast, float contrast_for_rivers, unsigned long long seed)
 {
-    pixels.first = new unsigned char[WIDTH * HEIGHT * 4];
+    //pixels.first = new unsigned char[WIDTH * HEIGHT * 4];
     pixels.second = new int[WIDTH * HEIGHT];
     for (int y = 0; y < HEIGHT; y++)
     {
         for (int x = 0; x < WIDTH; x++)
         {
-            int index = (y * WIDTH + x) * 4;
+            //int index = (y * WIDTH + x) * 4;
             int index_second = (y * WIDTH + x);
 
             float value = 0.0f;
@@ -156,55 +156,51 @@ std::pair<unsigned char*, int*> GenerateNoise(std::pair<unsigned char*, int*> pi
                 }*/
             }
 
-            unsigned char r = 0;
-            unsigned char g = 0;
-            unsigned char b = 0;
+            //unsigned char r = 0;
+            //unsigned char g = 0;
+            //unsigned char b = 0;
 
-            // Deep Water
-            if (terrainValue <= -200) // -200
-            {
-                //std::cout << terrainValue;
-                r = 0;
-                g = 0;
-                b = 80;
-            }
+            //// Deep Water
+            //if (terrainValue <= -200) // -200
+            //{
+            //    //std::cout << terrainValue;
+            //    r = 0;
+            //    g = 0;
+            //    b = 80;
+            //}
+            //// Water
+            //else if (terrainValue <= -50) //-50
+            //{
+            //    r = 30;
+            //    g = 100;
+            //    b = 220;
+            //}
+            //// Ground
+            //else if (terrainValue <= 150) // 70
+            //{
+            //    r = 120;
+            //    g = 200;
+            //    b = 80;
+            //}
+            //// Forest
+            //else if (terrainValue <= 220)
+            //{
+            //    r = 20;
+            //    g = 120;
+            //    b = 20;
+            //}
+            //// Mountain
+            //else
+            //{
+            //    r = 140;
+            //    g = 140;
+            //    b = 140;
+            //}
+            //pixels.first[index + 0] = b;
+            //pixels.first[index + 1] = g;
+            //pixels.first[index + 2] = r;
+            //pixels.first[index + 3] = 255;
 
-            // Water
-            else if (terrainValue <= -50) //-50
-            {
-                r = 30;
-                g = 100;
-                b = 220;
-            }
-
-            // Ground
-            else if (terrainValue <= 150) // 70
-            {
-                r = 120;
-                g = 200;
-                b = 80;
-            }
-
-            // Forest
-            else if (terrainValue <= 220)
-            {
-                r = 20;
-                g = 120;
-                b = 20;
-            }
-
-            // Mountain
-            else
-            {
-                r = 140;
-                g = 140;
-                b = 140;
-            }
-
-            pixels.first[index + 0] = b;
-            pixels.first[index + 1] = g;
-            pixels.first[index + 2] = r;
-            pixels.first[index + 3] = 255;
             pixels.second[index_second] = terrainValue;
         }
     }
@@ -285,17 +281,19 @@ void RunPerlinWindow(
 
     pixels_ground = GenerateNoise(pixels_ground, false, 2.3f, 10.8f, seed);
 
-    pixels_river = GenerateNoise(pixels_ground, true, 2.3f, 10.8f, seed << 32);
+    pixels_river = GenerateNoise(pixels_ground, true, 2.3f, 10.8f, seed << 16);
     pixels_to_output.first = new unsigned char[WIDTH * HEIGHT * 4];
     pixels_to_output.second = new int[WIDTH * HEIGHT * 4];
     for (int y = 0; y < HEIGHT; y++)
     {
         for (int x = 0; x < WIDTH; x++)
         {
-            int index = (y * WIDTH + x) * 4;
+            //int index = (y * WIDTH + x) * 4;
             int index_second = (y * WIDTH + x);
-
             int terrainValue = pixels_ground.second[index_second] + pixels_river.second[index_second];
+            if(x < WIDTH - 1){ // Baer–Babinet law https://en.wikipedia.org/wiki/Baer%E2%80%93Babinet_law
+                terrainValue += (scale/10000.0f)*(pixels_ground.second[index_second + 1] + pixels_river.second[index_second + 1]);
+            }
             //int terrainValue = pixels_river.second[index_second];
             unsigned char r = 0;
             unsigned char g = 0;
