@@ -109,7 +109,7 @@ std::pair<unsigned char*, int*> GenerateNoise(std::pair<unsigned char*, int*> pi
             float freq = 1.0f;
             float amp = 1.0f;
 
-            for (int i = 0; i < 6; i++)
+            for (int i = 0; i < 10; i++)
             {
                 value += perlin(
                     x * freq / SCALE,
@@ -123,16 +123,16 @@ std::pair<unsigned char*, int*> GenerateNoise(std::pair<unsigned char*, int*> pi
 
             value *= base_contrast;
 
-            if (value > 1.0f)
-                value = 1.0f;
+            if (value > 1.2f) // 1.0
+                value = 1.2f;
 
-            if (value < -1.0f)
-                value = -1.0f;
+            if (value < -1.2f) // 1.0
+                value = -1.2f;
             //int terrainValue = 0;
-            int terrainValue = (int)(value * 255.0f);
-            if (terrainValue > 255) {
+            int terrainValue = (int)(value * 280.0f); // 255
+            /*if (terrainValue > 255) {
                 terrainValue = 255;
-            }
+            }*/
             if (terrainValue >= -100 and terrainValue < 50) { // 100 // 0
                 terrainValue = 50; // 100 // 0
             }
@@ -341,11 +341,16 @@ void RunPerlinWindow(
             }
 
             // Mountain
-            else
+            else if(terrainValue <= 320) // 280 * 1.2
             {
                 r = 140;
                 g = 140;
                 b = 140;
+            }
+            else {
+                r = 180;
+                g = 180;
+                b = 180;
             }
 
             pixels_to_output.first[index + 0] = b;
