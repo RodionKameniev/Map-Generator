@@ -133,8 +133,11 @@ std::pair<unsigned char*, int*> GenerateNoise(std::pair<unsigned char*, int*> pi
             if (terrainValue > 255) {
                 terrainValue = 255;
             }
-            if (terrainValue < -200) {
-                terrainValue = -200;
+            if (terrainValue >= -100 and terrainValue < 50) { // 100 // 0
+                terrainValue = 50; // 100 // 0
+            }
+            if (terrainValue < -100) { // -200 // 0
+                terrainValue = -100; // -200 // 0
             }
             if (is_river) {
                 terrainValue = abs((int)(value * contrast_for_rivers * 255.0f))-500.0f;
@@ -144,6 +147,7 @@ std::pair<unsigned char*, int*> GenerateNoise(std::pair<unsigned char*, int*> pi
                 if (terrainValue < -300) {
                     terrainValue = -400;
                 }
+
                 /*terrainValue = abs((int)(value * contrast_for_rivers * 255.0f)) - 500.0f;
                 if (terrainValue > 0) {
                     terrainValue = 0;
