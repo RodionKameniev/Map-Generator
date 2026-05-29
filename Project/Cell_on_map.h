@@ -19,7 +19,7 @@ public:
         : position(position),
         type_of_object(type_of_object)
     {
-        cout << "Cell_on_mini_map is called" << endl;
+        //cout << "Cell_on_mini_map is called" << endl;
     }
 
     // Set functions

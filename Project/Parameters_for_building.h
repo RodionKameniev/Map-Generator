@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include "Parameters_base.h"
+#include <string>
 #include <string_view>
 #include <string>
 
@@ -12,8 +13,8 @@ public:
     Parameters_for_building(
         std::string_view name,
         const int cost,
-        const int image_for_mini_map_id,
-        const int image_for_map_id
+        const Colour image_for_mini_map_id,
+        const Colour image_for_map_id
     )
         :
         Parameters_base(

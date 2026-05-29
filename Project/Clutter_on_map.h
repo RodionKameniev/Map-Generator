@@ -27,12 +27,12 @@ public:
         clutter_to_be_placed(clutter_to_be_placed),
         direction_of_connections(direction_of_connections)
     {
-        cout << "Clutter_on_map is called" << endl;
+        //std::cout << "Clutter_on_map is called" << std::endl;
     }
 
     // Set functions
     void set(
-        Parameters_for_clutter* clutter_to_be_placed,
+        const Parameters_for_clutter* clutter_to_be_placed,
         const std::vector<Direction>& direction_of_connections,
         const float base_probability_to_spawn
     ) {
@@ -45,7 +45,7 @@ public:
     }
 
     void set_clutter_to_be_placed(
-        Parameters_for_clutter* clutter_to_be_placed
+        const Parameters_for_clutter* clutter_to_be_placed
     ) {
         this->clutter_to_be_placed =
             clutter_to_be_placed;

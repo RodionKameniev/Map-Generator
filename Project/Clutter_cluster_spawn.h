@@ -17,7 +17,7 @@ public:
         clutter(clutter),
         probability_to_spawn(probability_to_spawn)
     {
-        cout << "Clutter_cluster_spawn is called" << endl;
+        std::cout << "Clutter_cluster_spawn is called" << std::endl;
     }
 
     // Set functions

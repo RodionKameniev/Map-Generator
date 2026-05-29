@@ -18,8 +18,8 @@ public:
         clutter_part(clutter_part),
         shifted_position(shifted_position)
     {
-        cout << "Clutter_component is called"
-            << endl;
+        std::cout << "Clutter_component is called"
+            << std::endl;
     }
 
     // Set functions

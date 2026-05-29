@@ -6,6 +6,7 @@
 #include "Direction.h"
 #include "Position.h"
 
+
 class Building_on_map : public Cell_on_map {
 protected:
     const Parameters_for_building* building_to_be_placed;
@@ -30,7 +31,7 @@ public:
         direction(direction),
         base_probability_to_spawn(base_probability_to_spawn)
     {
-        cout << "Building_on_map is called" << endl;
+        std::cout << "Building_on_map is called" << std::endl;
     }
 
     // Set functions

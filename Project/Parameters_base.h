@@ -1,16 +1,18 @@
 #pragma once
 #include <iostream>
-#include <string_view>
 #include <string>
+#include <string_view>
+
+#include "Colour.h"
 
 class Parameters_base {
 protected:
-    std::string name = "";
+    std::string name;
     bool is_restricted_to_cross = false;
     bool is_restricted_to_build = false;
     int cost_to_cross = 0;
-    int image_for_mini_map_id = 0;
-    int image_for_map_id = 0;
+    Colour image_for_mini_map_id;
+    Colour image_for_map_id;
 
 public:
     Parameters_base(
@@ -18,8 +20,8 @@ public:
         const bool is_restricted_to_cross,
         const bool is_restricted_to_build,
         const int cost_to_cross,
-        const int image_for_mini_map_id,
-        const int image_for_map_id
+        const Colour& image_for_mini_map_id,
+        const Colour& image_for_map_id
     )
         : name(name),
         is_restricted_to_cross(is_restricted_to_cross),
@@ -37,8 +39,8 @@ public:
         const bool is_restricted_to_cross,
         const bool is_restricted_to_build,
         const int cost_to_cross,
-        const int image_for_mini_map_id,
-        const int image_for_map_id
+        const Colour& image_for_mini_map_id,
+        const Colour& image_for_map_id
     ) {
         this->name = name;
         this->is_restricted_to_cross = is_restricted_to_cross;
@@ -66,11 +68,11 @@ public:
     }
 
 
-    void set_image_for_mini_map_id(const int image_for_mini_map_id) {
+    void set_image_for_mini_map_id(const Colour& image_for_mini_map_id) {
         this->image_for_mini_map_id = image_for_mini_map_id;
     }
 
-    void set_image_for_map_id(const int image_for_map_id) {
+    void set_image_for_map_id(const Colour& image_for_map_id) {
         this->image_for_map_id = image_for_map_id;
     }
 
@@ -91,11 +93,11 @@ public:
         return this->cost_to_cross;
     }
 
-    const int get_image_for_mini_map_id() const {
+    const Colour& get_image_for_mini_map_id() const {
         return this->image_for_mini_map_id;
     }
 
-    const int get_image_for_map_id() const {
+    const Colour& get_image_for_map_id() const {
         return this->image_for_map_id;
     }
 };

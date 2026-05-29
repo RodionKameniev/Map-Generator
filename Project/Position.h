@@ -1,6 +1,5 @@
 #pragma once
 #include <iostream>
-using namespace std;
 
 class Position {
 protected:
@@ -10,7 +9,7 @@ protected:
 public:
     Position(const int x, const int y, const int z)
         : on_x(x), on_y(y), on_z(z) {
-        cout << "Position is called" << std::endl;
+        //cout << "Position is called" << std::endl;
     }
     bool operator<(const Position& other) const {
         return std::tie(on_x, on_y, on_z) < std::tie(other.on_x, other.on_y, other.on_z);

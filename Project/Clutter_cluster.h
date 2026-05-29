@@ -20,8 +20,8 @@ public:
             base_probability_to_spawn
         )
     {
-        cout << "Clutter_cluster is called"
-            << endl;
+        std::cout << "Clutter_cluster is called"
+            << std::endl;
     }
 
     // Set functions

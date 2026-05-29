@@ -15,7 +15,7 @@ int WIDTH = 100;
 int HEIGHT = 100;
 float SCALE = 15.0f;
 
-BITMAPINFO bitmapInfo;
+//static BITMAPINFO bitmapInfo;
 std::pair<unsigned char*, int*> pixels_ground;
 std::pair<unsigned char*, int*> pixels_river;
 std::pair<unsigned char*, int*> pixels_to_output;
@@ -215,56 +215,56 @@ std::pair<unsigned char*, int*> GenerateNoise(std::pair<unsigned char*, int*> pi
 // Window Procedure
 // -----------------------------------------------------------------------------
 
-LRESULT CALLBACK WindowProc(
-    HWND hwnd,
-    UINT msg,
-    WPARAM wParam,
-    LPARAM lParam)
-{
-    switch (msg)
-    {
-    case WM_PAINT:
-    {
-        PAINTSTRUCT ps;
-
-        HDC hdc = BeginPaint(hwnd, &ps);
-
-        StretchDIBits(
-            hdc,
-            0,
-            0,
-            WIDTH,
-            HEIGHT,
-            0,
-            0,
-            WIDTH,
-            HEIGHT,
-            pixels_to_output.first,
-            &bitmapInfo,
-            DIB_RGB_COLORS,
-            SRCCOPY
-        );
-
-        EndPaint(hwnd, &ps);
-
-        return 0;
-    }
-
-    case WM_DESTROY:
-    {
-        PostQuitMessage(0);
-        return 0;
-    }
-    }
-
-    return DefWindowProc(hwnd, msg, wParam, lParam);
-}
+//LRESULT CALLBACK WindowProc(
+//    HWND hwnd,
+//    UINT msg,
+//    WPARAM wParam,
+//    LPARAM lParam)
+//{
+//    switch (msg)
+//    {
+//    case WM_PAINT:
+//    {
+//        PAINTSTRUCT ps;
+//
+//        HDC hdc = BeginPaint(hwnd, &ps);
+//
+//        StretchDIBits(
+//            hdc,
+//            0,
+//            0,
+//            WIDTH,
+//            HEIGHT,
+//            0,
+//            0,
+//            WIDTH,
+//            HEIGHT,
+//            pixels_to_output.first,
+//            &bitmapInfo,
+//            DIB_RGB_COLORS,
+//            SRCCOPY
+//        );
+//
+//        EndPaint(hwnd, &ps);
+//
+//        return 0;
+//    }
+//
+//    case WM_DESTROY:
+//    {
+//        PostQuitMessage(0);
+//        return 0;
+//    }
+//    }
+//
+//    return DefWindowProc(hwnd, msg, wParam, lParam);
+//}
 
 // -----------------------------------------------------------------------------
 // Run Window
 // -----------------------------------------------------------------------------
 
-void RunPerlinWindow(
+int* RunPerlinWindow(
     unsigned long long seed,
     unsigned int width,
     unsigned int height,
@@ -287,7 +287,9 @@ void RunPerlinWindow(
 
     pixels_river = GenerateNoise(pixels_ground, true, 2.3f, 10.8f, seed << 16);
     pixels_to_output.first = new unsigned char[WIDTH * HEIGHT * 4];
-    pixels_to_output.second = new int[WIDTH * HEIGHT * 4];
+    pixels_to_output.second = new int[WIDTH * HEIGHT];
+    int* convolutioned_map = new int[WIDTH * HEIGHT];
+
     for (int y = 0; y < HEIGHT; y++)
     {
         for (int x = 0; x < WIDTH; x++)
@@ -309,8 +311,10 @@ void RunPerlinWindow(
 
             }
 
+            // Deep Water
             if (terrainValue <= -300) // -300
             {
+                convolutioned_map[index_second] = -2;
                 r = 0;
                 g = 0;
                 b = 80;
@@ -319,6 +323,7 @@ void RunPerlinWindow(
             // Water
             else if (terrainValue <= -150) // -100
             {
+                convolutioned_map[index_second] = -1;
                 r = 30;
                 g = 100;
                 b = 220;
@@ -327,6 +332,7 @@ void RunPerlinWindow(
             // Ground
             else if (terrainValue <= 70)
             {
+                convolutioned_map[index_second] = 0;
                 r = 120;
                 g = 200;
                 b = 80;
@@ -335,6 +341,7 @@ void RunPerlinWindow(
             // Forest
             else if (terrainValue <= 220)
             {
+                convolutioned_map[index_second] = 1;
                 r = 20;
                 g = 120;
                 b = 20;
@@ -343,11 +350,13 @@ void RunPerlinWindow(
             // Mountain
             else if(terrainValue <= 320) // 280 * 1.2
             {
+                convolutioned_map[index_second] = 2;
                 r = 140;
                 g = 140;
                 b = 140;
             }
             else {
+                convolutioned_map[index_second] = 3;
                 r = 180;
                 g = 180;
                 b = 180;
@@ -357,11 +366,11 @@ void RunPerlinWindow(
             pixels_to_output.first[index + 1] = g;
             pixels_to_output.first[index + 2] = r;
             pixels_to_output.first[index + 3] = 255;
-            pixels_to_output.second[index] = terrainValue;
+            pixels_to_output.second[index_second] = terrainValue;
         }
     }
     printf("Time taken: %.2fs\n", (double)(clock() - tStart) / CLOCKS_PER_SEC);
-    ZeroMemory(&bitmapInfo, sizeof(bitmapInfo));
+    /*ZeroMemory(&bitmapInfo, sizeof(bitmapInfo));
 
     bitmapInfo.bmiHeader.biSize = sizeof(BITMAPINFOHEADER);
     bitmapInfo.bmiHeader.biWidth = WIDTH;
@@ -405,8 +414,8 @@ void RunPerlinWindow(
     {
         TranslateMessage(&msg);
         DispatchMessage(&msg);
-    }
-
+    }*/
+    return convolutioned_map;
     delete[] pixels_to_output.first;
     delete[] pixels_to_output.second;
     delete[] pixels_river.first;

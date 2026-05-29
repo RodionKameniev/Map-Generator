@@ -5,7 +5,6 @@
 #include "Cell_on_map.h"
 #include "Direction.h"
 
-
 class Road_on_map : public Cell_on_map {
 protected:
     const Parameters_for_road* road_to_be_placed;

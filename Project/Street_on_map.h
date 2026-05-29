@@ -29,7 +29,7 @@ public:
         direction_of_connections(direction_of_connections),
         base_probability_to_spawn(base_probability_to_spawn)
     {
-        cout << "Street_in_city is called" << endl;
+        std::cout << "Street_on_map is called" << std::endl;
     }
 
     // Set functions

@@ -25,8 +25,8 @@ public:
         from_which_city(from_which_city),
         direction(direction)
     {
-        cout << "Clutter_spawn is called"
-            << endl;
+        std::cout << "Clutter_spawn is called"
+            << std::endl;
     }
 
     // Set functions

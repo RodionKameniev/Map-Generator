@@ -1,5 +1,14 @@
 #pragma once
 
+#define WIN32_LEAN_AND_MEAN
+#define NOMINMAX
+
+
+#include <windows.h>
+#include <utility>
+
+#include <stdexcept>
+
 #include <memory>
 #include <vector>
 
@@ -28,6 +37,7 @@ protected:
 
 public:
     // Constructor
+    Map();
     Map(
         const Size_dimensional& size_of_mini_map,
         const Size_dimensional& size_of_map,
@@ -110,4 +120,15 @@ public:
         Clutter_cluster_spawn
     >&
         get_clutters_probability_to_spawn() const;
+
+    void create_base_map(int* values, int height, int width);
+
+    static LRESULT CALLBACK WindowProc(
+        HWND hwnd,
+        UINT msg,
+        WPARAM wParam,
+        LPARAM lParam
+    );
+
+    void render_map();
 };
