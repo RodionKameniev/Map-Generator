@@ -3,6 +3,7 @@
 #include "Size_dimensional.h"
 #include <string>
 #include <string_view>
+#include <string>
 
 class Parameters_for_city {
 protected:
@@ -21,7 +22,7 @@ public:
         for_mini_map(city_for_mini_map),
         for_map(city_for_map)
     {
-        cout << "Parameters_for_city is called"
+        std::cout << "Parameters_for_city is called"
             << std::endl;
     }
 

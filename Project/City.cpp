@@ -4,6 +4,8 @@
 #include <queue>
 #include <random>
 #include <set>
+#include <functional>
+#include <memory>
 
 #include "Map.h"
 
@@ -187,6 +189,54 @@ City::get_center_of_city() const {
 }
 
 // Algorithms
+
+//Street_cluster* transform_street_cluster(Street_cluster* street_cluster, int param_x, int param_y){
+//    for (auto& component : street_cluster->get_street_components())
+//    {
+//        Position shifted_pos = component.get_shifted_position();
+//
+//        shifted_pos.set_on_y(shifted_pos.get_on_y() * (-1));
+//
+//        component.set_shifted_position(shifted_pos);
+//    }
+//    
+//}
+//
+//
+//vector<Street_cluster_spawn> create_all_vars_of_street(const Street_cluster_spawn& street_spawn){
+//    vector<Street_cluster_spawn> all_vars;
+//
+//    set<Street_cluster_spawn> original_vars;
+//
+//    // Original cluster
+//    const Street_cluster* original = street_spawn.get_street();
+//
+//    // Copy cluster
+//    Street_cluster* copy_cluster = new Street_cluster(*original);
+//
+//    // copy_x = x, copy_y = -y
+//    for (auto& component : copy_cluster->get_street_components())
+//    {
+//        Position shifted_pos = component.get_shifted_position();
+//
+//        shifted_pos.set_on_y(shifted_pos.get_on_y() * (-1));
+//
+//        component.set_shifted_position(shifted_pos);
+//    }
+//    Street_cluster_spawn copy_spawn(copy_cluster, street_spawn.get_probability_to_spawn());
+//
+//
+//
+//    original_vars.insert(copy_spawn);
+//    for (auto& comp : original_vars) {
+//        all_vars.push_back(comp);
+//    }
+//
+//
+//
+//    return all_vars;
+//}
+
 void City::create_streets(Map& map) {
     random_device rd;
 
@@ -244,6 +294,11 @@ void City::create_streets(Map& map) {
             for (auto& el : places) {
                 place_for_buildings.insert(el);
             }
+            int cost_to_built_street = 0;
+            for (int k = 0; k < chosen.get_street()->get_street_components().size(); k++) {
+                cost_to_built_street += chosen.get_street()->get_street_components()[k].get_street_part()->get_cost_to_build();
+            }
+            this->set_cost(this->get_cost() + cost_to_built_street);
         }
         
     }
@@ -282,11 +337,23 @@ void City::create_buildings(Map& map) {
         }
         if (is_chosen) {
            chosen.build_building(map, current_place.second);
-            
+           vector<Building_cluster> build = this->get_buildings();
+           build.push_back(*chosen.get_building());
+           this->set_buildings(build);
         }
     }
 }
+
 void City::create_city(Map& map) {
     this->create_streets(map);
     this->create_buildings(map);
+    calculate_cost();
+}
+
+void City::calculate_cost() {
+    int tot_cost_of_buildings = 0;
+    for (int i = 0; i < this->get_buildings().size(); i++) {
+        tot_cost_of_buildings += this->get_buildings()[i].get_cost_of_building();
+    }
+    this->set_cost(this->get_cost() + tot_cost_of_buildings);
 }

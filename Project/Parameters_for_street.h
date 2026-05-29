@@ -2,7 +2,7 @@
 #include <iostream>
 #include <string_view>
 #include "Parameters_base.h"
-using namespace std;
+#include <string>
 
 class Parameters_for_street : public Parameters_base {
 protected:
@@ -28,7 +28,7 @@ public:
         ),
         cost_to_build(cost_to_build)
     {
-        cout << "Parameters_for_street is called" << endl;
+        std::cout << "Parameters_for_street is called" << std::endl;
     }
 
     // Set functions

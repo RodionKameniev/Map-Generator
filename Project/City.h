@@ -137,4 +137,6 @@ public:
     void create_buildings(Map& map);
 
     void create_city(Map& map);
+
+    void calculate_cost();
 };

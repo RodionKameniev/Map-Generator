@@ -5,6 +5,7 @@
 #include "Direction.h"
 #include "Position.h"
 
+
 class End_of_street {
 protected:
     Position position;

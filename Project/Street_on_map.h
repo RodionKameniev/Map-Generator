@@ -75,7 +75,7 @@ public:
         return this->street_to_be_placed;
     }
 
-    const vector<Direction>&
+    const std::vector<Direction>&
         get_direction_of_connections() const {
         return this->direction_of_connections;
     }
