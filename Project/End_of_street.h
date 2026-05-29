@@ -5,8 +5,6 @@
 #include "Direction.h"
 #include "Position.h"
 
-using namespace std;
-
 class End_of_street {
 protected:
     Position position;
@@ -26,8 +24,8 @@ public:
         from_which_city(from_which_city),
         direction(direction)
     {
-        cout << "Clutter_spawn is called"
-            << endl;
+        std::cout << "Clutter_spawn is called"
+            << std::endl;
     }
 
     // Set functions

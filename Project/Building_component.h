@@ -4,8 +4,6 @@
 #include "Parameters_for_building.h"
 #include "Position.h"
 
-using namespace std;
-
 class Building_component {
 protected:
     const Parameters_for_building* building_part;
@@ -21,8 +19,8 @@ public:
         building_part(building_part),
         shifted_position(shifted_position)
     {
-        cout << "Building_component is called"
-            << endl;
+        std::cout << "Building_component is called"
+            << std::endl;
     }
 
     // Set functions

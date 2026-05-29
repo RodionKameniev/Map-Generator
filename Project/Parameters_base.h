@@ -1,25 +1,27 @@
 #pragma once
 #include <iostream>
+#include <string>
 #include <string_view>
-using namespace std;
+
+#include "Colour.h"
 
 class Parameters_base {
 protected:
-    string name = "";
+    std::string name;
     bool is_restricted_to_cross = false;
     bool is_restricted_to_build = false;
     int cost_to_cross = 0;
-    int image_for_mini_map_id = 0;
-    int image_for_map_id = 0;
+    Colour image_for_mini_map_id;
+    Colour image_for_map_id;
 
 public:
     Parameters_base(
-        string_view name,
+        std::string_view name,
         const bool is_restricted_to_cross,
         const bool is_restricted_to_build,
         const int cost_to_cross,
-        const int image_for_mini_map_id,
-        const int image_for_map_id
+        const Colour& image_for_mini_map_id,
+        const Colour& image_for_map_id
     )
         : name(name),
         is_restricted_to_cross(is_restricted_to_cross),
@@ -28,17 +30,17 @@ public:
         image_for_mini_map_id(image_for_mini_map_id),
         image_for_map_id(image_for_map_id) {
 
-        cout << "Parameters_base is called" << endl;
+        std::cout << "Parameters_base is called" << std::endl;
     }
 
     // Set functions
     void set(
-        string_view name,
+        std::string_view name,
         const bool is_restricted_to_cross,
         const bool is_restricted_to_build,
         const int cost_to_cross,
-        const int image_for_mini_map_id,
-        const int image_for_map_id
+        const Colour& image_for_mini_map_id,
+        const Colour& image_for_map_id
     ) {
         this->name = name;
         this->is_restricted_to_cross = is_restricted_to_cross;
@@ -48,7 +50,7 @@ public:
         this->image_for_map_id = image_for_map_id;
     }
 
-    void set_name(string_view name) {
+    void set_name(std::string_view name) {
         this->name = name;
     }
 
@@ -66,16 +68,16 @@ public:
     }
 
 
-    void set_image_for_mini_map_id(const int image_for_mini_map_id) {
+    void set_image_for_mini_map_id(const Colour& image_for_mini_map_id) {
         this->image_for_mini_map_id = image_for_mini_map_id;
     }
 
-    void set_image_for_map_id(const int image_for_map_id) {
+    void set_image_for_map_id(const Colour& image_for_map_id) {
         this->image_for_map_id = image_for_map_id;
     }
 
     // Get functions
-    const string& get_name() const {
+    const std::string& get_name() const {
         return this->name;
     }
 
@@ -91,11 +93,11 @@ public:
         return this->cost_to_cross;
     }
 
-    const int get_image_for_mini_map_id() const {
+    const Colour& get_image_for_mini_map_id() const {
         return this->image_for_mini_map_id;
     }
 
-    const int get_image_for_map_id() const {
+    const Colour& get_image_for_map_id() const {
         return this->image_for_map_id;
     }
 };

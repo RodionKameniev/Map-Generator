@@ -5,20 +5,18 @@
 #include "Street_component.h"
 #include "Position.h"
 
-using namespace std;
-
 class Street_cluster {
 protected:
-    vector<Street_component> street_components;
+    std::vector<Street_component> street_components;
 
-    vector<Position> position_for_next_street;
+    std::vector<Position> position_for_next_street;
 
     float base_probability_to_spawn;
 
 public:
     Street_cluster(
-        const vector<Street_component>& streets,
-        const vector<Position>& position_for_next_street,
+        const std::vector<Street_component>& streets,
+        const std::vector<Position>& position_for_next_street,
         const float base_probability_to_spawn
     )
         :
@@ -36,8 +34,8 @@ public:
 
     // Set functions
     void set(
-        const vector<Street_component>& street_components,
-        const vector<Position>& position_for_next_street,
+        const std::vector<Street_component>& street_components,
+        const std::vector<Position>& position_for_next_street,
         const float base_probability_to_spawn
     ) {
         this->street_components =
@@ -51,14 +49,14 @@ public:
     }
 
     void set_street_components(
-        const vector<Street_component>& street_components
+        const std::vector<Street_component>& street_components
     ) {
         this->street_components =
             street_components;
     }
 
     void set_position_for_next_street(
-        const vector<Position>&
+        const std::vector<Position>&
         position_for_next_street
     ) {
         this->position_for_next_street =
@@ -73,12 +71,12 @@ public:
     }
 
     // Get functions
-    const vector<Street_component>&
+    const std::vector<Street_component>&
         get_street_components() const {
         return this->street_components;
     }
 
-    const vector<Position>&
+    const std::vector<Position>&
         get_position_for_next_street() const {
         return this->position_for_next_street;
     }

@@ -4,22 +4,20 @@
 #include "Parameters_base.h"
 #include "Type_of_road.h"
 
-using namespace std;
-
 class Parameters_for_road : public Parameters_base {
 protected:
     int cost_to_build = 0;
     Type_of_road type_of_road;
 public:
     Parameters_for_road(
-        string_view name,
+        std::string_view name,
         const bool is_restricted_to_cross,
         const bool is_restricted_to_build,
         const int cost_to_cross,
         const int cost_to_build,
         const Type_of_road type_of_road,
-        const int image_for_mini_map_id,
-        const int image_for_map_id
+        const Colour image_for_mini_map_id,
+        const Colour image_for_map_id
     )
         : Parameters_base (
             name,
@@ -32,7 +30,7 @@ public:
         cost_to_build(cost_to_build),
         type_of_road(type_of_road)
     {
-        cout << "Parameters_for_road is called\n";
+        std::cout << "Parameters_for_road is called"<< std::endl;
     }
 
     // Set functions

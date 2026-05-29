@@ -3,8 +3,6 @@
 #include "Type_of_object.h"
 #include "Position.h"
 
-using namespace std;
-
 class Cell_on_map {
 protected:
     Position position;
@@ -21,7 +19,7 @@ public:
         : position(position),
         type_of_object(type_of_object)
     {
-        cout << "Cell_on_mini_map is called" << endl;
+        //cout << "Cell_on_mini_map is called" << endl;
     }
 
     // Set functions

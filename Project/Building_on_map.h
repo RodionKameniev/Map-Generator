@@ -6,7 +6,6 @@
 #include "Direction.h"
 #include "Position.h"
 
-using namespace std;
 
 class Building_on_map : public Cell_on_map {
 protected:
@@ -32,7 +31,7 @@ public:
         direction(direction),
         base_probability_to_spawn(base_probability_to_spawn)
     {
-        cout << "Building_on_map is called" << endl;
+        std::cout << "Building_on_map is called" << std::endl;
     }
 
     // Set functions

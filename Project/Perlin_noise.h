@@ -51,7 +51,7 @@ LRESULT CALLBACK WindowProc(
     LPARAM lParam
 );
 
-void RunPerlinWindow(
+int* RunPerlinWindow(
     unsigned long long seed,
     unsigned int width,
     unsigned int height,

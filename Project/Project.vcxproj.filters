@@ -125,5 +125,8 @@
     <ClInclude Include="Perlin_noise.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="Colour.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

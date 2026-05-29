@@ -1,10 +1,10 @@
 #pragma once
 #include <iostream>
+#include <string>
 #include <string_view>
 #include "Parameters_base.h"
 #include "Type_of_clutter.h"
-
-using namespace std;
+#include "Colour.h"
 
 class Parameters_for_clutter : public Parameters_base {
 protected:
@@ -12,13 +12,13 @@ protected:
 
 public:
     Parameters_for_clutter(
-        string_view name,
+        std::string_view name,
         const Type_of_clutter type_of_clutter,
         const bool is_restricted_to_cross,
         const bool is_restricted_to_build,
         const int cost_to_cross,
-        const int image_for_mini_map_id,
-        const int image_for_map_id
+        const Colour image_for_mini_map_id,
+        const Colour image_for_map_id
     )
         : Parameters_base(
             name,
@@ -30,7 +30,7 @@ public:
         ),
         type_of_clutter(type_of_clutter)
     {
-        cout << "Parameters_for_clutter is called\n";
+        std::cout << "Parameters_for_clutter is called" << std::endl;
     }
 
     // Set functions

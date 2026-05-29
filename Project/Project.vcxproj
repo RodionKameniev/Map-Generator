@@ -150,6 +150,7 @@
     <ClInclude Include="Clutter_cluster_spawn.h" />
     <ClInclude Include="Clutter_component.h" />
     <ClInclude Include="Clutter_on_map.h" />
+    <ClInclude Include="Colour.h" />
     <ClInclude Include="Direction.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="Parameters_base.h" />

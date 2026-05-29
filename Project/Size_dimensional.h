@@ -1,6 +1,5 @@
 #pragma once
 #include <iostream>
-using namespace std;
 
 class Size_dimensional {
 protected:
@@ -10,7 +9,7 @@ protected:
 public:
     Size_dimensional(const int x, const int y, const int z)
         : size_x(x), size_y(y), size_z(z) {
-        cout << "Size_dimensional is called" << std::endl;
+        //cout << "Size_dimensional is called" << std::endl;
     }
 
     // Set functions

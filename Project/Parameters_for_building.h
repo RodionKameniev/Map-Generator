@@ -1,9 +1,8 @@
 #pragma once
 #include <iostream>
 #include "Parameters_base.h"
+#include <string>
 #include <string_view>
-
-using namespace std;
 
 class Parameters_for_building : public Parameters_base {
 protected:
@@ -11,10 +10,10 @@ protected:
 
 public:
     Parameters_for_building(
-        string_view name,
+        std::string_view name,
         const int cost,
-        const int image_for_mini_map_id,
-        const int image_for_map_id
+        const Colour image_for_mini_map_id,
+        const Colour image_for_map_id
     )
         :
         Parameters_base(
@@ -27,7 +26,7 @@ public:
         ),
         cost(cost)
     {
-        cout << "Parameters_for_building is called" << endl;
+        std::cout << "Parameters_for_building is called" << std::endl;
     }
 
     // Set functions

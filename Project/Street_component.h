@@ -3,8 +3,6 @@
 #include "Parameters_for_street.h"
 #include "Position.h"
 
-using namespace std;
-
 class Street_component {
 protected:
     const Parameters_for_street* street_part;
@@ -20,8 +18,8 @@ public:
         street_part(street_part),
         shifted_position(shifted_position)
     {
-        cout << "Street_component is called"
-            << endl;
+        std::cout << "Street_component is called"
+            << std::endl;
     }
 
     // Set functions

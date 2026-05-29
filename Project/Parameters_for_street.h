@@ -10,13 +10,13 @@ protected:
 
 public:
     Parameters_for_street(
-        string_view name,
+        std::string_view name,
         const bool is_restricted_to_cross,
         const bool is_restricted_to_build,
         const int cost_to_cross,
         const int cost_to_build,
-        const int image_for_mini_map_id,
-        const int image_for_map_id
+        const Colour image_for_mini_map_id,
+        const Colour image_for_map_id
     )
         : Parameters_base(
             name,

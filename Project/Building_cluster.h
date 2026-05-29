@@ -4,17 +4,15 @@
 
 #include "Building_component.h"
 
-using namespace std;
-
 class Building_cluster {
 protected:
-    vector<Building_component> building_components;
+    std::vector<Building_component> building_components;
     int cost_of_building;
     float base_probability_to_spawn;
 
 public:
     Building_cluster(
-        const vector<Building_component>& buildings,
+        const std::vector<Building_component>& buildings,
         const int cost_of_building,
         const float base_probability_to_spawn
     )
@@ -25,13 +23,13 @@ public:
             base_probability_to_spawn
         )
     {
-        cout << "Building_cluster is called"
-            << endl;
+        std::cout << "Building_cluster is called"
+            << std::endl;
     }
 
     // Set functions
     void set(
-        const vector<Building_component>& building_components,
+        const std::vector<Building_component>& building_components,
         const int cost_of_building,
         const float base_probability_to_spawn
     ) {
@@ -46,7 +44,7 @@ public:
     }
 
     void set_building_components(
-        const vector<Building_component>& building_components
+        const std::vector<Building_component>& building_components
     ) {
         this->building_components =
             building_components;
@@ -67,7 +65,7 @@ public:
     }
 
     // Get functions
-    const vector<Building_component>&
+    const std::vector<Building_component>&
         get_building_components() const {
         return this->building_components;
     }

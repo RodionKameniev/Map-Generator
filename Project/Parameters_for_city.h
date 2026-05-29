@@ -1,19 +1,18 @@
 #pragma once
 #include <iostream>
 #include "Size_dimensional.h"
+#include <string>
 #include <string_view>
-
-using namespace std;
 
 class Parameters_for_city {
 protected:
-    string name = "";
+    std::string name = "";
     Size_dimensional for_mini_map;
     Size_dimensional for_map;
 
 public:
     Parameters_for_city(
-        string_view city_name,
+        std::string_view city_name,
         const Size_dimensional& city_for_mini_map,
         const Size_dimensional& city_for_map
     )
@@ -28,7 +27,7 @@ public:
 
     // Set functions
     void set(
-        string_view city_name,
+        std::string_view city_name,
         const Size_dimensional& city_for_mini_map,
         const Size_dimensional& city_for_map
     ) {
@@ -42,7 +41,7 @@ public:
     }
 
     void set_name(
-        string_view city_name
+        std::string_view city_name
     ) {
         this->name = city_name;
     }
@@ -62,7 +61,7 @@ public:
     }
 
     // Get functions
-    const string& get_name() const {
+    const std::string& get_name() const {
         return this->name;
     }
 
