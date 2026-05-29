@@ -3,8 +3,6 @@
 #include "Parameters_for_street.h"
 #include "Position.h"
 
-using namespace std;
-
 class Street_component {
 protected:
     const Parameters_for_street* street_part;

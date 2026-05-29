@@ -5,13 +5,11 @@
 #include "Cell_on_map.h"
 #include "Direction.h"
 
-using namespace std;
-
 class Street_on_map : public Cell_on_map {
 protected:
     const Parameters_for_street* street_to_be_placed;
 
-    vector<Direction> direction_of_connections;
+    std::vector<Direction> direction_of_connections;
 
     float base_probability_to_spawn;
 
@@ -19,7 +17,7 @@ public:
     Street_on_map(
         const Position& position,
         const Parameters_for_street* street_to_be_placed,
-        const vector<Direction>& direction_of_connections,
+        const std::vector<Direction>& direction_of_connections,
         const float base_probability_to_spawn
     )
         :
@@ -37,7 +35,7 @@ public:
     // Set functions
     void set(
         Parameters_for_street* street_to_be_placed,
-        const vector<Direction>& direction_of_connections,
+        const std::vector<Direction>& direction_of_connections,
         const float base_probability_to_spawn
     ) {
         this->street_to_be_placed =
@@ -58,7 +56,7 @@ public:
     }
 
     void set_direction_of_connections(
-        const vector<Direction>& direction_of_connections
+        const std::vector<Direction>& direction_of_connections
     ) {
         this->direction_of_connections =
             direction_of_connections;
@@ -77,7 +75,7 @@ public:
         return this->street_to_be_placed;
     }
 
-    const vector<Direction>&
+    const std::vector<Direction>&
         get_direction_of_connections() const {
         return this->direction_of_connections;
     }

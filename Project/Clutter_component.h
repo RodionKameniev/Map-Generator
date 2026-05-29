@@ -3,8 +3,6 @@
 #include "Parameters_for_clutter.h"
 #include "Position.h"
 
-using namespace std;
-
 class Clutter_component {
 protected:
     const Parameters_for_clutter* clutter_part;

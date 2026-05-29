@@ -4,16 +4,14 @@
 
 #include "Clutter_component.h"
 
-using namespace std;
-
 class Clutter_cluster {
 protected:
-    vector<Clutter_component> clutter_components;
+    std::vector<Clutter_component> clutter_components;
     float base_probability_to_spawn;
 
 public:
     Clutter_cluster(
-        const vector<Clutter_component>& clutters,
+        const std::vector<Clutter_component>& clutters,
         const float base_probability_to_spawn
     )
         :
@@ -28,7 +26,7 @@ public:
 
     // Set functions
     void set(
-        const vector<Clutter_component>& clutter_components,
+        const std::vector<Clutter_component>& clutter_components,
         const float base_probability_to_spawn
     ) {
         this->clutter_components =
@@ -39,7 +37,7 @@ public:
     }
 
     void set_clutter_components(
-        const vector<Clutter_component>& clutter_components
+        const std::vector<Clutter_component>& clutter_components
     ) {
         this->clutter_components =
             clutter_components;
@@ -53,7 +51,7 @@ public:
     }
 
     // Get functions
-    const vector<Clutter_component>&
+    const std::vector<Clutter_component>&
         get_clutter_components() const {
         return this->clutter_components;
     }

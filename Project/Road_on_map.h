@@ -5,18 +5,17 @@
 #include "Cell_on_map.h"
 #include "Direction.h"
 
-using namespace std;
 
 class Road_on_map : public Cell_on_map {
 protected:
     const Parameters_for_road* road_to_be_placed;
-    vector<Direction> direction_of_connections;
+    std::vector<Direction> direction_of_connections;
 
 public:
     Road_on_map(
         const Position& position,
         const Parameters_for_road* road_to_be_placed,
-        const vector<Direction>& direction_of_connections
+        const std::vector<Direction>& direction_of_connections
     )
         :
         Cell_on_map(
@@ -26,13 +25,13 @@ public:
         road_to_be_placed(road_to_be_placed),
         direction_of_connections(direction_of_connections)
     {
-        cout << "Road_on_map is called" << endl;
+        std::cout << "Road_on_map is called" << std::endl;
     }
 
     // Set functions
     void set(
         Parameters_for_road* road_to_be_placed,
-        const vector<Direction>& direction_of_connections
+        const std::vector<Direction>& direction_of_connections
     ) {
         this->road_to_be_placed =
             road_to_be_placed;
@@ -50,7 +49,7 @@ public:
     }
 
     void set_direction_of_connections(
-        const vector<Direction>& direction_of_connections
+        const std::vector<Direction>& direction_of_connections
     ) {
         this->direction_of_connections =
             direction_of_connections;
@@ -62,7 +61,7 @@ public:
         return this->road_to_be_placed;
     }
 
-    const vector<Direction>&
+    const std::vector<Direction>&
         get_direction_of_connections() const {
         return this->direction_of_connections;
     }

@@ -3,8 +3,7 @@
 #include <string_view>
 #include "Parameters_base.h"
 #include "Type_of_road.h"
-
-using namespace std;
+#include <string>
 
 class Parameters_for_road : public Parameters_base {
 protected:
@@ -12,7 +11,7 @@ protected:
     Type_of_road type_of_road;
 public:
     Parameters_for_road(
-        string_view name,
+        std::string_view name,
         const bool is_restricted_to_cross,
         const bool is_restricted_to_build,
         const int cost_to_cross,

@@ -3,8 +3,6 @@
 #include "Type_of_object.h"
 #include "Position.h"
 
-using namespace std;
-
 class Cell_on_map {
 protected:
     Position position;

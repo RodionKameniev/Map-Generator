@@ -3,8 +3,7 @@
 #include <string_view>
 #include "Parameters_base.h"
 #include "Type_of_clutter.h"
-
-using namespace std;
+#include <string>
 
 class Parameters_for_clutter : public Parameters_base {
 protected:
@@ -12,7 +11,7 @@ protected:
 
 public:
     Parameters_for_clutter(
-        string_view name,
+        std::string_view name,
         const Type_of_clutter type_of_clutter,
         const bool is_restricted_to_cross,
         const bool is_restricted_to_build,

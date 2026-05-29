@@ -1,11 +1,11 @@
 #pragma once
 #include <iostream>
 #include <string_view>
-using namespace std;
+#include <string>
 
 class Parameters_base {
 protected:
-    string name = "";
+    std::string name = "";
     bool is_restricted_to_cross = false;
     bool is_restricted_to_build = false;
     int cost_to_cross = 0;
@@ -14,7 +14,7 @@ protected:
 
 public:
     Parameters_base(
-        string_view name,
+        std::string_view name,
         const bool is_restricted_to_cross,
         const bool is_restricted_to_build,
         const int cost_to_cross,
@@ -28,12 +28,12 @@ public:
         image_for_mini_map_id(image_for_mini_map_id),
         image_for_map_id(image_for_map_id) {
 
-        cout << "Parameters_base is called" << endl;
+        std::cout << "Parameters_base is called" << std::endl;
     }
 
     // Set functions
     void set(
-        string_view name,
+        std::string_view name,
         const bool is_restricted_to_cross,
         const bool is_restricted_to_build,
         const int cost_to_cross,
@@ -48,7 +48,7 @@ public:
         this->image_for_map_id = image_for_map_id;
     }
 
-    void set_name(string_view name) {
+    void set_name(std::string_view name) {
         this->name = name;
     }
 
@@ -75,7 +75,7 @@ public:
     }
 
     // Get functions
-    const string& get_name() const {
+    const std::string& get_name() const {
         return this->name;
     }
 

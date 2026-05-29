@@ -5,8 +5,6 @@
 #include "Position.h"
 #include "Map.h"
 
-using namespace std;
-
 class Map;
 
 class Building_cluster_spawn {

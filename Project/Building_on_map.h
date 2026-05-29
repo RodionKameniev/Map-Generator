@@ -6,8 +6,6 @@
 #include "Direction.h"
 #include "Position.h"
 
-using namespace std;
-
 class Building_on_map : public Cell_on_map {
 protected:
     const Parameters_for_building* building_to_be_placed;
