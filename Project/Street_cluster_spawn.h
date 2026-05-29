@@ -48,4 +48,6 @@ public:
     void build_street(Map& map, Position start_of_street);
 
     set<pair<double, Position>> get_places_for_building(Map& map, Position start_of_street, Position center_of_city);
+
+    //void create_all_pos_var_of_street();
 };

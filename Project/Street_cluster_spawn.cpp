@@ -231,3 +231,8 @@ set<pair<double, Position>> Street_cluster_spawn::get_places_for_building(Map& m
     }
     return set_of_pos;
 }
+
+//void Street_cluster_spawn::create_all_pos_var_of_street() {
+//    
+//    this->get_street()->get_street_components();
+//}

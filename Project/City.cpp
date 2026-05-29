@@ -4,6 +4,8 @@
 #include <queue>
 #include <random>
 #include <set>
+#include <functional>
+#include <memory>
 
 #include "Map.h"
 
@@ -187,6 +189,54 @@ City::get_center_of_city() const {
 }
 
 // Algorithms
+
+//Street_cluster* transform_street_cluster(Street_cluster* street_cluster, int param_x, int param_y){
+//    for (auto& component : street_cluster->get_street_components())
+//    {
+//        Position shifted_pos = component.get_shifted_position();
+//
+//        shifted_pos.set_on_y(shifted_pos.get_on_y() * (-1));
+//
+//        component.set_shifted_position(shifted_pos);
+//    }
+//    
+//}
+//
+//
+//vector<Street_cluster_spawn> create_all_vars_of_street(const Street_cluster_spawn& street_spawn){
+//    vector<Street_cluster_spawn> all_vars;
+//
+//    set<Street_cluster_spawn> original_vars;
+//
+//    // Original cluster
+//    const Street_cluster* original = street_spawn.get_street();
+//
+//    // Copy cluster
+//    Street_cluster* copy_cluster = new Street_cluster(*original);
+//
+//    // copy_x = x, copy_y = -y
+//    for (auto& component : copy_cluster->get_street_components())
+//    {
+//        Position shifted_pos = component.get_shifted_position();
+//
+//        shifted_pos.set_on_y(shifted_pos.get_on_y() * (-1));
+//
+//        component.set_shifted_position(shifted_pos);
+//    }
+//    Street_cluster_spawn copy_spawn(copy_cluster, street_spawn.get_probability_to_spawn());
+//
+//
+//
+//    original_vars.insert(copy_spawn);
+//    for (auto& comp : original_vars) {
+//        all_vars.push_back(comp);
+//    }
+//
+//
+//
+//    return all_vars;
+//}
+
 void City::create_streets(Map& map) {
     random_device rd;
 
