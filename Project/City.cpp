@@ -190,49 +190,68 @@ City::get_center_of_city() const {
 
 // Algorithms
 
-//Street_cluster* transform_street_cluster(Street_cluster* street_cluster, int param_x, int param_y){
-//    for (auto& component : street_cluster->get_street_components())
+//Street_cluster transform_street_cluster(
+//    const Street_cluster& street_cluster,
+//    int sx,
+//    int sy
+//)
+//{
+//    Street_cluster copy_cluster = street_cluster;
+//
+//    for (auto& component : copy_cluster.get_street_components())
 //    {
-//        Position shifted_pos = component.get_shifted_position();
+//        Position pos = component.get_shifted_position();
 //
-//        shifted_pos.set_on_y(shifted_pos.get_on_y() * (-1));
+//        int x = pos.get_on_x();
+//        int y = pos.get_on_y();
 //
-//        component.set_shifted_position(shifted_pos);
+//        // correct transformation
+//        pos.set_on_x(x * sx);
+//        pos.set_on_y(y * sy);
+//
+//        component.set_shifted_position(pos);
 //    }
-//    
+//
+//    return copy_cluster;
 //}
 //
 //
-//vector<Street_cluster_spawn> create_all_vars_of_street(const Street_cluster_spawn& street_spawn){
+//vector<Street_cluster_spawn>
+//create_all_vars_of_street(
+//    const Street_cluster_spawn& street_spawn
+//)
+//{
 //    vector<Street_cluster_spawn> all_vars;
+//    set<string> used;
 //
-//    set<Street_cluster_spawn> original_vars;
+//    auto try_add = [&](Street_cluster cluster)
+//        {
+//            Street_cluster_spawn spawn(
+//                std::make_shared<Street_cluster>(cluster),
+//                street_spawn.get_probability_to_spawn()
+//            );
 //
-//    // Original cluster
-//    const Street_cluster* original = street_spawn.get_street();
+//            string signature = std::create_signature(spawn);
 //
-//    // Copy cluster
-//    Street_cluster* copy_cluster = new Street_cluster(*original);
+//            if (used.insert(signature).second)
+//            {
+//                all_vars.push_back(spawn);
+//            }
+//        };
 //
-//    // copy_x = x, copy_y = -y
-//    for (auto& component : copy_cluster->get_street_components())
-//    {
-//        Position shifted_pos = component.get_shifted_position();
+//    const Street_cluster& original =
+//        *street_spawn.get_street();
 //
-//        shifted_pos.set_on_y(shifted_pos.get_on_y() * (-1));
+//    try_add(original);
 //
-//        component.set_shifted_position(shifted_pos);
-//    }
-//    Street_cluster_spawn copy_spawn(copy_cluster, street_spawn.get_probability_to_spawn());
+//    // 90°
+//    try_add(transform_street_cluster(original, -1, 1));
 //
+//    // 180°
+//    try_add(transform_street_cluster(original, -1, -1));
 //
-//
-//    original_vars.insert(copy_spawn);
-//    for (auto& comp : original_vars) {
-//        all_vars.push_back(comp);
-//    }
-//
-//
+//    // 270°
+//    try_add(transform_street_cluster(original, 1, -1));
 //
 //    return all_vars;
 //}
