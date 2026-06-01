@@ -15,31 +15,13 @@ public:
         const int cost,
         const Colour image_for_mini_map_id,
         const Colour image_for_map_id
-    )
-        :
-        Parameters_base(
-            name,
-            false,
-            false,
-            -1,
-            image_for_mini_map_id,
-            image_for_map_id
-        ),
-        cost(cost)
-    {
-        std::cout << "Parameters_for_building is called" << std::endl;
-    }
+    );
 
     // Set functions
 
     void set_cost(
         const int cost
-    ) {
-        this->cost = cost;
-    }
-
+    );
     // Get functions
-    const int get_cost() const {
-        return this->cost;
-    }
+    const int get_cost() const;
 };

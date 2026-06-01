@@ -6,31 +6,19 @@ class Colour {
 		int G = 0;
 		int B = 0;
 public:
-    Colour() : R(0), G(0), B(0) {}
+    Colour();
 
-    Colour(const int r, const int g, const int b) : R(r), G(g), B(b) {}
+    Colour(const int r, const int g, const int b);
 
-    const int get_R() const {
-        return R;
-    }
+    const int get_R() const;
 
-    const int get_G() const {
-        return G;
-    }
+    const int get_G() const;
 
-    const int get_B() const {
-        return B;
-    }
+    const int get_B() const;
 
-    void set_R(const int r) {
-        R = r;
-    }
+    void set_R(const int r);
 
-    void set_G(const int g) {
-        G = g;
-    }
+    void set_G(const int g);
 
-    void set_B(const int b) {
-        B = b;
-    }
+    void set_B(const int b);
 };

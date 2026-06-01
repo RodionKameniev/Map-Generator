@@ -18,38 +18,17 @@ public:
         const Type_of_road type_of_road,
         const Colour image_for_mini_map_id,
         const Colour image_for_map_id
-    )
-        : Parameters_base (
-            name,
-            is_restricted_to_cross,
-            is_restricted_to_build,
-            cost_to_cross,
-            image_for_mini_map_id,
-            image_for_map_id
-        ),
-        cost_to_build(cost_to_build),
-        type_of_road(type_of_road)
-    {
-        std::cout << "Parameters_for_road is called"<< std::endl;
-    }
+    );
 
     // Set functions
 
-    void set_cost_to_build(const int value) {
-        this->cost_to_build = value;
-    }
+    void set_cost_to_build(const int value);
 
-    void set_type_of_road(const Type_of_road type_of_road) {
-        this->type_of_road = type_of_road;
-    }
+    void set_type_of_road(const Type_of_road type_of_road);
 
     // Get functions
 
-    const int get_cost_to_build() const {
-        return this->cost_to_build;
-    }
+    const int get_cost_to_build() const;
 
-    const Type_of_road get_type_of_road() const {
-        return this->type_of_road;
-    }
+    const Type_of_road get_type_of_road() const;
 };

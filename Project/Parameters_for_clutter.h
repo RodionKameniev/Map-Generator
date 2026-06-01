@@ -19,27 +19,11 @@ public:
         const int cost_to_cross,
         const Colour image_for_mini_map_id,
         const Colour image_for_map_id
-    )
-        : Parameters_base(
-            name,
-            is_restricted_to_cross,
-            is_restricted_to_build,
-            cost_to_cross,
-            image_for_mini_map_id,
-            image_for_map_id
-        ),
-        type_of_clutter(type_of_clutter)
-    {
-        std::cout << "Parameters_for_clutter is called" << std::endl;
-    }
+    );
 
     // Set functions
-    void set_type_of_clutter(const Type_of_clutter type) {
-        this->type_of_clutter = type;
-    }
+    void set_type_of_clutter(const Type_of_clutter type);
 
     // Get functions
-    const Type_of_clutter get_type_of_clutter() const {
-        return this->type_of_clutter;
-    }
+    const Type_of_clutter get_type_of_clutter() const;
 };

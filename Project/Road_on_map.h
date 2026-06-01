@@ -15,53 +15,26 @@ public:
         const Position& position,
         const Parameters_for_road* road_to_be_placed,
         const std::vector<Direction>& direction_of_connections
-    )
-        :
-        Cell_on_map(
-            position,
-            Type_of_object::Road
-        ),
-        road_to_be_placed(road_to_be_placed),
-        direction_of_connections(direction_of_connections)
-    {
-        std::cout << "Road_on_map is called" << std::endl;
-    }
+    );
 
     // Set functions
     void set(
         Parameters_for_road* road_to_be_placed,
         const std::vector<Direction>& direction_of_connections
-    ) {
-        this->road_to_be_placed =
-            road_to_be_placed;
-
-        this->direction_of_connections =
-            direction_of_connections;
-
-    }
+    );
 
     void set_road_to_be_placed(
         Parameters_for_road* road_to_be_placed
-    ) {
-        this->road_to_be_placed =
-            road_to_be_placed;
-    }
+    );
 
     void set_direction_of_connections(
         const std::vector<Direction>& direction_of_connections
-    ) {
-        this->direction_of_connections =
-            direction_of_connections;
-    }
+    );
 
     // Get functions
     const Parameters_for_road*
-        get_road_to_be_placed() const {
-        return this->road_to_be_placed;
-    }
+        get_road_to_be_placed() const;
 
     const std::vector<Direction>&
-        get_direction_of_connections() const {
-        return this->direction_of_connections;
-    }
+        get_direction_of_connections() const;
 };
