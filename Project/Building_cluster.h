@@ -37,8 +37,9 @@ public:
     );
 
     // Get functions
-    const std::vector<Building_component>&
-        get_building_components() const;
+    const std::vector<Building_component>& get_building_components() const;
+
+    std::vector<Building_component>& get_building_components();
 
     const int get_cost_of_building() const;
 

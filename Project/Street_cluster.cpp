@@ -15,7 +15,7 @@ Street_cluster::Street_cluster(
     const float base_probability_to_spawn
 )
     :
-    street_components(street_components),
+    street_components(streets),
     position_for_next_street(
         position_for_next_street
     ),
@@ -78,6 +78,11 @@ vector<Street_component>& Street_cluster::get_street_components() {
 const vector<Position>&
 Street_cluster::get_position_for_next_street() const {
     return this->position_for_next_street;
+}
+
+vector<Position>& Street_cluster::get_position_for_next_street()
+{
+    return position_for_next_street;
 }
 
 const float Street_cluster::get_base_probability_to_spawn() const {

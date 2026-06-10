@@ -69,6 +69,11 @@ Building_cluster::get_building_components() const {
     return this->building_components;
 }
 
+vector<Building_component>&
+Building_cluster::get_building_components(){
+    return this->building_components;
+}
+
 const int Building_cluster::get_cost_of_building() const {
     return this->cost_of_building;
 }

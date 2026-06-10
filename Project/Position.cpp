@@ -11,7 +11,7 @@ Position::Position(const int x, const int y, const int z)
     }
 
     // Set functions
-    void Position::set(const int x, const int y, const int z) {
+    void Position::set_all(const int x, const int y, const int z) {
         this->on_x = x;
         this->on_y = y;
         this->on_z = z;

@@ -155,6 +155,7 @@
     <ClCompile Include="Project.cpp" />
     <ClCompile Include="Road_on_map.cpp" />
     <ClCompile Include="Road_on_map.h" />
+    <ClCompile Include="Rotation.cpp" />
     <ClCompile Include="Size_dimensional.cpp" />
     <ClCompile Include="Street_cluster.cpp" />
     <ClCompile Include="Street_cluster_spawn.cpp" />
@@ -182,6 +183,7 @@
     <ClInclude Include="Parameters_for_road.h" />
     <ClInclude Include="Perlin_noise.h" />
     <ClInclude Include="Position.h" />
+    <ClInclude Include="Rotation.h" />
     <ClInclude Include="Size_dimensional.h" />
     <ClInclude Include="Street_cluster.h" />
     <ClInclude Include="Street_cluster_spawn.h" />

@@ -44,11 +44,10 @@ public:
     const std::vector<Street_component>&
         get_street_components() const;
 
-   std::vector<Street_component>&
-        get_street_components();
+   std::vector<Street_component>& get_street_components();
 
-    const std::vector<Position>&
-        get_position_for_next_street() const;
+    const std::vector<Position>& get_position_for_next_street() const;
+    vector<Position>& get_position_for_next_street();
 
     const float get_base_probability_to_spawn() const;
 };

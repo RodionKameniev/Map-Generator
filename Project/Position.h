@@ -11,7 +11,7 @@ public:
     bool operator<(const Position& other) const;
 
     // Set functions
-    void set(const int x, const int y, const int z);
+    void set_all(const int x, const int y, const int z);
     void set_on_x(const int x);
     void set_on_y(const int y);
     void set_on_z(const int z);

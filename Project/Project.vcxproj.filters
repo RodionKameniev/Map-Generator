@@ -114,6 +114,9 @@
     <ClCompile Include="Street_on_map.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Rotation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Size_dimensional.h">
@@ -192,6 +195,9 @@
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="Colour.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Rotation.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
