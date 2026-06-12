@@ -20,7 +20,7 @@ Street_on_map::Street_on_map(
         direction_of_connections(direction_of_connections),
         base_probability_to_spawn(base_probability_to_spawn)
     {
-        std::cout << "Street_on_map is called" << std::endl;
+        //std::cout << "Street_on_map is called" << std::endl;
     }
 
     // Set functions

@@ -409,14 +409,49 @@ void City::create_streets(Map& map) {
             for (auto& el : places) {
                 place_for_buildings.insert(el);
             }
+            std::cout << "Size of place_for_buildings: " << place_for_buildings.size() << std::endl;
         }
     }
 }
 
 void City::create_buildings(Map& map) {
     for (int l = 0; l < this->get_buildings_probability_to_spawn().size(); l++) {
+        //std::cout << "hello! " << this->get_buildings_probability_to_spawn()[l].get_building()->get_building_components()[0].get_shifted_position().get_on_x() << std::endl;
         var_of_building_clusters.push_back(create_all_vars_of_building(this->get_buildings_probability_to_spawn()[l]));
     }
+
+
+    int p = 0;
+    int g = 0;
+    for (const auto& a : var_of_building_clusters) {
+        std::cout << "var " << p << std::endl;
+        p++;
+        for (const auto& b : a) {
+            std::cout << "var street " << g << std::endl;
+            g++;
+            std::cout << "var street size " << b.get_building()->get_building_components().size() << std::endl;
+            //for (const auto& c : b.get_building()->get_building_components()) {
+            //    std::cout << "pos x: " << c.get_shifted_position().get_on_x()<< " pos y: " << c.get_shifted_position().get_on_y() << " pos z: " << c.get_shifted_position().get_on_z() << std::endl;
+            //}
+        }
+        g = 0;
+    }
+
+    //int p = 0;
+    //int g = 0;
+    //std::cout << "var size" << var_of_building_clusters.size() << std::endl;
+    //for (const auto& a : var_of_building_clusters) {
+    //    std::cout << "building vars size " << a.size() << std::endl;
+    //    p++;
+    //    for (const auto& b : a) {
+    //        std::cout << "building size " << b.get_building()->get_building_components().size()<< std::endl;
+    //        g++;
+    //        //for (const auto& c : b.get_street()->get_position_for_next_street()) {
+    //        //    std::cout << "pos x: " << c.get_on_x() << " pos y: " << c.get_on_y() << " pos z: " << c.get_on_z() << std::endl;
+    //        //}
+    //    }
+    //    g = 0;
+    //}
     random_device rd;
 
     mt19937 gen(rd());
@@ -478,5 +513,5 @@ void City::create_buildings(Map& map) {
 
 void City::create_city(Map& map) {
     this->create_streets(map);
-    //this->create_buildings(map);
+    this->create_buildings(map);
 }

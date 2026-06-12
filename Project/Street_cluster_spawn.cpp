@@ -4,7 +4,6 @@
 #include <vector>
 #include <set>
 #include <cmath>
-#include <memory>
 
 #include "Map.h"
 #include "Road_on_map.h"
@@ -12,9 +11,7 @@
 #include "Building_on_map.h"
 #include "Street_on_map.h"
 
-using namespace std;
 
-// Constructor
 Street_cluster_spawn::Street_cluster_spawn(
     const Street_cluster* street,
     float probability_to_spawn
@@ -23,8 +20,7 @@ Street_cluster_spawn::Street_cluster_spawn(
     street(street),
     probability_to_spawn(probability_to_spawn)
 {
-    cout << "Street_spawn is called"
-        << endl;
+    std::cout << "Street_spawn is called" << std::endl;
 }
 
 // Set functions

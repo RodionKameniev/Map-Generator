@@ -7,6 +7,7 @@
 
 #include "Clutter_on_map.h"
 #include "Street_on_map.h"
+#include "Building_on_map.h"
 #include "Parameters_for_clutter.h"
 #include "Colour.h"
 
@@ -379,7 +380,7 @@ void Map::render_map()
             }
             else
             {
-                if (dynamic_cast<Clutter_on_map*>(cell)) {
+                if (dynamic_cast<Street_on_map*>(cell)) {
                     Street_on_map* street =
                         dynamic_cast<Street_on_map*>(cell);
 
@@ -402,6 +403,34 @@ void Map::render_map()
 
                         pixels_to_output[index + 3] =
                             255;
+                    }
+                }
+                else
+                {
+                    if (dynamic_cast<Building_on_map*>(cell)) {
+                        Building_on_map* building =
+                            dynamic_cast<Building_on_map*>(cell);
+
+                        if (building != nullptr &&
+                            building->get_building_to_be_placed() != nullptr)
+                        {
+                            Colour colour =
+                                building
+                                ->get_building_to_be_placed()
+                                ->get_image_for_map_id();
+
+                            pixels_to_output[index + 0] =
+                                colour.get_B();
+
+                            pixels_to_output[index + 1] =
+                                colour.get_G();
+
+                            pixels_to_output[index + 2] =
+                                colour.get_R();
+
+                            pixels_to_output[index + 3] =
+                                255;
+                        }
                     }
                 }
                 
