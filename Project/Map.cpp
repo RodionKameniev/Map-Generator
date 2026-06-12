@@ -6,6 +6,7 @@
 #include "City.h"
 
 #include "Clutter_on_map.h"
+#include "Street_on_map.h"
 #include "Parameters_for_clutter.h"
 #include "Colour.h"
 
@@ -190,12 +191,12 @@ void Map::create_base_map(int* values, int height, int width) {
 
     // Testing
     static Parameters_for_clutter deep_water = Parameters_for_clutter("Deep_water", Type_of_clutter::Water, true, true, 160, Colour(0, 0, 80), Colour(0, 0, 80));
-    static Parameters_for_clutter water = Parameters_for_clutter("Water", Type_of_clutter::Water, false, true, 80, Colour(30, 100, 220), Colour(30, 100, 220));
+    static Parameters_for_clutter water = Parameters_for_clutter("Water", Type_of_clutter::Water, true, true, 80, Colour(30, 100, 220), Colour(30, 100, 220));
     static Parameters_for_clutter ground = Parameters_for_clutter("Ground", Type_of_clutter::Ground, false, false, 10, Colour(120, 200, 80), Colour(120, 200, 80));
     static Parameters_for_clutter forest = Parameters_for_clutter("Forest", Type_of_clutter::Ground, false, false, 30, Colour(20, 120, 20), Colour(20, 120, 20));
-    static Parameters_for_clutter mountain = Parameters_for_clutter("Mountain", Type_of_clutter::Mountain, false, true, 100, Colour(140, 140, 140), Colour(140, 140, 140));
-    static Parameters_for_clutter high_mountain = Parameters_for_clutter("High_mountain", Type_of_clutter::Mountain, false, true, 200, Colour(180, 180, 180), Colour(180, 180, 180));
-    static Parameters_for_clutter border = Parameters_for_clutter("Border", Type_of_clutter::Specific, false, true, 200, Colour(255, 0, 0), Colour(255, 0, 0));
+    static Parameters_for_clutter mountain = Parameters_for_clutter("Mountain", Type_of_clutter::Mountain, true, true, 100, Colour(140, 140, 140), Colour(140, 140, 140));
+    static Parameters_for_clutter high_mountain = Parameters_for_clutter("High_mountain", Type_of_clutter::Mountain, true, true, 200, Colour(180, 180, 180), Colour(180, 180, 180));
+    static Parameters_for_clutter border = Parameters_for_clutter("Border", Type_of_clutter::Specific, true, true, 200, Colour(255, 0, 0), Colour(255, 0, 0));
     static const std::vector<Direction> no_connections;
     // Testing
     // Testing
@@ -345,35 +346,65 @@ void Map::render_map()
             Cell_on_map* cell =
                 this->cells_on_mini_map[y+1][x+1].get();
 
-            Clutter_on_map* clutter =
-                dynamic_cast<Clutter_on_map*>(cell);
+            if (dynamic_cast<Clutter_on_map*>(cell)) {
+                Clutter_on_map* clutter =
+                    dynamic_cast<Clutter_on_map*>(cell);
 
-            if (clutter->get_type_of_object() != Type_of_object::Border &&  clutter != nullptr &&
-                clutter->get_clutter_to_be_placed() != nullptr)
-            {
-                Colour colour =
-                    clutter
-                    ->get_clutter_to_be_placed()
-                    ->get_image_for_map_id();
+                if (clutter->get_type_of_object() != Type_of_object::Border && clutter != nullptr &&
+                    clutter->get_clutter_to_be_placed() != nullptr)
+                {
+                    Colour colour =
+                        clutter
+                        ->get_clutter_to_be_placed()
+                        ->get_image_for_map_id();
 
-                pixels_to_output[index + 0] =
-                    colour.get_B();
+                    pixels_to_output[index + 0] =
+                        colour.get_B();
 
-                pixels_to_output[index + 1] =
-                    colour.get_G();
+                    pixels_to_output[index + 1] =
+                        colour.get_G();
 
-                pixels_to_output[index + 2] =
-                    colour.get_R();
+                    pixels_to_output[index + 2] =
+                        colour.get_R();
 
-                pixels_to_output[index + 3] =
-                    255;
+                    pixels_to_output[index + 3] =
+                        255;
+                }
+                else {
+                    pixels_to_output[index + 0] = 0;
+                    pixels_to_output[index + 1] = 0;
+                    pixels_to_output[index + 2] = 0;
+                    pixels_to_output[index + 3] = 255;
+                }
             }
             else
             {
-                pixels_to_output[index + 0] = 0;
-                pixels_to_output[index + 1] = 0;
-                pixels_to_output[index + 2] = 0;
-                pixels_to_output[index + 3] = 255;
+                if (dynamic_cast<Clutter_on_map*>(cell)) {
+                    Street_on_map* street =
+                        dynamic_cast<Street_on_map*>(cell);
+
+                    if (street != nullptr &&
+                        street->get_street_to_be_placed() != nullptr)
+                    {
+                        Colour colour =
+                            street
+                            ->get_street_to_be_placed()
+                            ->get_image_for_map_id();
+
+                        pixels_to_output[index + 0] =
+                            colour.get_B();
+
+                        pixels_to_output[index + 1] =
+                            colour.get_G();
+
+                        pixels_to_output[index + 2] =
+                            colour.get_R();
+
+                        pixels_to_output[index + 3] =
+                            255;
+                    }
+                }
+                
             }
         }
     }
