@@ -20,7 +20,6 @@
 #include "Building_cluster_spawn.h"
 
 #include "Parameters_for_city.h"
-
 #include "City.h"
 
 
@@ -37,7 +36,16 @@ int main()
     int height = 1000;
     int width = 1000;
     float b = 100.0;
-    int* map_in_vales = RunPerlinWindow(seed, width, height, 1.5f*b);
+    //Noise creation
+    clock_t tStart = clock();
+
+    int* map_in_vales = RunPerlinWindow(seed, width, height, 1.5f * b);
+
+    printf("Noise taken: %.2fs\n", (double)(clock() - tStart) / CLOCKS_PER_SEC);
+    
+    //Values assigment
+    tStart = clock();
+
     Map new_map;
     new_map.create_base_map(map_in_vales, height, width);
     //Testing streets
@@ -97,7 +105,7 @@ int main()
 
     house_building_components.push_back(Building_component(&house_parameters, Position(0, 0, 0)));
 
-    //house_building_components.size() * house_parameters.get_cost()
+                    //house_building_components.size() * house_parameters.get_cost()
 
     static Building_cluster house_building = Building_cluster(house_building_components, 25, 0.8);
     static Building_cluster_spawn house_building_spawn = Building_cluster_spawn(&house_building, 0.8);
@@ -128,5 +136,6 @@ int main()
     city.create_city(new_map);
 
     new_map.render_map();
+
     return 0;
 }

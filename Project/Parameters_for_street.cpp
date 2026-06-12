@@ -2,7 +2,6 @@
 #include <iostream>
 #include <string_view>
 #include "Parameters_base.h"
-using namespace std;
 
 Parameters_for_street::Parameters_for_street(
         std::string_view name,
@@ -23,7 +22,7 @@ Parameters_for_street::Parameters_for_street(
         ),
         cost_to_build(cost_to_build)
     {
-        cout << "Parameters_for_street is called" << endl;
+        std::cout << "Parameters_for_street is called" << std::endl;
     }
 
     // Set functions

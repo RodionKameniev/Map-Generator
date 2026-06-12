@@ -5,11 +5,10 @@
 
 #include "Building_component.h"
 
-using namespace std;
 
 
 Building_cluster::Building_cluster(
-    const vector<Building_component>& buildings,
+    const std::vector<Building_component>& buildings,
     const int cost_of_building,
     const float base_probability_to_spawn
 )
@@ -22,13 +21,13 @@ Building_cluster::Building_cluster(
 {
     calculate_cost();
 
-    cout << "Building_cluster is called"
-        << endl;
+    std::cout << "Building_cluster is called"
+        << std::endl;
 }
 
 // Set functions
 void Building_cluster::set(
-    const vector<Building_component>& building_components,
+    const std::vector<Building_component>& building_components,
     const int cost_of_building,
     const float base_probability_to_spawn
 ) {
@@ -43,7 +42,7 @@ void Building_cluster::set(
 }
 
 void Building_cluster::set_building_components(
-    const vector<Building_component>& building_components
+    const std::vector<Building_component>& building_components
 ) {
     this->building_components =
         building_components;
@@ -64,12 +63,12 @@ void Building_cluster::set_base_probability_to_spawn(
 }
 
 // Get functions
-const vector<Building_component>&
+const std::vector<Building_component>&
 Building_cluster::get_building_components() const {
     return this->building_components;
 }
 
-vector<Building_component>&
+std::vector<Building_component>&
 Building_cluster::get_building_components(){
     return this->building_components;
 }

@@ -270,7 +270,7 @@ int* RunPerlinWindow(
     unsigned int height,
     float scale)
 {
-    clock_t tStart = clock();
+    //clock_t tStart = clock();
     pixels_ground.first = nullptr;
     pixels_river.first = nullptr;
     pixels_to_output.first = nullptr;
@@ -369,7 +369,7 @@ int* RunPerlinWindow(
             pixels_to_output.second[index_second] = terrainValue;
         }
     }
-    printf("Time taken: %.2fs\n", (double)(clock() - tStart) / CLOCKS_PER_SEC);
+    //printf("Time taken: %.2fs\n", (double)(clock() - tStart) / CLOCKS_PER_SEC);
     /*ZeroMemory(&bitmapInfo, sizeof(bitmapInfo));
 
     bitmapInfo.bmiHeader.biSize = sizeof(BITMAPINFOHEADER);

@@ -8,7 +8,6 @@
 #include "Rotation.h"
 #include "Map.h"
 
-using namespace std;
 
 queue<Position> start_of_streets;
 set<pair<double, Position>> place_for_buildings;
