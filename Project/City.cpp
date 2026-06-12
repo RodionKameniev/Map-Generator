@@ -14,9 +14,9 @@ queue<Position> start_of_streets;
 set<pair<double, Position>> place_for_buildings;
 std::vector<Position> end_of_streets;
 
-std::vector<vector<Street_cluster_spawn>> var_of_street_clusters;
+std::vector<std::vector<Street_cluster_spawn>> var_of_street_clusters;
 
-std::vector<vector<Building_cluster_spawn>> var_of_building_clusters;
+std::vector<std::vector<Building_cluster_spawn>> var_of_building_clusters;
 
 // Constructor
 City::City(
@@ -219,6 +219,9 @@ Street_cluster_spawn transform_street_cluster(
 }
 
 std::vector<Street_cluster_spawn>create_all_vars_of_street(const Street_cluster_spawn& street_spawn){
+    
+    //std::cout << "Enters crate vars of streets\n";
+
     std::vector<Street_cluster_spawn> all_vars;
 
     //Original
@@ -232,6 +235,8 @@ std::vector<Street_cluster_spawn>create_all_vars_of_street(const Street_cluster_
 
     //270deg
     all_vars.push_back(transform_street_cluster(street_spawn, Rotation::Deg270));
+
+    //std::cout << "Finishes crate vars of streets\n";
 
     return all_vars;
 }
@@ -269,16 +274,61 @@ std::vector<Building_cluster_spawn>create_all_vars_of_building(const Building_cl
 
 void City::create_streets(Map& map) {
 
-    for (int l = 0; l <= this->get_streets_probability_to_spawn().size(); l++) {
+    //std::cout << "All types creation\n";
+
+    for (int l = 0; l < this->get_streets_probability_to_spawn().size(); l++) {
         var_of_street_clusters.push_back(create_all_vars_of_street(this->get_streets_probability_to_spawn()[l]));
     }
+    //int p = 0;
+    //int g = 0;
+    //for (const auto& a : var_of_street_clusters) {
+    //    std::cout << "var " << p << std::endl;
+    //    p++;
+    //    for (const auto& b : a) {
+    //        std::cout << "var street " << g << std::endl;
+    //        g++;
+    //        for (const auto& c : b.get_street()->get_street_components()) {
+    //            std::cout << "pos x: " << c.get_shifted_position().get_on_x()<< " pos y: " << c.get_shifted_position().get_on_y() << " pos z: " << c.get_shifted_position().get_on_z() << std::endl;
+    //        }
+    //    }
+    //    g = 0;
+    //}
+
+    //int p = 0;
+    //int g = 0;
+    //std::cout << "var size" << var_of_street_clusters.size() << std::endl;
+    //for (const auto& a : var_of_street_clusters) {
+    //    std::cout << "street vars size" << a.size() << std::endl;
+    //    p++;
+    //    for (const auto& b : a) {
+    //        std::cout << "street size" << b.get_street()->get_street_components().size()<< std::endl;
+    //        g++;
+    //        //for (const auto& c : b.get_street()->get_position_for_next_street()) {
+    //        //    std::cout << "pos x: " << c.get_on_x() << " pos y: " << c.get_on_y() << " pos z: " << c.get_on_z() << std::endl;
+    //        //}
+    //    }
+    //    g = 0;
+    //}
+
+
+    //std::cout << "All types creation completed\n";
+
     random_device rd;
 
     mt19937 gen(rd());
 
+    //std::cout << "Start of streets entering\n";
+
     start_of_streets.push(this->get_center_of_city());
 
+    //std::cout << "Start_placing\n";
+    int comp = 0;
+
     while (start_of_streets.size() != 0) {
+        //std::cout << "start_of_streets size: " << start_of_streets.size() << std::endl;
+        //
+        //std::cout << "Component: " << comp<<std::endl;
+        //comp++;
 
         Position current_start_of_street = start_of_streets.front();
 
@@ -288,7 +338,7 @@ void City::create_streets(Map& map) {
             || (current_start_of_street.get_on_x() < this->center_of_city.get_on_x() - this->get_parameters().get_for_mini_map().get_size_x() / 2)
             || (current_start_of_street.get_on_y() > this->center_of_city.get_on_y() + this->get_parameters().get_for_mini_map().get_size_y() / 2)
             || (current_start_of_street.get_on_y() < this->center_of_city.get_on_y() - this->get_parameters().get_for_mini_map().get_size_y() / 2)) {
-
+           /* std::cout << "added to end_of_street: pos x: " << current_start_of_street.get_on_x() << " pos y : " << current_start_of_street.get_on_y() << " pos z : " << current_start_of_street.get_on_z() << std::endl;*/
             end_of_streets.push_back(current_start_of_street);
             continue;
         }
@@ -314,6 +364,8 @@ void City::create_streets(Map& map) {
 
             int index_var = dist(gen);
 
+            //std::cout << "Chosen canditates_var: " << index_var << std::endl;
+
             std::vector<Street_cluster_spawn> candidates = candidates_var[index_var];
 
             chosen = candidates[0];
@@ -330,9 +382,13 @@ void City::create_streets(Map& map) {
 
                 int index = dist(gen);
 
+                //std::cout << "Chosen canditate: " << index << std::endl;
+
                 chosen = candidates[index];
 
                 is_chosen = chosen.try_to_build(map, current_start_of_street);
+
+                //std::cout << "is_chosen: " << is_chosen;
 
                 if (!is_chosen) {
                     candidates.erase(candidates.begin() + index);
@@ -353,83 +409,49 @@ void City::create_streets(Map& map) {
             for (auto& el : places) {
                 place_for_buildings.insert(el);
             }
+            std::cout << "Size of place_for_buildings: " << place_for_buildings.size() << std::endl;
         }
     }
 }
 
-
-
-//void City::create_streets(Map& map) {
-//
-//    for (int l = 0; l <= this->get_streets_probability_to_spawn().size(); l++) {
-//        var_of_street_clusters.push_back(create_all_vars_of_street(this->get_streets_probability_to_spawn()[l]));
-//    }
-//    random_device rd;
-//
-//    mt19937 gen(rd());
-//
-//    start_of_streets.push(this->get_center_of_city());
-//
-//    while (start_of_streets.size() != 0) {
-//
-//        Position current_start_of_street = start_of_streets.front();
-//
-//        start_of_streets.pop();
-//        
-//        if ((current_start_of_street.get_on_x() > this->center_of_city.get_on_x() + this->get_parameters().get_for_mini_map().get_size_x() / 2)
-//            || (current_start_of_street.get_on_x() < this->center_of_city.get_on_x() - this->get_parameters().get_for_mini_map().get_size_x() / 2)
-//            || (current_start_of_street.get_on_y() > this->center_of_city.get_on_y() + this->get_parameters().get_for_mini_map().get_size_y() / 2)
-//            || (current_start_of_street.get_on_y() < this->center_of_city.get_on_y() - this->get_parameters().get_for_mini_map().get_size_y() / 2)) {
-//
-//            end_of_streets.push_back(current_start_of_street);
-//            continue;
-//        }
-//
-//        std::vector<Street_cluster_spawn> candidates = this->get_streets_probability_to_spawn(); //need to be changed
-//
-//        bool is_chosen = false;
-//        Street_cluster_spawn chosen = candidates[0];
-//
-//        while(!candidates.empty() && !is_chosen) {
-//
-//            std::vector<float> weights;
-//
-//            for(const auto& s :candidates) {
-//                weights.push_back(s.get_probability_to_spawn());
-//            }
-//
-//            discrete_distribution<> dist(weights.begin(), weights.end());
-//
-//            int index = dist(gen);
-//
-//            chosen = candidates[index];
-//
-//            is_chosen = chosen.try_to_build(map, current_start_of_street);
-//
-//            if (!is_chosen) {
-//                candidates.erase(candidates.begin() + index);
-//            }
-//        }
-//        if (is_chosen){
-//            chosen.build_street(map, current_start_of_street);
-//            std::vector<Position> next_start_of_streets = chosen.create_next_street_pos(current_start_of_street);
-//            for (int i = 0; i < next_start_of_streets.size(); i++) {
-//                start_of_streets.push(next_start_of_streets[i]);
-//            }
-//            set<pair<double, Position>> places = chosen.get_places_for_building(map, current_start_of_street, this->get_center_of_city());
-//            for (auto& el : places) {
-//                place_for_buildings.insert(el);
-//            }
-//        }
-//        
-//    }
-//}
-
-
 void City::create_buildings(Map& map) {
-    for (int l = 0; l <= this->get_buildings_probability_to_spawn().size(); l++) {
+    for (int l = 0; l < this->get_buildings_probability_to_spawn().size(); l++) {
+        //std::cout << "hello! " << this->get_buildings_probability_to_spawn()[l].get_building()->get_building_components()[0].get_shifted_position().get_on_x() << std::endl;
         var_of_building_clusters.push_back(create_all_vars_of_building(this->get_buildings_probability_to_spawn()[l]));
     }
+
+
+    int p = 0;
+    int g = 0;
+    for (const auto& a : var_of_building_clusters) {
+        std::cout << "var " << p << std::endl;
+        p++;
+        for (const auto& b : a) {
+            std::cout << "var street " << g << std::endl;
+            g++;
+            std::cout << "var street size " << b.get_building()->get_building_components().size() << std::endl;
+            //for (const auto& c : b.get_building()->get_building_components()) {
+            //    std::cout << "pos x: " << c.get_shifted_position().get_on_x()<< " pos y: " << c.get_shifted_position().get_on_y() << " pos z: " << c.get_shifted_position().get_on_z() << std::endl;
+            //}
+        }
+        g = 0;
+    }
+
+    //int p = 0;
+    //int g = 0;
+    //std::cout << "var size" << var_of_building_clusters.size() << std::endl;
+    //for (const auto& a : var_of_building_clusters) {
+    //    std::cout << "building vars size " << a.size() << std::endl;
+    //    p++;
+    //    for (const auto& b : a) {
+    //        std::cout << "building size " << b.get_building()->get_building_components().size()<< std::endl;
+    //        g++;
+    //        //for (const auto& c : b.get_street()->get_position_for_next_street()) {
+    //        //    std::cout << "pos x: " << c.get_on_x() << " pos y: " << c.get_on_y() << " pos z: " << c.get_on_z() << std::endl;
+    //        //}
+    //    }
+    //    g = 0;
+    //}
     random_device rd;
 
     mt19937 gen(rd());
@@ -488,44 +510,6 @@ void City::create_buildings(Map& map) {
     }
 }
 
-//void City::create_buildings(Map& map) {
-//    random_device rd;
-//
-//    mt19937 gen(rd());
-//    for(auto& current_place : place_for_buildings){
-//
-//        std::vector<Building_cluster_spawn> candidates = this->get_buildings_probability_to_spawn();
-//
-//        bool is_chosen = false;
-//
-//        Building_cluster_spawn chosen = candidates[0];
-//
-//        while (!candidates.empty() && !is_chosen) {
-//
-//            std::vector<float> weights;
-//
-//            for (const auto& s : candidates) {
-//                weights.push_back(s.get_probability_to_spawn());
-//            }
-//
-//            discrete_distribution<> dist(weights.begin(), weights.end());
-//
-//            int index = dist(gen);
-//
-//            chosen = candidates[index];
-//
-//            is_chosen = chosen.try_to_build(map, current_place.second);
-//
-//            if (!is_chosen) {
-//                candidates.erase(candidates.begin() + index);
-//            }
-//        }
-//        if (is_chosen) {
-//           chosen.build_building(map, current_place.second);
-//            
-//        }
-//    }
-//}
 
 void City::create_city(Map& map) {
     this->create_streets(map);
