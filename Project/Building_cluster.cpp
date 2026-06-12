@@ -14,7 +14,7 @@ Building_cluster::Building_cluster(
     const float base_probability_to_spawn
 )
     :
-    building_components(building_components),
+    building_components(buildings),
     cost_of_building(cost_of_building),
     base_probability_to_spawn(
         base_probability_to_spawn

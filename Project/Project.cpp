@@ -8,13 +8,18 @@
 #include "Map.h"
 #include "Colour.h"
 #include "Position.h"
+
 #include "Parameters_for_street.h"
 #include "Street_component.h"
 #include "Street_cluster.h"
 #include "Street_cluster_spawn.h"
-#include "Parameters_for_city.h"
+
+#include "Parameters_for_building.h"
+#include "Building_component.h"
 #include "Building_cluster.h"
 #include "Building_cluster_spawn.h"
+
+#include "Parameters_for_city.h"
 
 #include "City.h"
 
