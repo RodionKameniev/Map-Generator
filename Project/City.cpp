@@ -8,7 +8,6 @@
 #include "Rotation.h"
 #include "Map.h"
 
-using namespace std;
 
 queue<Position> start_of_streets;
 set<pair<double, Position>> place_for_buildings;
@@ -456,6 +455,13 @@ void City::create_buildings(Map& map) {
 
     mt19937 gen(rd());
     for (auto& current_place : place_for_buildings) {
+
+        if ((current_place.second.get_on_x() > this->center_of_city.get_on_x() + this->get_parameters().get_for_mini_map().get_size_x() / 2)
+            || (current_place.second.get_on_x() < this->center_of_city.get_on_x() - this->get_parameters().get_for_mini_map().get_size_x() / 2)
+            || (current_place.second.get_on_y() > this->center_of_city.get_on_y() + this->get_parameters().get_for_mini_map().get_size_y() / 2)
+            || (current_place.second.get_on_y() < this->center_of_city.get_on_y() - this->get_parameters().get_for_mini_map().get_size_y() / 2)) {
+            continue;
+        }
 
         std::vector<std::vector<Building_cluster_spawn>> candidates_var = var_of_building_clusters;
 
