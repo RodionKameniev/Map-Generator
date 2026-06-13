@@ -30,7 +30,7 @@ protected:
         >
     > cells_on_mini_map;
 
-    std::vector<City*> cities;
+    std::vector<std::unique_ptr<City>> cities;
 
     std::vector<Clutter_cluster_spawn>
         clutters_probability_to_spawn;
@@ -46,7 +46,7 @@ public:
         std::unique_ptr<Cell_on_map>
         >
         > cells_on_mini_map,
-        const std::vector<City*>& cities,
+        const std::vector<std::unique_ptr<City>>cities,
         const std::vector<
         Clutter_cluster_spawn
         >& clutters_probability_to_spawn
@@ -61,7 +61,7 @@ public:
         std::unique_ptr<Cell_on_map>
         >
         > cells_on_mini_map,
-        const std::vector<City*>& cities,
+        std::vector<std::unique_ptr<City>>cities,
         const std::vector<
         Clutter_cluster_spawn
         >& clutters_probability_to_spawn
@@ -84,7 +84,7 @@ public:
     );
 
     void set_cities(
-        const std::vector<City*>& cities
+        std::vector<std::unique_ptr<City>>cities
     );
 
     void set_clutters_probability_to_spawn(
@@ -113,7 +113,7 @@ public:
     >&
         get_cells_on_mini_map();
 
-    const std::vector<City*>&
+    const std::vector<std::unique_ptr<City>>&
         get_cities() const;
 
     const std::vector<
@@ -131,4 +131,6 @@ public:
     );
 
     void render_map();
+
+    void add_city(std::unique_ptr<City> city_to_add);
 };

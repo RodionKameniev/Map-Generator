@@ -37,7 +37,7 @@ Map::Map(
     >
     > cells_on_mini_map,
 
-    const std::vector<City*>& cities,
+    std::vector<std::unique_ptr<City>> cities,
 
     const std::vector<
     Clutter_cluster_spawn
@@ -52,7 +52,7 @@ Map::Map(
         move(cells_on_mini_map)
     ),
 
-    cities(cities),
+    cities(move(cities)),
 
     clutters_probability_to_spawn(
         clutters_probability_to_spawn
@@ -74,7 +74,7 @@ void Map::set(
     >
     > cells_on_mini_map,
 
-    const std::vector<City*>& cities,
+    std::vector<std::unique_ptr<City>>cities,
 
     const std::vector<
     Clutter_cluster_spawn
@@ -91,7 +91,7 @@ void Map::set(
         move(cells_on_mini_map);
 
     this->cities =
-        cities;
+        move(cities);
 
     this->clutters_probability_to_spawn =
         clutters_probability_to_spawn;
@@ -125,9 +125,9 @@ void Map::set_cells_on_mini_map(
 }
 
 void Map::set_cities(
-    const std::vector<City*>& cities
+    std::vector<std::unique_ptr<City>>cities
 ) {
-    this->cities = cities;
+    this->cities = move(cities);
 }
 
 void Map::
@@ -168,7 +168,7 @@ Map::get_cells_on_mini_map(){
     return this->cells_on_mini_map;
 }
 
-const std::vector<City*>&
+const std::vector<std::unique_ptr<City>>&
 Map::get_cities() const {
     return this->cities;
 }
@@ -266,6 +266,10 @@ void Map::create_base_map(int* values, int height, int width) {
     this->cells_on_mini_map.push_back(move(cell_row));
     cell_row = std::vector<unique_ptr<Cell_on_map>>();
     // Testing
+}
+
+void Map::add_city(std::unique_ptr<City> city_to_add) {
+    cities.push_back(std::move(city_to_add));
 }
 
 LRESULT CALLBACK Map::WindowProc(
@@ -497,3 +501,4 @@ void Map::render_map()
 
     delete[] pixels_to_output;
 }
+

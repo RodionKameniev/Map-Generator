@@ -17,6 +17,9 @@ public:
         const Size_dimensional& city_for_mini_map,
         const Size_dimensional& city_for_map
     );
+    Parameters_for_city(
+        std::string_view city_name
+    );
 
     // Set functions
     void set(

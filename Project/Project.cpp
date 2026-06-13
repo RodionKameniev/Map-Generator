@@ -90,9 +90,9 @@ int main()
     static Street_cluster straight_street = Street_cluster(straight_street_components, straight_street_next_streets, 0.3);
     static Street_cluster_spawn straight_street_spawn = Street_cluster_spawn(&straight_street, 0.3);
 
-    vector<Street_cluster_spawn> strets_to_spawn;
-    strets_to_spawn.push_back(straight_street_spawn);
-    strets_to_spawn.push_back(crossed_street_spawn);
+    vector<Street_cluster_spawn> streets_to_spawn;
+    streets_to_spawn.push_back(straight_street_spawn);
+    streets_to_spawn.push_back(crossed_street_spawn);
 
 
     //Testing bildings
@@ -130,10 +130,37 @@ int main()
     buildings_to_spawn.push_back(station_building_spawn);
 
 
-    static Parameters_for_city parameters_for_city = Parameters_for_city("Mala Tokmachka", Size_dimensional(100, 100, 20), Size_dimensional(400, 400, 200));
-    static City city = City(buildings, buildings_to_spawn, strets_to_spawn, parameters_for_city, 0, Position(500, 500, 0));
+    //static Parameters_for_city parameters_for_city = Parameters_for_city("Mala Tokmachka", Size_dimensional(100, 100, 20), Size_dimensional(400, 400, 200));
+    //static City city = City(buildings, buildings_to_spawn, streets_to_spawn, parameters_for_city, 0, Position(500, 500, 0));
+    
+    // TEST
+    for (int i = 0; i < 14; i++) {
+        string name = "City " + i;
+        Parameters_for_city parameters_for_city = Parameters_for_city(name);
+        auto city = std::make_unique<City>(buildings, buildings_to_spawn, streets_to_spawn, parameters_for_city);
+        city->create_city(new_map);
+        new_map.add_city(std::move(city));
+    }
+    /*static Parameters_for_city parameters_for_city = Parameters_for_city("Mala Tokmachka");
+    static City city = City(buildings, buildings_to_spawn, streets_to_spawn, parameters_for_city);
 
-    city.create_city(new_map);
+    city.create_city(new_map);*/
+
+    for (int i = 0; i < 14; i++) {
+        std::cout << "City " << i << ": " << std::endl;
+        for (int j = 0; j < new_map.get_cities()[i]->end_of_streets.size(); j++) {
+            std::cout << "end of street: pos x: " << new_map.get_cities()[i]->end_of_streets[j].get_on_x() <<
+                ": pos y: " << new_map.get_cities()[i]->end_of_streets[j].get_on_y() <<
+                ": pos z: " << new_map.get_cities()[i]->end_of_streets[j].get_on_z() << std::endl;
+        }
+    }
+
+
+    //for (int i = 0; i < 14; i++) {
+    //    std::cout << "Center of City " << i << ": pos x: " << new_map.get_cities()[i]->get_center_of_city().get_on_x() <<
+    //        ": pos y: " << new_map.get_cities()[i]->get_center_of_city().get_on_y() <<
+    //        ": pos z: " << new_map.get_cities()[i]->get_center_of_city().get_on_z()<< std::endl;
+    //}
 
     new_map.render_map();
 

@@ -1,6 +1,8 @@
 #pragma once
 
 #include <vector>
+#include <queue>
+#include <set>
 
 #include "Building_cluster.h"
 #include "Building_cluster_spawn.h"
@@ -25,11 +27,18 @@ protected:
 
     Parameters_for_city parameters;
 
-    int cost;
+    int cost = 0;
 
     Position center_of_city;
 
 public:
+    queue<Position> start_of_streets;
+    set<pair<double, Position>> place_for_buildings;
+    std::vector<Position> end_of_streets;
+
+    std::vector<std::vector<Street_cluster_spawn>> var_of_street_clusters;
+
+    std::vector<std::vector<Building_cluster_spawn>> var_of_building_clusters;
     // Constructor
     City(
         const std::vector<
@@ -51,6 +60,22 @@ public:
 
         const Position&
         center_of_city
+    );
+    City(
+        const std::vector<
+        Building_cluster
+        >& buildings,
+
+        const std::vector<
+        Building_cluster_spawn
+        >& buildings_probability_to_spawn,
+
+        const std::vector<
+        Street_cluster_spawn
+        >& streets_probability_to_spawn,
+
+        const Parameters_for_city&
+        parameters
     );
 
     // Set functions
