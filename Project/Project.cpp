@@ -19,6 +19,8 @@
 #include "Building_cluster.h"
 #include "Building_cluster_spawn.h"
 
+#include "Type_of_clutter.h"
+
 #include "Parameters_for_city.h"
 #include "City.h"
 
@@ -90,9 +92,9 @@ int main()
     static Street_cluster straight_street = Street_cluster(straight_street_components, straight_street_next_streets, 0.3);
     static Street_cluster_spawn straight_street_spawn = Street_cluster_spawn(&straight_street, 0.3);
 
-    vector<Street_cluster_spawn> strets_to_spawn;
-    strets_to_spawn.push_back(straight_street_spawn);
-    strets_to_spawn.push_back(crossed_street_spawn);
+    vector<Street_cluster_spawn> streets_to_spawn;
+    streets_to_spawn.push_back(straight_street_spawn);
+    streets_to_spawn.push_back(crossed_street_spawn);
 
 
     //Testing bildings
@@ -107,7 +109,7 @@ int main()
 
                     //house_building_components.size() * house_parameters.get_cost()
 
-    static Building_cluster house_building = Building_cluster(house_building_components, 25, 0.8);
+    static Building_cluster house_building = Building_cluster(house_building_components, house_building_components.size() * house_parameters.get_cost(), 0.8);
     static Building_cluster_spawn house_building_spawn = Building_cluster_spawn(&house_building, 0.8);
 
     //Station building
@@ -129,16 +131,61 @@ int main()
     buildings_to_spawn.push_back(house_building_spawn);
     buildings_to_spawn.push_back(station_building_spawn);
 
-    for(int i=0; i < 5; i++){
-        string name_for_city = "City " + i;
-        City city = City(buildings, buildings_to_spawn, strets_to_spawn, Parameters_for_city(name_for_city, Size_dimensional(40, 40, 20), Size_dimensional(400, 400, 200)), 0, Position(100 + i * 100, 100+i*100, 0));
-        city.create_city(new_map);
-        vector<City*> cities = new_map.get_cities();
-        cities.push_back(&city);
-        new_map.set_cities(cities);
+    //Testing clutters
+
+    static Parameters_for_clutter wheat_field_parameters = Parameters_for_clutter("wheat_field_clutter_part", Type_of_clutter::Specific, true, true, 50, Colour(255, 202, 24), Colour(255, 202, 24));
+
+    //Wheat field clutter
+    static vector<Clutter_component> wheat_field_clutter_components;
+
+    wheat_field_clutter_components.push_back(Clutter_component(&wheat_field_parameters, Position(0, 0, 0)));
+    wheat_field_clutter_components.push_back(Clutter_component(&wheat_field_parameters, Position(1, 0, 0)));
+    wheat_field_clutter_components.push_back(Clutter_component(&wheat_field_parameters, Position(2, 0, 0)));
+    wheat_field_clutter_components.push_back(Clutter_component(&wheat_field_parameters, Position(0, 1, 0)));
+    wheat_field_clutter_components.push_back(Clutter_component(&wheat_field_parameters, Position(1, 1, 0)));
+    wheat_field_clutter_components.push_back(Clutter_component(&wheat_field_parameters, Position(2, 1, 0)));
+
+    static Clutter_cluster wheat_field_clutter = Clutter_cluster(wheat_field_clutter_components, 0.8);
+
+    static Clutter_cluster_spawn wheat_field_clutter_spawn = Clutter_cluster_spawn(&wheat_field_clutter, 0.8);
+
+    vector<Clutter_cluster_spawn> clutters_to_spawn;
+
+    clutters_to_spawn.push_back(wheat_field_clutter_spawn);
+
+    new_map.set_clutters_probability_to_spawn(clutters_to_spawn);
+
+    //static Parameters_for_city parameters_for_city = Parameters_for_city("Mala Tokmachka", Size_dimensional(100, 100, 20), Size_dimensional(400, 400, 200));
+    //static City city = City(buildings, buildings_to_spawn, streets_to_spawn, parameters_for_city, 0, Position(500, 500, 0));
+    
+    // TEST
+    for (int i = 0; i < 14; i++) {
+        string name = "City " + i;
+        Parameters_for_city parameters_for_city = Parameters_for_city(name);
+        auto city = std::make_unique<City>(buildings, buildings_to_spawn, streets_to_spawn, parameters_for_city);
+        city->create_city(new_map);
+        new_map.add_city(std::move(city));
     }
+    /*static Parameters_for_city parameters_for_city = Parameters_for_city("Mala Tokmachka");
+    static City city = City(buildings, buildings_to_spawn, streets_to_spawn, parameters_for_city);
 
+    city.create_city(new_map);*/
 
+    for (int i = 0; i < 14; i++) {
+        std::cout << "City " << i << ": " << std::endl;
+        for (int j = 0; j < new_map.get_cities()[i]->end_of_streets.size(); j++) {
+            std::cout << "end of street: pos x: " << new_map.get_cities()[i]->end_of_streets[j].get_on_x() <<
+                ": pos y: " << new_map.get_cities()[i]->end_of_streets[j].get_on_y() <<
+                ": pos z: " << new_map.get_cities()[i]->end_of_streets[j].get_on_z() << std::endl;
+        }
+    }
+    new_map.create_clutters(100);
+
+    //for (int i = 0; i < 14; i++) {
+    //    std::cout << "Center of City " << i << ": pos x: " << new_map.get_cities()[i]->get_center_of_city().get_on_x() <<
+    //        ": pos y: " << new_map.get_cities()[i]->get_center_of_city().get_on_y() <<
+    //        ": pos z: " << new_map.get_cities()[i]->get_center_of_city().get_on_z()<< std::endl;
+    //}
 
     new_map.render_map();
 

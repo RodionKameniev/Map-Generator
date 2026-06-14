@@ -8,6 +8,7 @@ protected:
     int on_z = 0;
 public:
     Position(const int x, const int y, const int z);
+    Position();
     bool operator<(const Position& other) const;
 
     // Set functions

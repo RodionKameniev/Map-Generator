@@ -11,7 +11,7 @@ Clutter_cluster::Clutter_cluster(
         const float base_probability_to_spawn
     )
         :
-        clutter_components(clutter_components),
+        clutter_components(clutters),
         base_probability_to_spawn(
             base_probability_to_spawn
         )
@@ -49,6 +49,10 @@ Clutter_cluster::Clutter_cluster(
     // Get functions
     const std::vector<Clutter_component>&
         Clutter_cluster::get_clutter_components() const {
+        return this->clutter_components;
+    }
+
+    std::vector<Clutter_component>& Clutter_cluster::get_clutter_components() {
         return this->clutter_components;
     }
 
