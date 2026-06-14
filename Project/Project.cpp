@@ -129,11 +129,16 @@ int main()
     buildings_to_spawn.push_back(house_building_spawn);
     buildings_to_spawn.push_back(station_building_spawn);
 
+    for(int i=0; i < 5; i++){
+        string name_for_city = "City " + i;
+        City city = City(buildings, buildings_to_spawn, strets_to_spawn, Parameters_for_city(name_for_city, Size_dimensional(40, 40, 20), Size_dimensional(400, 400, 200)), 0, Position(100 + i * 100, 100+i*100, 0));
+        city.create_city(new_map);
+        vector<City*> cities = new_map.get_cities();
+        cities.push_back(&city);
+        new_map.set_cities(cities);
+    }
 
-    static Parameters_for_city parameters_for_city = Parameters_for_city("Mala Tokmachka", Size_dimensional(100, 100, 20), Size_dimensional(400, 400, 200));
-    static City city = City(buildings, buildings_to_spawn, strets_to_spawn, parameters_for_city, 0, Position(500, 500, 0));
 
-    city.create_city(new_map);
 
     new_map.render_map();
 

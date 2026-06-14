@@ -24,7 +24,7 @@ Building_on_map::Building_on_map(
         direction(direction),
         base_probability_to_spawn(base_probability_to_spawn)
     {
-        std::cout << "Building_on_map is called" << std::endl;
+        //std::cout << "Building_on_map is called" << std::endl;
     }
 
     // Set functions
