@@ -10,6 +10,7 @@ protected:
     std::string name;
     bool is_restricted_to_cross = false;
     bool is_restricted_to_build = false;
+    bool is_restricted_to_lay = false;
     int cost_to_cross = 0;
     Colour image_for_mini_map_id;
     Colour image_for_map_id;
@@ -19,6 +20,7 @@ public:
         std::string_view name,
         const bool is_restricted_to_cross,
         const bool is_restricted_to_build,
+        const bool is_restricted_to_lay,
         const int cost_to_cross,
         const Colour& image_for_mini_map_id,
         const Colour& image_for_map_id
@@ -29,6 +31,7 @@ public:
         std::string_view name,
         const bool is_restricted_to_cross,
         const bool is_restricted_to_build,
+        const bool is_restricted_to_lay,
         const int cost_to_cross,
         const Colour& image_for_mini_map_id,
         const Colour& image_for_map_id
@@ -40,6 +43,8 @@ public:
     void set_is_restricted_to_cross(const bool is_restricted_to_cross);
 
     void set_is_restricted_to_build(const bool is_restricted_to_build);
+
+    void set_is_restricted_to_lay(const bool is_restricted_to_lay);
 
     void set_cost_to_cross(const int cost_to_cross);
 
@@ -54,6 +59,8 @@ public:
     const bool get_is_restricted_to_cross() const;
 
     const bool get_is_restricted_to_build() const;
+
+    const bool get_is_restricted_to_lay() const;
 
     const int get_cost_to_cross() const;
 

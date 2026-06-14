@@ -51,8 +51,8 @@ int main()
     Map new_map;
     new_map.create_base_map(map_in_vales, height, width);
     //Testing streets
-    static Parameters_for_street crossed_parameters = Parameters_for_street("crossed_street_part", true, true, 10, 50, Colour(169, 169, 169), Colour(169, 169, 169));
-    static Parameters_for_street straight_parameters = Parameters_for_street("straight_street_part", true, true, 10, 30, Colour(169, 169, 169), Colour(169, 169, 169));
+    static Parameters_for_street crossed_parameters = Parameters_for_street("crossed_street_part", true, true, false, 10, 50, Colour(169, 169, 169), Colour(169, 169, 169));
+    static Parameters_for_street straight_parameters = Parameters_for_street("straight_street_part", true, true, false, 10, 30, Colour(169, 169, 169), Colour(169, 169, 169));
 
     //Cross street
   
@@ -133,7 +133,7 @@ int main()
 
     //Testing clutters
 
-    static Parameters_for_clutter wheat_field_parameters = Parameters_for_clutter("wheat_field_clutter_part", Type_of_clutter::Specific, true, true, 50, Colour(255, 202, 24), Colour(255, 202, 24));
+    static Parameters_for_clutter wheat_field_parameters = Parameters_for_clutter("wheat_field_clutter_part", Type_of_clutter::Specific, true, true, true, 50, Colour(255, 202, 24), Colour(255, 202, 24));
 
     //Wheat field clutter
     static vector<Clutter_component> wheat_field_clutter_components;

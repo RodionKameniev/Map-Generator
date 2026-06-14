@@ -199,13 +199,13 @@ void Map::create_base_map(int* values, int height, int width) {
     // 2 additional functions for map
 
     // Testing
-    static Parameters_for_clutter deep_water = Parameters_for_clutter("Deep_water", Type_of_clutter::Water, true, true, 160, Colour(0, 0, 80), Colour(0, 0, 80));
-    static Parameters_for_clutter water = Parameters_for_clutter("Water", Type_of_clutter::Water, true, true, 80, Colour(30, 100, 220), Colour(30, 100, 220));
-    static Parameters_for_clutter ground = Parameters_for_clutter("Ground", Type_of_clutter::Ground, false, false, 10, Colour(120, 200, 80), Colour(120, 200, 80));
-    static Parameters_for_clutter forest = Parameters_for_clutter("Forest", Type_of_clutter::Ground, false, false, 30, Colour(20, 120, 20), Colour(20, 120, 20));
-    static Parameters_for_clutter mountain = Parameters_for_clutter("Mountain", Type_of_clutter::Mountain, true, true, 100, Colour(140, 140, 140), Colour(140, 140, 140));
-    static Parameters_for_clutter high_mountain = Parameters_for_clutter("High_mountain", Type_of_clutter::Mountain, true, true, 200, Colour(180, 180, 180), Colour(180, 180, 180));
-    static Parameters_for_clutter border = Parameters_for_clutter("Border", Type_of_clutter::Specific, true, true, 200, Colour(255, 0, 0), Colour(255, 0, 0));
+    static Parameters_for_clutter deep_water = Parameters_for_clutter("Deep_water", Type_of_clutter::Water, true, true, true, 160, Colour(0, 0, 80), Colour(0, 0, 80));
+    static Parameters_for_clutter water = Parameters_for_clutter("Water", Type_of_clutter::Water, true, true, false, 80, Colour(30, 100, 220), Colour(30, 100, 220));
+    static Parameters_for_clutter ground = Parameters_for_clutter("Ground", Type_of_clutter::Ground, false, false, false, 10, Colour(120, 200, 80), Colour(120, 200, 80));
+    static Parameters_for_clutter forest = Parameters_for_clutter("Forest", Type_of_clutter::Ground, false, false, false, 30, Colour(20, 120, 20), Colour(20, 120, 20));
+    static Parameters_for_clutter mountain = Parameters_for_clutter("Mountain", Type_of_clutter::Mountain, true, true, false, 100, Colour(140, 140, 140), Colour(140, 140, 140));
+    static Parameters_for_clutter high_mountain = Parameters_for_clutter("High_mountain", Type_of_clutter::Mountain, true, true, false, 200, Colour(180, 180, 180), Colour(180, 180, 180));
+    static Parameters_for_clutter border = Parameters_for_clutter("Border", Type_of_clutter::Specific, true, true, true, 200, Colour(255, 0, 0), Colour(255, 0, 0));
     static const std::vector<Direction> no_connections;
     // Testing
     // Testing
@@ -279,6 +279,12 @@ void Map::create_base_map(int* values, int height, int width) {
 void Map::add_city(std::unique_ptr<City> city_to_add) {
     cities.push_back(std::move(city_to_add));
 }
+
+void create_roads() {
+
+}
+
+
 
 LRESULT CALLBACK Map::WindowProc(
     HWND hwnd,

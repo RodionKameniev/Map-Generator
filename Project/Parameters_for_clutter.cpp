@@ -12,6 +12,7 @@ Parameters_for_clutter::Parameters_for_clutter(
         const Type_of_clutter type_of_clutter,
         const bool is_restricted_to_cross,
         const bool is_restricted_to_build,
+        const bool is_restricted_to_lay,
         const int cost_to_cross,
         const Colour image_for_mini_map_id,
         const Colour image_for_map_id
@@ -20,6 +21,7 @@ Parameters_for_clutter::Parameters_for_clutter(
             name,
             is_restricted_to_cross,
             is_restricted_to_build,
+            is_restricted_to_lay,
             cost_to_cross,
             image_for_mini_map_id,
             image_for_map_id

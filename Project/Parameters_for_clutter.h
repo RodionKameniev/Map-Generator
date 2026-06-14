@@ -16,6 +16,7 @@ public:
         const Type_of_clutter type_of_clutter,
         const bool is_restricted_to_cross,
         const bool is_restricted_to_build,
+        const bool is_restricted_to_lay,
         const int cost_to_cross,
         const Colour image_for_mini_map_id,
         const Colour image_for_map_id

@@ -10,6 +10,7 @@ Parameters_for_road::Parameters_for_road(
         std::string_view name,
         const bool is_restricted_to_cross,
         const bool is_restricted_to_build,
+        const bool is_restricted_to_lay,
         const int cost_to_cross,
         const int cost_to_build,
         const Type_of_road type_of_road,
@@ -20,6 +21,7 @@ Parameters_for_road::Parameters_for_road(
             name,
             is_restricted_to_cross,
             is_restricted_to_build,
+            is_restricted_to_lay,
             cost_to_cross,
             image_for_mini_map_id,
             image_for_map_id

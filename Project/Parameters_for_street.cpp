@@ -7,6 +7,7 @@ Parameters_for_street::Parameters_for_street(
         std::string_view name,
         const bool is_restricted_to_cross,
         const bool is_restricted_to_build,
+        const bool is_restricted_to_lay,
         const int cost_to_cross,
         const int cost_to_build,
         const Colour image_for_mini_map_id,
@@ -16,6 +17,7 @@ Parameters_for_street::Parameters_for_street(
             name,
             is_restricted_to_cross,
             is_restricted_to_build,
+            is_restricted_to_lay,
             cost_to_cross,
             image_for_mini_map_id,
             image_for_map_id
