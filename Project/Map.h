@@ -15,6 +15,7 @@
 #include "Size_dimensional.h"
 #include "Cell_on_map.h"
 #include "Clutter_cluster_spawn.h"
+#include "Position.h"
 
 class City;
 
@@ -36,6 +37,8 @@ protected:
         clutters_probability_to_spawn;
 
 public:
+    std::vector<Position> place_for_clutters;
+    std::vector<std::vector<Clutter_cluster_spawn>> var_of_clutter_clusters;
     // Constructor
     Map();
     Map(
@@ -133,4 +136,8 @@ public:
     void render_map();
 
     void add_city(std::unique_ptr<City> city_to_add);
+
+    bool possible_to_place_clutter(Position pos);
+
+    void create_clutters(int amount);
 };

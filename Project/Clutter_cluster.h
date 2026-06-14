@@ -33,5 +33,7 @@ public:
     const std::vector<Clutter_component>&
         get_clutter_components() const;
 
+    std::vector<Clutter_component>& get_clutter_components();
+
     const float get_base_probability_to_spawn() const;
 };

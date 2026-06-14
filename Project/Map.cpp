@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <utility>
+#include <random>
 
 #include "City.h"
 
@@ -10,6 +11,13 @@
 #include "Building_on_map.h"
 #include "Parameters_for_clutter.h"
 #include "Colour.h"
+
+#include "Road_on_map.h"
+#include "Clutter_on_map.h"
+#include "Building_on_map.h"
+#include "Street_on_map.h"
+
+#include "Rotation.h"
 
 static BITMAPINFO bitmapInfo;
 unsigned char* pixels_to_output = nullptr;
@@ -317,6 +325,164 @@ LRESULT CALLBACK Map::WindowProc(
 
     return DefWindowProc(hwnd, msg, wParam, lParam);
 }
+
+Clutter_cluster_spawn transform_clutter_cluster(const Clutter_cluster_spawn& clutter_cluster, Rotation rotation) {
+    Clutter_cluster* clutter_copy = new Clutter_cluster(*clutter_cluster.get_clutter());
+
+    for (auto& component : clutter_copy->get_clutter_components()) {
+        component.set_shifted_position(rotate_position(component.get_shifted_position(), rotation));
+    }
+
+    Clutter_cluster_spawn result(clutter_copy, clutter_cluster.get_probability_to_spawn());
+
+    return result;
+}
+
+std::vector<Clutter_cluster_spawn>create_all_vars_of_clutter(const Clutter_cluster_spawn& clutter_spawn) {
+    std::vector<Clutter_cluster_spawn> all_vars;
+
+    //Original
+    all_vars.push_back(clutter_spawn);
+
+    //90deg
+    all_vars.push_back(transform_clutter_cluster(clutter_spawn, Rotation::Deg90));
+
+    //180deg
+    all_vars.push_back(transform_clutter_cluster(clutter_spawn, Rotation::Deg180));
+
+    //270deg
+    all_vars.push_back(transform_clutter_cluster(clutter_spawn, Rotation::Deg270));
+
+    return all_vars;
+}
+
+bool Map::possible_to_place_clutter(Position pos) {
+    Cell_on_map* cell = this->get_cells_on_mini_map()[pos.get_on_x()][pos.get_on_y()].get();
+
+    // Road
+    if (dynamic_cast<Road_on_map*>(cell)) {
+        Road_on_map* road = dynamic_cast<Road_on_map*>(cell);
+        const Parameters_for_road* params = road->get_road_to_be_placed();
+
+        if (params->get_is_restricted_to_build()) {
+            return false;
+        }
+    }
+
+    // Clutter
+    if (dynamic_cast<Clutter_on_map*>(cell)) {
+        Clutter_on_map* clutter = dynamic_cast<Clutter_on_map*>(cell);
+
+        const Parameters_for_clutter* params = clutter->get_clutter_to_be_placed();
+
+        if (params->get_is_restricted_to_build()) {
+            return false;
+        }
+    }
+
+    // Building
+    if (dynamic_cast<Building_on_map*>(cell)) {
+        Building_on_map* building = dynamic_cast<Building_on_map*>(cell);
+        const Parameters_for_building* params = building->get_building_to_be_placed();
+
+        if (params->get_is_restricted_to_build()) {
+            return false;
+        }
+    }
+
+    // Street
+    if (dynamic_cast<Street_on_map*>(cell)) {
+        Street_on_map* street = dynamic_cast<Street_on_map*>(cell);
+        const Parameters_for_street* params = street->get_street_to_be_placed();
+
+        if (params->get_is_restricted_to_build()) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+void Map::create_clutters(int amount) {
+    for (int l = 0; l < this->get_clutters_probability_to_spawn().size(); l++) {
+        var_of_clutter_clusters.push_back(create_all_vars_of_clutter(this->get_clutters_probability_to_spawn()[l]));
+    }
+
+    random_device rd;
+
+    mt19937 gen(rd());
+
+    for (int p = 0; p < amount; p++) {
+        std::uniform_int_distribution<> pos_map_x(1, this->get_size_of_mini_map().get_size_x() - 1);
+        std::uniform_int_distribution<> pos_map_y(1, this->get_size_of_mini_map().get_size_y() - 1);
+
+        Position pos;
+        while (!possible_to_place_clutter(pos)) {
+            int pos_x = pos_map_x(gen);
+            int pos_y = pos_map_y(gen);
+            int pos_z = 0; //yet
+            pos.set_all(pos_x, pos_y, pos_z);
+        }
+        place_for_clutters.push_back(pos);
+    }
+
+
+    for (auto& current_place : place_for_clutters) {
+
+        std::vector<std::vector<Clutter_cluster_spawn>> candidates_var = var_of_clutter_clusters;
+
+        std::vector<Clutter_cluster_spawn> chosen_var = candidates_var[0];
+
+        bool is_chosen = false;
+
+        Clutter_cluster_spawn chosen = candidates_var[0][0];
+
+        while (!candidates_var.empty() && !is_chosen) {
+
+            std::vector<float> weights_var;
+
+            for (const auto& s : candidates_var) {
+                weights_var.push_back(s[0].get_probability_to_spawn());
+            }
+
+            discrete_distribution<> dist(weights_var.begin(), weights_var.end());
+
+            int index_var = dist(gen);
+
+            std::vector<Clutter_cluster_spawn> candidates = candidates_var[index_var];
+
+            chosen = candidates[0];
+            while (!candidates.empty() && !is_chosen) {
+
+                std::vector<float> weights;
+
+                for (const auto& s : candidates) {
+                    weights.push_back(s.get_probability_to_spawn());
+                }
+
+                discrete_distribution<> dist(weights.begin(), weights.end());
+
+                int index = dist(gen);
+
+                chosen = candidates[index];
+
+                is_chosen = chosen.try_to_build(*this, current_place);
+
+                if (!is_chosen) {
+                    candidates.erase(candidates.begin() + index);
+                }
+            }
+            if (!is_chosen) {
+                candidates_var.erase(candidates_var.begin() + index_var);
+            }
+        }
+        if (is_chosen) {
+            chosen.build_clutter(*this, current_place);
+        }
+    }
+}
+
+
 
 void Map::render_map()
 {

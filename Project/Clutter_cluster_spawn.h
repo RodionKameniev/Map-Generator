@@ -1,6 +1,9 @@
 #pragma once
 #include <iostream>
 #include "Clutter_cluster.h"
+#include "Position.h"
+
+class Map;
 
 class Clutter_cluster_spawn {
 protected:
@@ -33,4 +36,8 @@ public:
         get_clutter() const;
 
     const float get_probability_to_spawn() const;
+    
+    bool try_to_build(Map& map, Position start_of_clutter);
+
+    void build_clutter(Map& map, Position start_of_clutter);
 };
