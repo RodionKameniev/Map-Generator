@@ -51,11 +51,11 @@ int main()
     Map new_map;
     new_map.create_base_map(map_in_vales, height, width);
     //Testing streets
-    static Parameters_for_street crossed_parameters = Parameters_for_street("crossed_street_part", true, true, 10, 50, Colour(169, 169, 169), Colour(169, 169, 169));
-    static Parameters_for_street straight_parameters = Parameters_for_street("straight_street_part", true, true, 10, 30, Colour(169, 169, 169), Colour(169, 169, 169));
-    static Parameters_for_street to_left_parameters = Parameters_for_street("to_left_street_part", true, true, 10, 35, Colour(169, 169, 169), Colour(169, 169, 169));
-    static Parameters_for_street to_right_parameters = Parameters_for_street("to_right_street_part", true, true, 10, 35, Colour(169, 169, 169), Colour(169, 169, 169));
-    static Parameters_for_street t_shaped_parameters = Parameters_for_street("t_shaped_street_part", true, true, 10, 35, Colour(169, 169, 169), Colour(169, 169, 169));
+    static Parameters_for_street crossed_parameters = Parameters_for_street("crossed_street_part", true, true, false, 10, 50, Colour(169, 169, 169), Colour(169, 169, 169));
+    static Parameters_for_street straight_parameters = Parameters_for_street("straight_street_part", true, true, false, 10, 30, Colour(169, 169, 169), Colour(169, 169, 169));
+    static Parameters_for_street to_left_parameters = Parameters_for_street("to_left_street_part", true, true, false, 10, 35, Colour(169, 169, 169), Colour(169, 169, 169));
+    static Parameters_for_street to_right_parameters = Parameters_for_street("to_right_street_part", true, true, false, 10, 35, Colour(169, 169, 169), Colour(169, 169, 169));
+    static Parameters_for_street t_shaped_parameters = Parameters_for_street("t_shaped_street_part", true, true, false, 10, 35, Colour(169, 169, 169), Colour(169, 169, 169));
 
     //Cross street
   
