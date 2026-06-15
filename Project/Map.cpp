@@ -350,14 +350,26 @@ std::vector<Clutter_cluster_spawn>create_all_vars_of_clutter(const Clutter_clust
     //Original
     all_vars.push_back(clutter_spawn);
 
+    //45deg
+    all_vars.push_back(transform_clutter_cluster(clutter_spawn, Rotation::Deg45));
+
     //90deg
     all_vars.push_back(transform_clutter_cluster(clutter_spawn, Rotation::Deg90));
+
+    //135deg
+    all_vars.push_back(transform_clutter_cluster(clutter_spawn, Rotation::Deg135));
 
     //180deg
     all_vars.push_back(transform_clutter_cluster(clutter_spawn, Rotation::Deg180));
 
+    //225deg
+    all_vars.push_back(transform_clutter_cluster(clutter_spawn, Rotation::Deg225));
+
     //270deg
     all_vars.push_back(transform_clutter_cluster(clutter_spawn, Rotation::Deg270));
+
+    //315deg
+    all_vars.push_back(transform_clutter_cluster(clutter_spawn, Rotation::Deg315));
 
     return all_vars;
 }

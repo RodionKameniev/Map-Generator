@@ -271,15 +271,27 @@ std::vector<Street_cluster_spawn>create_all_vars_of_street(const Street_cluster_
 
     //Original
     all_vars.push_back(street_spawn);
+
+    //45deg
+    all_vars.push_back(transform_street_cluster(street_spawn, Rotation::Deg45));
     
     //90deg
     all_vars.push_back(transform_street_cluster(street_spawn, Rotation::Deg90));
 
+    //135deg
+    all_vars.push_back(transform_street_cluster(street_spawn, Rotation::Deg135));
+
     //180deg
     all_vars.push_back(transform_street_cluster(street_spawn,Rotation::Deg180));
 
+    //225deg
+    all_vars.push_back(transform_street_cluster(street_spawn, Rotation::Deg225));
+
     //270deg
     all_vars.push_back(transform_street_cluster(street_spawn, Rotation::Deg270));
+
+    //315deg
+    all_vars.push_back(transform_street_cluster(street_spawn, Rotation::Deg315));
 
     //std::cout << "Finishes crate vars of streets\n";
 
@@ -305,14 +317,26 @@ std::vector<Building_cluster_spawn>create_all_vars_of_building(const Building_cl
     //Original
     all_vars.push_back(building_spawn);
 
+    //45deg
+    all_vars.push_back(transform_building_cluster(building_spawn, Rotation::Deg45));
+
     //90deg
     all_vars.push_back(transform_building_cluster(building_spawn, Rotation::Deg90));
+
+    //135deg
+    all_vars.push_back(transform_building_cluster(building_spawn, Rotation::Deg135));
 
     //180deg
     all_vars.push_back(transform_building_cluster(building_spawn, Rotation::Deg180));
 
+    //225deg
+    all_vars.push_back(transform_building_cluster(building_spawn, Rotation::Deg225));
+
     //270deg
     all_vars.push_back(transform_building_cluster(building_spawn, Rotation::Deg270));
+
+    //315deg
+    all_vars.push_back(transform_building_cluster(building_spawn, Rotation::Deg315));
 
     return all_vars;
 }

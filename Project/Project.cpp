@@ -229,12 +229,18 @@ int main()
     //Wheat field clutter
     static vector<Clutter_component> wheat_field_clutter_components;
 
-    wheat_field_clutter_components.push_back(Clutter_component(&wheat_field_parameters, Position(0, 0, 0)));
-    wheat_field_clutter_components.push_back(Clutter_component(&wheat_field_parameters, Position(1, 0, 0)));
-    wheat_field_clutter_components.push_back(Clutter_component(&wheat_field_parameters, Position(2, 0, 0)));
-    wheat_field_clutter_components.push_back(Clutter_component(&wheat_field_parameters, Position(0, 1, 0)));
-    wheat_field_clutter_components.push_back(Clutter_component(&wheat_field_parameters, Position(1, 1, 0)));
-    wheat_field_clutter_components.push_back(Clutter_component(&wheat_field_parameters, Position(2, 1, 0)));
+    //wheat_field_clutter_components.push_back(Clutter_component(&wheat_field_parameters, Position(0, 0, 0)));
+    //wheat_field_clutter_components.push_back(Clutter_component(&wheat_field_parameters, Position(1, 0, 0)));
+    //wheat_field_clutter_components.push_back(Clutter_component(&wheat_field_parameters, Position(2, 0, 0)));
+    //wheat_field_clutter_components.push_back(Clutter_component(&wheat_field_parameters, Position(0, 1, 0)));
+    //wheat_field_clutter_components.push_back(Clutter_component(&wheat_field_parameters, Position(1, 1, 0)));
+    //wheat_field_clutter_components.push_back(Clutter_component(&wheat_field_parameters, Position(2, 1, 0)));
+
+    for (int i = 0; i < 7; i++) {
+        for (int j = 0; j < 3; j++) {
+            wheat_field_clutter_components.push_back(Clutter_component(&wheat_field_parameters, Position(i, j, 0)));
+        }
+    }
 
     static Clutter_cluster wheat_field_clutter = Clutter_cluster(wheat_field_clutter_components, 0.8);
 
