@@ -72,7 +72,7 @@ bool Street_cluster_spawn::try_to_build(
             int shifted_x = shifted_pos.get_on_x();
             int shifted_y = shifted_pos.get_on_y();
 
-            Cell_on_map* cell = map.get_cells_on_mini_map()[shifted_x][shifted_y].get();
+            Cell_on_map* cell = map.get_cells_on_mini_map()[shifted_y][shifted_x].get();
 
             // Road
             if (dynamic_cast<Road_on_map*>(cell)) {
@@ -146,7 +146,7 @@ void Street_cluster_spawn::build_street(Map& map, Position start_of_street) {
         int shifted_x = shifted_pos.get_on_x();
         int shifted_y = shifted_pos.get_on_y();
 
-        map.get_cells_on_mini_map()[shifted_x][shifted_y] = make_unique<Street_on_map>(shifted_pos, this->get_street()->get_street_components()[i].get_street_part(), vector<Direction>{}, this->get_probability_to_spawn());
+        map.get_cells_on_mini_map()[shifted_y][shifted_x] = make_unique<Street_on_map>(shifted_pos, this->get_street()->get_street_components()[i].get_street_part(), vector<Direction>{}, this->get_probability_to_spawn());
     }
 }
 
@@ -169,7 +169,8 @@ set<pair<double, Position>> Street_cluster_spawn::get_places_for_building(Map& m
 
         for (int j = 0; j < 3; j++) {
             for (int k = 0; k < 3; k++) {
-                Cell_on_map* cell = map.get_cells_on_mini_map()[operated_x][operated_y].get();
+                
+                Cell_on_map* cell = map.get_cells_on_mini_map()[operated_y][operated_x].get();
 
                 double euclidian_dist = sqrt(pow((center_of_city.get_on_x() - shifted_pos.get_on_x()), 2)
                     + pow((center_of_city.get_on_y() - shifted_pos.get_on_y()), 2));

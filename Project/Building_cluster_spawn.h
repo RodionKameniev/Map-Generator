@@ -41,7 +41,7 @@ public:
 
 
     //Algoritms
-    bool try_to_build(Map& map, Position place);
+    bool try_to_build(Map& map, Position place, int center_pos_x, int center_pos_y, int center_size_x, int center_size_y);
     
     void build_building(Map& map, Position place);
 };

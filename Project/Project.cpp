@@ -53,11 +53,15 @@ int main()
     //Testing streets
     static Parameters_for_street crossed_parameters = Parameters_for_street("crossed_street_part", true, true, 10, 50, Colour(169, 169, 169), Colour(169, 169, 169));
     static Parameters_for_street straight_parameters = Parameters_for_street("straight_street_part", true, true, 10, 30, Colour(169, 169, 169), Colour(169, 169, 169));
+    static Parameters_for_street to_left_parameters = Parameters_for_street("to_left_street_part", true, true, 10, 35, Colour(169, 169, 169), Colour(169, 169, 169));
+    static Parameters_for_street to_right_parameters = Parameters_for_street("to_right_street_part", true, true, 10, 35, Colour(169, 169, 169), Colour(169, 169, 169));
+    static Parameters_for_street t_shaped_parameters = Parameters_for_street("t_shaped_street_part", true, true, 10, 35, Colour(169, 169, 169), Colour(169, 169, 169));
 
     //Cross street
   
     static vector<Street_component> crossed_street_components;
     static vector<Position> crossed_street_next_streets;
+
 
     crossed_street_components.push_back(Street_component(&straight_parameters, Position(0, 0, 0)));
     crossed_street_components.push_back(Street_component(&straight_parameters, Position(1, 0, 0)));
@@ -73,8 +77,8 @@ int main()
     crossed_street_next_streets.push_back(Position(2, 3, 0));
     crossed_street_next_streets.push_back(Position(2, -3, 0));
 
-    static Street_cluster crossed_street = Street_cluster(crossed_street_components, crossed_street_next_streets, 0.3);
-    static Street_cluster_spawn crossed_street_spawn = Street_cluster_spawn(&crossed_street, 0.3);
+    static Street_cluster crossed_street = Street_cluster(crossed_street_components, crossed_street_next_streets, 0.5);
+    static Street_cluster_spawn crossed_street_spawn = Street_cluster_spawn(&crossed_street, 0.5);
 
     //Straight street
 
@@ -89,18 +93,83 @@ int main()
 
     straight_street_next_streets.push_back(Position(5, 0, 0));
 
-    static Street_cluster straight_street = Street_cluster(straight_street_components, straight_street_next_streets, 0.3);
-    static Street_cluster_spawn straight_street_spawn = Street_cluster_spawn(&straight_street, 0.3);
+    static Street_cluster straight_street = Street_cluster(straight_street_components, straight_street_next_streets, 0.8);
+    static Street_cluster_spawn straight_street_spawn = Street_cluster_spawn(&straight_street, 0.8);
+
+    //To left street
+
+    static vector<Street_component> to_left_street_components;
+    static vector<Position> to_left_street_next_streets;
+
+    to_left_street_components.push_back(Street_component(&straight_parameters, Position(0, 0, 0)));
+    to_left_street_components.push_back(Street_component(&straight_parameters, Position(1, 0, 0)));
+    to_left_street_components.push_back(Street_component(&straight_parameters, Position(2, 0, 0)));
+    to_left_street_components.push_back(Street_component(&to_left_parameters, Position(3, 0, 0)));
+    to_left_street_components.push_back(Street_component(&straight_parameters, Position(3, 1, 0)));
+    to_left_street_components.push_back(Street_component(&straight_parameters, Position(3, 2, 0)));
+    to_left_street_components.push_back(Street_component(&straight_parameters, Position(3, 3, 0)));
+
+    to_left_street_next_streets.push_back(Position(3, 4, 0));
+
+    static Street_cluster to_left_street = Street_cluster(to_left_street_components, to_left_street_next_streets, 0.2);
+    static Street_cluster_spawn to_left_street_spawn = Street_cluster_spawn(&to_left_street, 0.2);
+
+    //To right street
+
+    static vector<Street_component> to_right_street_components;
+    static vector<Position> to_right_street_next_streets;
+
+    to_right_street_components.push_back(Street_component(&straight_parameters, Position(0, 0, 0)));
+    to_right_street_components.push_back(Street_component(&straight_parameters, Position(1, 0, 0)));
+    to_right_street_components.push_back(Street_component(&straight_parameters, Position(2, 0, 0)));
+    to_right_street_components.push_back(Street_component(&to_right_parameters, Position(3, 0, 0)));
+    to_right_street_components.push_back(Street_component(&straight_parameters, Position(3, -1, 0)));
+    to_right_street_components.push_back(Street_component(&straight_parameters, Position(3, -2, 0)));
+    to_right_street_components.push_back(Street_component(&straight_parameters, Position(3, -3, 0)));
+
+    to_right_street_next_streets.push_back(Position(3, -4, 0));
+
+    static Street_cluster to_right_street = Street_cluster(to_right_street_components, to_right_street_next_streets, 0.2);
+    static Street_cluster_spawn to_right_street_spawn = Street_cluster_spawn(&to_right_street, 0.2);
+
+    //T shaped street
+
+    static vector<Street_component> t_shaped_street_components;
+    static vector<Position> t_shaped_street_next_streets;
+
+    t_shaped_street_components.push_back(Street_component(&straight_parameters, Position(0, 0, 0)));
+    t_shaped_street_components.push_back(Street_component(&straight_parameters, Position(1, 0, 0)));
+    t_shaped_street_components.push_back(Street_component(&straight_parameters, Position(2, 0, 0)));
+    t_shaped_street_components.push_back(Street_component(&t_shaped_parameters, Position(3, 0, 0)));
+    t_shaped_street_components.push_back(Street_component(&straight_parameters, Position(3, -1, 0)));
+    t_shaped_street_components.push_back(Street_component(&straight_parameters, Position(3, -2, 0)));
+    t_shaped_street_components.push_back(Street_component(&straight_parameters, Position(3, -3, 0)));
+    t_shaped_street_components.push_back(Street_component(&straight_parameters, Position(3, 1, 0)));
+    t_shaped_street_components.push_back(Street_component(&straight_parameters, Position(3, 2, 0)));
+    t_shaped_street_components.push_back(Street_component(&straight_parameters, Position(3, 3, 0)));
+
+
+    t_shaped_street_next_streets.push_back(Position(3, -4, 0));
+    t_shaped_street_next_streets.push_back(Position(3, 4, 0));
+
+    static Street_cluster t_shaped_street = Street_cluster(t_shaped_street_components, t_shaped_street_next_streets, 0.2);
+    static Street_cluster_spawn t_shaped_street_spawn = Street_cluster_spawn(&t_shaped_street, 0.2);
+
 
     vector<Street_cluster_spawn> streets_to_spawn;
     streets_to_spawn.push_back(straight_street_spawn);
     streets_to_spawn.push_back(crossed_street_spawn);
+    streets_to_spawn.push_back(to_left_street_spawn);
+    streets_to_spawn.push_back(to_right_street_spawn);
+    streets_to_spawn.push_back(t_shaped_street_spawn);
 
 
     //Testing bildings
 
     static Parameters_for_building house_parameters = Parameters_for_building("house_part", 25, Colour(55, 55, 55), Colour(55, 55, 55));
     static Parameters_for_building station_parameters = Parameters_for_building("station_part", 50, Colour(148, 255, 234), Colour(148, 255, 234));
+    static Parameters_for_building police_station_parameters = Parameters_for_building("police_station_part", 150, Colour(108, 63, 204), Colour(108, 63, 204));
+    static Parameters_for_building hospital_parameters = Parameters_for_building("hospital_part", 200, Colour(232, 90, 90), Colour(232, 90, 90));
 
     //House building
     static vector<Building_component> house_building_components;
@@ -109,8 +178,8 @@ int main()
 
                     //house_building_components.size() * house_parameters.get_cost()
 
-    static Building_cluster house_building = Building_cluster(house_building_components, house_building_components.size() * house_parameters.get_cost(), 0.8);
-    static Building_cluster_spawn house_building_spawn = Building_cluster_spawn(&house_building, 0.8);
+    static Building_cluster house_building = Building_cluster(house_building_components, house_building_components.size() * house_parameters.get_cost(), 5.95);
+    static Building_cluster_spawn house_building_spawn = Building_cluster_spawn(&house_building, 5.95);
 
     //Station building
     static vector<Building_component> station_building_components;
@@ -121,6 +190,26 @@ int main()
     static Building_cluster station_building = Building_cluster(station_building_components, 50, 0.2);
     static Building_cluster_spawn station_building_spawn = Building_cluster_spawn(&station_building, 0.2);
 
+    //Police station building
+    static vector<Building_component> police_station_building_components;
+
+    police_station_building_components.push_back(Building_component(&police_station_parameters, Position(0, 0, 0)));
+    police_station_building_components.push_back(Building_component(&police_station_parameters, Position(1, 0, 0)));
+    police_station_building_components.push_back(Building_component(&police_station_parameters, Position(1, 1, 0)));
+
+    static Building_cluster police_station_building = Building_cluster(police_station_building_components, police_station_building_components.size() * police_station_parameters.get_cost(), 0.05);
+    static Building_cluster_spawn police_station_building_spawn = Building_cluster_spawn(&police_station_building, 0.15);
+
+    //Hospital building
+    static vector<Building_component> hospital_building_components;
+
+    hospital_building_components.push_back(Building_component(&hospital_parameters, Position(0, 0, 0)));
+    hospital_building_components.push_back(Building_component(&hospital_parameters, Position(1, 0, 0)));
+    hospital_building_components.push_back(Building_component(&hospital_parameters, Position(1, 1, 0)));
+    hospital_building_components.push_back(Building_component(&hospital_parameters, Position(2, 1, 0)));
+
+    static Building_cluster hospital_building = Building_cluster(hospital_building_components, hospital_building_components.size() * hospital_parameters.get_cost(), 0.02);
+    static Building_cluster_spawn hospital_building_spawn = Building_cluster_spawn(&hospital_building, 0.15);
 
     vector<Building_cluster> buildings;
 
@@ -130,6 +219,8 @@ int main()
     vector<Building_cluster_spawn> buildings_to_spawn;
     buildings_to_spawn.push_back(house_building_spawn);
     buildings_to_spawn.push_back(station_building_spawn);
+    buildings_to_spawn.push_back(police_station_building_spawn);
+    buildings_to_spawn.push_back(hospital_building_spawn);
 
     //Testing clutters
 
@@ -178,6 +269,7 @@ int main()
                 ": pos y: " << new_map.get_cities()[i]->end_of_streets[j].get_on_y() <<
                 ": pos z: " << new_map.get_cities()[i]->end_of_streets[j].get_on_z() << std::endl;
         }
+        std::cout << "end of street size: " << new_map.get_cities()[i]->end_of_streets.size() << std::endl;
     }
     new_map.create_clutters(100);
 

@@ -61,8 +61,15 @@ const float Building_cluster_spawn::get_probability_to_spawn() const {
 
 //Algorithms
 
-bool Building_cluster_spawn::try_to_build(Map& map, Position place) {
+bool Building_cluster_spawn::try_to_build(Map& map, Position place, int center_pos_x, int center_pos_y, int center_size_x, int center_size_y) {
     for (int i = 0; i < this->get_building()->get_building_components().size(); i++) {
+
+        if ((place.get_on_x() > center_pos_x + center_size_x)
+            || (place.get_on_x() < center_pos_x - center_size_x)
+            || (place.get_on_y() > center_pos_y + center_size_y)
+            || (place.get_on_y() < center_pos_y - center_size_y)) {
+            return false;
+        }
 
         Position shifted_pos = this->get_building()->get_building_components()[i].get_shifted_position();
 
@@ -71,7 +78,7 @@ bool Building_cluster_spawn::try_to_build(Map& map, Position place) {
         int shifted_x = shifted_pos.get_on_x();
         int shifted_y = shifted_pos.get_on_y();
 
-        Cell_on_map* cell = map.get_cells_on_mini_map()[shifted_x][shifted_y].get();
+        Cell_on_map* cell = map.get_cells_on_mini_map()[shifted_y][shifted_x].get();
 
         // Road
         if (dynamic_cast<Road_on_map*>(cell)) {
@@ -129,6 +136,6 @@ void Building_cluster_spawn::build_building(Map& map, Position place) {
         int shifted_x = shifted_pos.get_on_x();
         int shifted_y = shifted_pos.get_on_y();
 
-        map.get_cells_on_mini_map()[shifted_x][shifted_y] = make_unique<Building_on_map>(shifted_pos, this->get_building()->get_building_components()[i].get_building_part(), Direction::None, this->get_probability_to_spawn());
+        map.get_cells_on_mini_map()[shifted_y][shifted_x] = make_unique<Building_on_map>(shifted_pos, this->get_building()->get_building_components()[i].get_building_part(), Direction::None, this->get_probability_to_spawn());
     }
 }

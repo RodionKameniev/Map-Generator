@@ -383,7 +383,7 @@ void City::create_streets(Map& map) {
             || (current_start_of_street.get_on_x() < this->center_of_city.get_on_x() - this->get_parameters().get_for_mini_map().get_size_x() / 2)
             || (current_start_of_street.get_on_y() > this->center_of_city.get_on_y() + this->get_parameters().get_for_mini_map().get_size_y() / 2)
             || (current_start_of_street.get_on_y() < this->center_of_city.get_on_y() - this->get_parameters().get_for_mini_map().get_size_y() / 2)) {
-            std::cout << "added to end_of_street: pos x: " << current_start_of_street.get_on_x() << " pos y : " << current_start_of_street.get_on_y() << " pos z : " << current_start_of_street.get_on_z() << std::endl;
+            //std::cout << "added to end_of_street: pos x: " << current_start_of_street.get_on_x() << " pos y : " << current_start_of_street.get_on_y() << " pos z : " << current_start_of_street.get_on_z() << std::endl;
             end_of_streets.push_back(current_start_of_street);
             continue;
         }
@@ -503,6 +503,14 @@ void City::create_buildings(Map& map) {
     random_device rd;
 
     mt19937 gen(rd());
+
+
+    int center_pos_x = this->center_of_city.get_on_x();
+    int center_pos_y = this->center_of_city.get_on_y();
+
+    int center_size_x = this->get_parameters().get_for_mini_map().get_size_x() / 2;
+    int center_size_y = this->get_parameters().get_for_mini_map().get_size_y() / 2;
+
     for (auto& current_place : place_for_buildings) {
 
         if ((current_place.second.get_on_x() > this->center_of_city.get_on_x() + this->get_parameters().get_for_mini_map().get_size_x() / 2)
@@ -549,7 +557,7 @@ void City::create_buildings(Map& map) {
 
                 chosen = candidates[index];
 
-                is_chosen = chosen.try_to_build(map, current_place.second);
+                is_chosen = chosen.try_to_build(map, current_place.second, center_pos_x, center_pos_y, center_size_x, center_size_y);
 
                 if (!is_chosen) {
                     candidates.erase(candidates.begin() + index);
@@ -566,7 +574,7 @@ void City::create_buildings(Map& map) {
 }
 
 bool possible_to_place_city(Map& map, Position center) {
-    Cell_on_map* cell = map.get_cells_on_mini_map()[center.get_on_x()][center.get_on_y()].get();
+    Cell_on_map* cell = map.get_cells_on_mini_map()[center.get_on_y()][center.get_on_x()].get();
 
     // Road
     if (dynamic_cast<Road_on_map*>(cell)) {
