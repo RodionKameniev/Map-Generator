@@ -16,6 +16,7 @@ Parameters_for_building::Parameters_for_building(
             name,
             true,
             true,
+            true,
             -1,
             image_for_mini_map_id,
             image_for_map_id

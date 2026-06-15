@@ -224,7 +224,7 @@ int main()
 
     //Testing clutters
 
-    static Parameters_for_clutter wheat_field_parameters = Parameters_for_clutter("wheat_field_clutter_part", Type_of_clutter::Specific, true, true, 50, Colour(255, 202, 24), Colour(255, 202, 24));
+    static Parameters_for_clutter wheat_field_parameters = Parameters_for_clutter("wheat_field_clutter_part", Type_of_clutter::Specific, true, true, true, 50, Colour(255, 202, 24), Colour(255, 202, 24));
 
     //Wheat field clutter
     static vector<Clutter_component> wheat_field_clutter_components;

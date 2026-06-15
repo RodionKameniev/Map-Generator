@@ -10,6 +10,7 @@ Parameters_base::Parameters_base(
         std::string_view name,
         const bool is_restricted_to_cross,
         const bool is_restricted_to_build,
+        const bool is_restricted_to_lay,
         const int cost_to_cross,
         const Colour& image_for_mini_map_id,
         const Colour& image_for_map_id
@@ -17,6 +18,7 @@ Parameters_base::Parameters_base(
         : name(name),
         is_restricted_to_cross(is_restricted_to_cross),
         is_restricted_to_build(is_restricted_to_build),
+        is_restricted_to_lay(is_restricted_to_lay),
         cost_to_cross(cost_to_cross),
         image_for_mini_map_id(image_for_mini_map_id),
         image_for_map_id(image_for_map_id) {
@@ -29,6 +31,7 @@ Parameters_base::Parameters_base(
         std::string_view name,
         const bool is_restricted_to_cross,
         const bool is_restricted_to_build,
+        const bool is_restricted_to_lay,
         const int cost_to_cross,
         const Colour& image_for_mini_map_id,
         const Colour& image_for_map_id
@@ -36,6 +39,7 @@ Parameters_base::Parameters_base(
         this->name = name;
         this->is_restricted_to_cross = is_restricted_to_cross;
         this->is_restricted_to_build = is_restricted_to_build;
+        this->is_restricted_to_lay = is_restricted_to_lay;
         this->cost_to_cross = cost_to_cross;
         this->image_for_mini_map_id = image_for_mini_map_id;
         this->image_for_map_id = image_for_map_id;
@@ -52,6 +56,10 @@ Parameters_base::Parameters_base(
 
     void Parameters_base::set_is_restricted_to_build(const bool is_restricted_to_build) {
         this->is_restricted_to_build = is_restricted_to_build;
+    }
+
+    void Parameters_base::set_is_restricted_to_lay(const bool is_restricted_to_lay) {
+        this->is_restricted_to_lay = is_restricted_to_lay;
     }
 
     void Parameters_base::set_cost_to_cross(const int cost_to_cross) {
@@ -78,6 +86,10 @@ Parameters_base::Parameters_base(
 
     const bool Parameters_base::get_is_restricted_to_build() const {
         return this->is_restricted_to_build;
+    }
+
+    const bool Parameters_base::get_is_restricted_to_lay() const {
+        return this->is_restricted_to_lay;
     }
 
     const int Parameters_base::get_cost_to_cross() const {

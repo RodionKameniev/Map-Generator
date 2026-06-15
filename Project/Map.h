@@ -133,6 +133,9 @@ public:
         LPARAM lParam
     );
 
+
+    // Algorithms
+
     void render_map();
 
     void add_city(std::unique_ptr<City> city_to_add);
@@ -140,4 +143,6 @@ public:
     bool possible_to_place_clutter(Position pos);
 
     void create_clutters(int amount);
+
+    void create_roads();
 };

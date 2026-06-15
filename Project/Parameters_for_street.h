@@ -13,6 +13,7 @@ public:
         std::string_view name,
         const bool is_restricted_to_cross,
         const bool is_restricted_to_build,
+        const bool is_restricted_to_lay,
         const int cost_to_cross,
         const int cost_to_build,
         const Colour image_for_mini_map_id,
