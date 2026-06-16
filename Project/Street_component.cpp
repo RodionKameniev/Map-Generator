@@ -13,8 +13,7 @@ Street_component::Street_component(
     street_part(street_part),
     shifted_position(shifted_position)
 {
-    std::cout << "Street_component is called"
-        << std::endl;
+    //std::cout << "Street_component is called" << std::endl;
 }
 
 // Set functions

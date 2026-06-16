@@ -20,7 +20,7 @@ Building_cluster_spawn::Building_cluster_spawn(
     building(building),
     probability_to_spawn(probability_to_spawn)
 {
-    std::cout << "Building_cluster_spawn is called" << std::endl;
+    //std::cout << "Building_cluster_spawn is called" << std::endl;
 }
 
 // Set functions

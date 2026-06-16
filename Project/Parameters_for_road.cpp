@@ -29,7 +29,7 @@ Parameters_for_road::Parameters_for_road(
         cost_to_build(cost_to_build),
         type_of_road(type_of_road)
     {
-        std::cout << "Parameters_for_road is called" << std::endl;
+        //std::cout << "Parameters_for_road is called" << std::endl;
     }
 
     // Set functions

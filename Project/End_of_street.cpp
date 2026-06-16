@@ -17,8 +17,7 @@ End_of_street::End_of_street(
         from_which_city(from_which_city),
         direction(direction)
     {
-        std::cout << "Clutter_spawn is called"
-            << std::endl;
+        //std::cout << "Clutter_spawn is called"<< std::endl;
     }
 
     // Set functions

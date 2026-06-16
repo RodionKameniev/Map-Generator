@@ -8,7 +8,7 @@
 
 Parameters_for_city::Parameters_for_city(std::string_view city_name, const Size_dimensional& city_for_mini_map, const Size_dimensional& city_for_map):
     name(city_name), for_mini_map(city_for_mini_map), for_map(city_for_map){
-        std::cout << "Parameters_for_city is called"<< std::endl;
+        //std::cout << "Parameters_for_city is called"<< std::endl;
     }
 int random_size()
 {
@@ -20,7 +20,7 @@ int random_size()
 }
 Parameters_for_city::Parameters_for_city(std::string_view city_name) :
     name(city_name), for_mini_map(Size_dimensional(random_size(), random_size(), 0)), for_map(Size_dimensional(random_size(), random_size(), 0)) {
-    std::cout << "Parameters_for_city random is called" << std::endl;
+    //std::cout << "Parameters_for_city random is called" << std::endl;
 }
 
     // Set functions

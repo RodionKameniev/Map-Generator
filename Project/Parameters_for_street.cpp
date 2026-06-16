@@ -24,7 +24,7 @@ Parameters_for_street::Parameters_for_street(
         ),
         cost_to_build(cost_to_build)
     {
-        std::cout << "Parameters_for_street is called" << std::endl;
+        //std::cout << "Parameters_for_street is called" << std::endl;
     }
 
     // Set functions

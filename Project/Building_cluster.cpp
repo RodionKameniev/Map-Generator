@@ -21,8 +21,7 @@ Building_cluster::Building_cluster(
 {
     calculate_cost();
 
-    std::cout << "Building_cluster is called"
-        << std::endl;
+    //std::cout << "Building_cluster is called"<< std::endl;
 }
 
 // Set functions

@@ -16,8 +16,7 @@ Clutter_cluster::Clutter_cluster(
             base_probability_to_spawn
         )
     {
-        std::cout << "Clutter_cluster is called"
-            << std::endl;
+        //std::cout << "Clutter_cluster is called" << std::endl;
     }
 
     // Set functions

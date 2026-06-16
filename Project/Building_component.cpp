@@ -13,8 +13,7 @@
         building_part(building_part),
         shifted_position(shifted_position)
     {
-        std::cout << "Building_component is called"
-            << std::endl;
+        //std::cout << "Building_component is called" << std::endl;
     }
 
     // Set functions

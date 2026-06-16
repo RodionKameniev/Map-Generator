@@ -37,11 +37,13 @@ int main()
     unsigned long long seed = rand();
     int height = 1000;
     int width = 1000;
-    float b = 100.0;
+    int n_of_cities = 25;
+    int n_of_clutters = 100;
+    float res = 100.0;
     //Noise creation
     clock_t tStart = clock();
 
-    int* map_in_vales = RunPerlinWindow(seed, width, height, 1.5f * b);
+    int* map_in_vales = RunPerlinWindow(seed, width, height, 1.5f * res);
 
     printf("Noise taken: %.2fs\n", (double)(clock() - tStart) / CLOCKS_PER_SEC);
     
@@ -256,7 +258,7 @@ int main()
     //static City city = City(buildings, buildings_to_spawn, streets_to_spawn, parameters_for_city, 0, Position(500, 500, 0));
     
     // TEST
-    for (int i = 0; i < 14; i++) {
+    for (int i = 0; i < n_of_cities; i++) {
         string name = "City " + i;
         Parameters_for_city parameters_for_city = Parameters_for_city(name);
         auto city = std::make_unique<City>(buildings, buildings_to_spawn, streets_to_spawn, parameters_for_city);
@@ -268,16 +270,16 @@ int main()
 
     city.create_city(new_map);*/
 
-    for (int i = 0; i < 14; i++) {
-        std::cout << "City " << i << ": " << std::endl;
-        for (int j = 0; j < new_map.get_cities()[i]->end_of_streets.size(); j++) {
-            std::cout << "end of street: pos x: " << new_map.get_cities()[i]->end_of_streets[j].get_on_x() <<
-                ": pos y: " << new_map.get_cities()[i]->end_of_streets[j].get_on_y() <<
-                ": pos z: " << new_map.get_cities()[i]->end_of_streets[j].get_on_z() << std::endl;
-        }
-        std::cout << "end of street size: " << new_map.get_cities()[i]->end_of_streets.size() << std::endl;
-    }
-    new_map.create_clutters(100);
+    //for (int i = 0; i < n_of_cities; i++) {
+    //    std::cout << "City " << i << ": " << std::endl;
+    //    for (int j = 0; j < new_map.get_cities()[i]->end_of_streets.size(); j++) {
+    //        std::cout << "end of street: pos x: " << new_map.get_cities()[i]->end_of_streets[j].get_on_x() <<
+    //            ": pos y: " << new_map.get_cities()[i]->end_of_streets[j].get_on_y() <<
+    //            ": pos z: " << new_map.get_cities()[i]->end_of_streets[j].get_on_z() << std::endl;
+    //    }
+    //    std::cout << "end of street size: " << new_map.get_cities()[i]->end_of_streets.size() << std::endl;
+    //}
+    new_map.create_clutters(n_of_clutters);
 
     //for (int i = 0; i < 14; i++) {
     //    std::cout << "Center of City " << i << ": pos x: " << new_map.get_cities()[i]->get_center_of_city().get_on_x() <<
@@ -285,7 +287,11 @@ int main()
     //        ": pos z: " << new_map.get_cities()[i]->get_center_of_city().get_on_z()<< std::endl;
     //}
 
+    printf("All clustrers are made: %.2fs\n", (double)(clock() - tStart) / CLOCKS_PER_SEC);
+
     new_map.render_map();
+
+    
 
     return 0;
 }

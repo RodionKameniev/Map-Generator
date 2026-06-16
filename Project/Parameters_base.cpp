@@ -23,7 +23,7 @@ Parameters_base::Parameters_base(
         image_for_mini_map_id(image_for_mini_map_id),
         image_for_map_id(image_for_map_id) {
 
-        std::cout << "Parameters_base is called" << std::endl;
+        //std::cout << "Parameters_base is called" << std::endl;
     }
 
     // Set functions

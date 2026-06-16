@@ -20,8 +20,7 @@ Street_cluster::Street_cluster(
         base_probability_to_spawn
     )
 {
-    std::cout << "Street_cluster is called"
-        << std::endl;
+    //std::cout << "Street_cluster is called" << std::endl;
 }
 
 // Set functions

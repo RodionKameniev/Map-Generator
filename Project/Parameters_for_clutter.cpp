@@ -28,7 +28,7 @@ Parameters_for_clutter::Parameters_for_clutter(
         ),
         type_of_clutter(type_of_clutter)
     {
-        std::cout << "Parameters_for_clutter is called" << std::endl;
+        //std::cout << "Parameters_for_clutter is called" << std::endl;
     }
 
     // Set functions

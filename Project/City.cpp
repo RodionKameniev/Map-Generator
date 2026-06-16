@@ -64,8 +64,7 @@ City::City(
 
     center_of_city(center_of_city)
 {
-    cout << "City is called"
-        << endl;
+    //cout << "City is called"<< endl;
 }
 
 City::City(
@@ -101,8 +100,7 @@ City::City(
 
     center_of_city(Position(0, 0, 0))
 {
-    cout << "City random is called"
-        << endl;
+    //cout << "City random is called"<< endl;
 }
 
 // Set functions

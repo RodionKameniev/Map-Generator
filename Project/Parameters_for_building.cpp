@@ -23,7 +23,7 @@ Parameters_for_building::Parameters_for_building(
         ),
         cost(cost)
     {
-        std::cout << "Parameters_for_building is called" << std::endl;
+        //std::cout << "Parameters_for_building is called" << std::endl;
     }
 
     // Set functions
